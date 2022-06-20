@@ -2,7 +2,7 @@ import apiServer from './api/index.js'
 import global from './configs/global.js'
 import { createServer } from 'http'
 // import { closeDb } from './utils/mongodb.js'
-// import { bindHttpServer } from './wsServer/wsServer.js'
+import { bindHttpServer } from './api/websockets/wsServer.js'
 
 async function startServer() {  
     const server = createServer()
