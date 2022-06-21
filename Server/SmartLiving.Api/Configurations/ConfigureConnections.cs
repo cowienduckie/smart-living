@@ -1,7 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.SqlServer.Migrations.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SmartLiving.Data;
+using SmartLiving.Domain.DbInfo;
 
 namespace SmartLiving.Api.Configurations
 {
@@ -16,11 +20,11 @@ namespace SmartLiving.Api.Configurations
             services.AddDbContextPool<DataContext>((serviceProvider, optionsBuilder) =>
             {
                 optionsBuilder.UseSqlite(connection);
-                optionsBuilder.ReplaceService<IMigrationsAnnotationProvider, CustomPostgreSqlAnnotationProvider>();
-                optionsBuilder.ReplaceService<IMigrationsSqlGenerator, CustomPostgreSqlMigrationsSqlGenerator>();
+                optionsBuilder.ReplaceService<IMigrationsAnnotationProvider, CustomSqliteAnnotationProvider>();
+                optionsBuilder.ReplaceService<IMigrationsSqlGenerator, CustomSqliteMigrationsSqlGenerator>();
             });
 
-            services.AddSingleton(new SqlConnection(connection));
+            services.AddSingleton(new SqliteConnection(connection));
 
             services.AddSingleton(new DbInfo(connection));
 

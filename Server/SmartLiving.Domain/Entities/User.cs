@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace SmartLiving.Domain.Entities
 {
-    public class User : IdentityUser, BaseEntity
+    public class User : IdentityUser
     {
         public string FirstName { get; set; }
 

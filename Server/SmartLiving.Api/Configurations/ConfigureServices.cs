@@ -2,6 +2,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
+using SmartLiving.Data.Repositories;
+using SmartLiving.Domain.RepositoryInterfaces;
+using SmartLiving.Domain.Supervisors.Interfaces;
 
 namespace SmartLiving.Api.Configurations
 {
@@ -9,16 +12,14 @@ namespace SmartLiving.Api.Configurations
     {
         public static void ConfigureRepositories(this IServiceCollection services)
         {
-            services.AddScoped<IProductRepository, ProductRepository>();
-            services.AddScoped<ICategoryRepository, CategoryRepository>();
-            services.AddScoped<ISizeRepository, SizeRepository>();
-            services.AddScoped<IColorRepository, ColorRepository>();
-            services.AddScoped<IProductSkuRepository, ProductSkuRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IHouseRepository, HouseRepository>();
+            services.AddScoped<IDeviceRepository, DeviceRepository>();
         }
 
         public static void ConfigureSupervisor(this IServiceCollection services)
         {
-            services.AddScoped<IClothingShopSupervisor, ClothingShopSupervisor>();
+            services.AddScoped<ISupervisor, ISupervisor>();
         }
 
         public static void AddMiddleware(this IServiceCollection services)
