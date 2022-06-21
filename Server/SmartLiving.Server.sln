@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartLiving.Data", "SmartLi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartLiving.Domain", "SmartLiving.Domain\SmartLiving.Domain.csproj", "{1D1D849B-E91B-4D22-B633-11A7FAC0BEF3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartLiving.Library", "SmartLiving.Library\SmartLiving.Library.csproj", "{3F3D47E6-405F-40FD-A6A0-AEE38192AB14}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{1D1D849B-E91B-4D22-B633-11A7FAC0BEF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D1D849B-E91B-4D22-B633-11A7FAC0BEF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D1D849B-E91B-4D22-B633-11A7FAC0BEF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F3D47E6-405F-40FD-A6A0-AEE38192AB14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F3D47E6-405F-40FD-A6A0-AEE38192AB14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F3D47E6-405F-40FD-A6A0-AEE38192AB14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F3D47E6-405F-40FD-A6A0-AEE38192AB14}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace SmartLiving.Api.Configurations
@@ -13,7 +15,7 @@ namespace SmartLiving.Api.Configurations
 
             services.AddDbContextPool<DataContext>((serviceProvider, optionsBuilder) =>
             {
-                optionsBuilder.UseNpgsql(connection);
+                optionsBuilder.UseSqlite(connection);
                 optionsBuilder.ReplaceService<IMigrationsAnnotationProvider, CustomPostgreSqlAnnotationProvider>();
                 optionsBuilder.ReplaceService<IMigrationsSqlGenerator, CustomPostgreSqlMigrationsSqlGenerator>();
             });
