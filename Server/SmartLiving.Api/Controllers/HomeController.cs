@@ -1,12 +1,24 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace SmartLiving.Api.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
+        [HttpGet]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public IActionResult Index()
         {
-            return NotFound();
+            try
+            {
+                var uri = new Uri("/swagger", UriKind.Relative);
+                return Redirect(uri.ToString());
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex);
+            }
         }
     }
 }

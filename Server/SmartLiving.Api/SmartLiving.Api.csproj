@@ -17,5 +17,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.3.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SmartLiving.Data\SmartLiving.Data.csproj" />
+    <ProjectReference Include="..\SmartLiving.Domain\SmartLiving.Domain.csproj" />
+  </ItemGroup>
+
 
 </Project>
