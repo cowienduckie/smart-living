@@ -1,6 +1,6 @@
-﻿using SmartLiving.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using SmartLiving.Domain.Entities;
 
 namespace SmartLiving.Data.Configurations
 {

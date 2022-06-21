@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using AutoMapper;
 using Microsoft.Extensions.Caching.Memory;
 using SmartLiving.Domain.Supervisors.Interfaces;
@@ -8,7 +6,7 @@ using SmartLiving.Library.Constants;
 
 namespace SmartLiving.Domain.Supervisors
 {
-    public partial class Supervisor : ISupervisor
+    public class Supervisor : ISupervisor
     {
         private readonly IMemoryCache _cache;
         private readonly IMapper _mapper;
@@ -22,6 +20,7 @@ namespace SmartLiving.Domain.Supervisors
         }
 
         #region Shared Methods
+
         private void SetCache<TEntity>(int id, TEntity product)
         {
             var cacheEntryOptions =
@@ -34,6 +33,7 @@ namespace SmartLiving.Domain.Supervisors
         {
             return _cache.Get<TEntity>(string.Concat(nameof(TEntity), "-", id));
         }
+
         #endregion
     }
 }

@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
-using SmartLiving.Data;
 
 namespace SmartLiving.Data.EFCoreColumnOrder
 {

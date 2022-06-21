@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Text;
 using Microsoft.AspNetCore.Identity;
 
 namespace SmartLiving.Domain.Entities

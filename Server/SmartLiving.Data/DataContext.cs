@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Text;
-using System.Threading;
+﻿using System.Threading;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -13,11 +9,11 @@ using SmartLiving.Domain.Entities;
 namespace SmartLiving.Data
 {
     public class DataContext : IdentityDbContext<User, IdentityRole, string,
-                                                IdentityUserClaim<string>,
-                                                IdentityUserRole<string>,
-                                                IdentityUserLogin<string>,
-                                                IdentityRoleClaim<string>,
-                                                IdentityUserToken<string>>
+        IdentityUserClaim<string>,
+        IdentityUserRole<string>,
+        IdentityUserLogin<string>,
+        IdentityRoleClaim<string>,
+        IdentityUserToken<string>>
     {
         private static long _instanceCount;
 
