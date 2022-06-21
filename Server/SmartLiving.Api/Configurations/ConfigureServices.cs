@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
 using SmartLiving.Data.Repositories;
 using SmartLiving.Domain.RepositoryInterfaces;
+using SmartLiving.Domain.Supervisors;
 using SmartLiving.Domain.Supervisors.Interfaces;
 
 namespace SmartLiving.Api.Configurations
@@ -19,7 +20,7 @@ namespace SmartLiving.Api.Configurations
 
         public static void ConfigureSupervisor(this IServiceCollection services)
         {
-            services.AddScoped<ISupervisor, ISupervisor>();
+            services.AddScoped<ISupervisor, Supervisor>();
         }
 
         public static void AddMiddleware(this IServiceCollection services)

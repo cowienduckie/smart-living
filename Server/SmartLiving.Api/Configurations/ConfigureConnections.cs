@@ -15,7 +15,7 @@ namespace SmartLiving.Api.Configurations
             IConfiguration configuration)
         {
             var connection = configuration.GetConnectionString("LocalSqliteConnection") ??
-                             "Data Source=ClothingShop.db";
+                             "Data Source=SmartLiving.db";
 
             services.AddDbContextPool<DataContext>((serviceProvider, optionsBuilder) =>
             {
