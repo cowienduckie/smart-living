@@ -6,7 +6,7 @@ using SmartLiving.Library.Constants;
 
 namespace SmartLiving.Domain.Supervisors
 {
-    public class Supervisor : ISupervisor
+    public partial class Supervisor : ISupervisor
     {
         private readonly IMemoryCache _cache;
         private readonly IMapper _mapper;
