@@ -39,11 +39,11 @@ namespace SmartLiving.Api
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Title = "Clothing Shop API",
+                    Title = "Smart Living API",
                     Contact = new OpenApiContact
                     {
                         Name = "Minh Tran",
-                        Url = new Uri("https://github.com/cowienduckie")
+                        Url = new Uri("https://lowkeycode.me")
                     }
                 });
             });
