@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
+using SmartLiving.Api.Middleware;
 using SmartLiving.Data.Repositories;
 using SmartLiving.Domain.RepositoryInterfaces;
 using SmartLiving.Domain.Supervisors;
@@ -21,6 +22,11 @@ namespace SmartLiving.Api.Configurations
         public static void ConfigureSupervisor(this IServiceCollection services)
         {
             services.AddScoped<ISupervisor, Supervisor>();
+        }
+
+        public static void AddServices(this IServiceCollection services)
+        {
+            services.AddScoped<IUserService, UserService>();
         }
 
         public static void AddMiddleware(this IServiceCollection services)
@@ -45,7 +51,7 @@ namespace SmartLiving.Api.Configurations
             services.AddResponseCaching();
         }
 
-        public static void AddCORS(this IServiceCollection services)
+        public static void AddCors(this IServiceCollection services)
         {
             services.AddCors(options =>
             {

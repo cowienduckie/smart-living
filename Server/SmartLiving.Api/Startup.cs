@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using SmartLiving.Api.Configurations;
+using SmartLiving.Api.Middleware;
+using SmartLiving.Domain.Models;
 
 namespace SmartLiving.Api
 {
@@ -28,9 +30,10 @@ namespace SmartLiving.Api
             services.AddConnectionProvider(Configuration);
             services.AddAppSettings(Configuration);
             services.AddCaching();
-            services.AddCORS();
+            Configurations.ConfigureServices.AddCors(services);
             services.AddAutoMapper();
             services.AddNewtonsoft();
+            services.AddServices();
 
             services.AddHealthChecks();
 
@@ -64,6 +67,8 @@ namespace SmartLiving.Api
             app.UseAuthorization();
 
             app.UseCors("CorsPolicy");
+
+            app.UseMiddleware<JwtMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {
