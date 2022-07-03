@@ -47,7 +47,7 @@ namespace SmartLiving.Api.Controllers
         {
             try
             {
-                var housePagedList = _supervisor.GetPagedList<HouseGetDto>(_supervisor.GetAllHouses().ToList() ,pageIndex, pageSize);
+                var housePagedList = _supervisor.GetPagedList(_supervisor.GetAllHouses().ToList() ,pageIndex, pageSize);
 
                 if (housePagedList.Any())
                     return Ok(housePagedList);

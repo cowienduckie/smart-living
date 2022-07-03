@@ -32,6 +32,10 @@ namespace SmartLiving.Data.Configurations
             entity.HasMany(u => u.Schedules)
                 .WithOne(s => s.User)
                 .HasForeignKey(s => s.UserId);
+
+            entity.HasMany(u => u.UserRoles)
+                .WithOne(ur => ur.User)
+                .HasForeignKey(ur => ur.UserId);
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace SmartLiving.Domain.Models
 {
-    public class LoginRequestModel
+    public class SignInRequestModel
     {
         [Required]
         public string UserName { get; set; }

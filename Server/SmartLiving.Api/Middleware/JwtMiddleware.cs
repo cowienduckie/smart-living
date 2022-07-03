@@ -24,7 +24,7 @@ namespace SmartLiving.Api.Middleware
 
         public async Task Invoke(HttpContext context, IUserService userService)
         {
-            var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            var token = context.Request.Headers["auth"].FirstOrDefault()?.Split(" ").Last();
 
             if (token != null)
                 await AttachUserToContext(context, userService, token);

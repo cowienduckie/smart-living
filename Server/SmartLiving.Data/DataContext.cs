@@ -9,9 +9,9 @@ using SmartLiving.Domain.Entities;
 
 namespace SmartLiving.Data
 {
-    public class DataContext : IdentityDbContext<User, IdentityRole, string,
+    public class DataContext : IdentityDbContext<User, Role, string,
         IdentityUserClaim<string>,
-        IdentityUserRole<string>,
+        UserRole,
         IdentityUserLogin<string>,
         IdentityRoleClaim<string>,
         IdentityUserToken<string>>
@@ -64,6 +64,10 @@ namespace SmartLiving.Data
             new ProfileDeviceConfiguration();
             new ScheduleConfiguration();
             new SharedWithConfiguration();
+
+            //Create DbSet for Role and UserRole with keys
+            modelBuilder.Entity<IdentityUserRole<string>>().HasKey(ur => new { ur.UserId, ur.RoleId });
+            modelBuilder.Entity<IdentityRole<string>>().HasKey(r => r.Id);
         }
     }
 }

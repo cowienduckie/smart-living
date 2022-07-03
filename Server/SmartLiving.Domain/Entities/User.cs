@@ -40,5 +40,7 @@ namespace SmartLiving.Domain.Entities
         public virtual IList<Schedule> Schedules { get; set; }
 
         public virtual IList<Command> Commands { get; set; }
+
+        public virtual IList<UserRole> UserRoles { get; set; }
     }
 }

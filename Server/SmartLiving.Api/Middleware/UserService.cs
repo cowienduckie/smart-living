@@ -6,7 +6,6 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using SmartLiving.Api.Configurations;
@@ -17,7 +16,9 @@ namespace SmartLiving.Api.Middleware
 {
     public interface IUserService
     {
-        Task<LoginResponseModel> Authenticate(LoginRequestModel model);
+        Task<SignInResponseModel> SignIn(SignInRequestModel model);
+        Task<bool> SignUp(SignUpRequestModel model);
+        Task SignOut();
         IEnumerable<User> GetAllUsers();
         Task<User> GetUserByIdAsync(string id);
     }
@@ -29,7 +30,7 @@ namespace SmartLiving.Api.Middleware
         private readonly SignInManager<User> _signInManager;
 
         public UserService(
-            IOptions<AppSettings> appSettings, 
+            IOptions<AppSettings> appSettings,
             UserManager<User> userManager,
             SignInManager<User> signInManager)
         {
@@ -38,18 +39,38 @@ namespace SmartLiving.Api.Middleware
             _signInManager = signInManager;
         }
 
-        public async Task<LoginResponseModel> Authenticate(LoginRequestModel model)
+        public async Task<SignInResponseModel> SignIn(SignInRequestModel model)
         {
-            var loginResult = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, false).ConfigureAwait(false);
-            
-            if (!loginResult.Succeeded) return null;
+            var signInResult = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, false).ConfigureAwait(false);
+
+            if (!signInResult.Succeeded) return null;
 
             var user = await _userManager.FindByNameAsync(model.UserName);
 
             // authentication successful so generate jwt token
             var token = GenerateJwtToken(user);
 
-            return new LoginResponseModel(user, token);
+            return new SignInResponseModel(user, token);
+        }
+
+        public async Task<bool> SignUp(SignUpRequestModel model)
+        {
+            var user = new User
+            {
+                UserName = model.UserName,
+                Email = model.Email,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+            };
+
+            var result = await _userManager.CreateAsync(user, model.Password).ConfigureAwait(false);
+
+            return result.Succeeded;
+        }
+
+        public async Task SignOut()
+        {
+             await _signInManager.SignOutAsync().ConfigureAwait(false);
         }
 
         public IEnumerable<User> GetAllUsers()
@@ -71,7 +92,7 @@ namespace SmartLiving.Api.Middleware
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id.ToString()) }),
+                Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id) }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };

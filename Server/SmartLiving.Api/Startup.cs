@@ -33,6 +33,7 @@ namespace SmartLiving.Api
             Configurations.ConfigureServices.AddCors(services);
             services.AddAutoMapper();
             services.AddNewtonsoft();
+            services.ConfigureIdentity();
             services.AddServices();
 
             services.AddHealthChecks();
@@ -49,6 +50,7 @@ namespace SmartLiving.Api
                         Url = new Uri("https://lowkeycode.me")
                     }
                 });
+                c.OperationFilter<AddRequiredHeaderParameter>();
             });
         }
 

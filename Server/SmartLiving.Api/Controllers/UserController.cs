@@ -26,23 +26,5 @@ namespace SmartLiving.Api.Controllers
             var users = _userService.GetAllUsers();
             return Ok(users);
         }
-
-        [HttpPost("[action]")]
-        public IActionResult Authenticate(LoginRequestModel model)
-        {
-            try
-            {
-                var response = _userService.Authenticate(model);
-
-                if (response == null)
-                    return BadRequest(new { message = "Username or password is incorrect" });
-
-                return Ok(response);
-            }
-            catch (Exception e)
-            {
-                return HandleException(e);
-            }
-        }
     }
 }

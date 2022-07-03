@@ -1,9 +1,10 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace SmartLiving.Data.Migrations
 {
-    public partial class Data_Modeling : Migration
+    public partial class Initalmigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -61,7 +62,7 @@ namespace SmartLiving.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     IsDelete = table.Column<bool>(nullable: false)
                         .Annotation("ColumnOrder", 999),
                     CreateTime = table.Column<DateTime>(nullable: false)
@@ -82,7 +83,7 @@ namespace SmartLiving.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     IsDelete = table.Column<bool>(nullable: false)
                         .Annotation("ColumnOrder", 999),
                     CreateTime = table.Column<DateTime>(nullable: false)
@@ -103,7 +104,7 @@ namespace SmartLiving.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     IsDelete = table.Column<bool>(nullable: false)
                         .Annotation("ColumnOrder", 999),
                     CreateTime = table.Column<DateTime>(nullable: false)
@@ -122,7 +123,7 @@ namespace SmartLiving.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     RoleId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -143,7 +144,7 @@ namespace SmartLiving.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -229,7 +230,7 @@ namespace SmartLiving.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     IsDelete = table.Column<bool>(nullable: false)
                         .Annotation("ColumnOrder", 999),
                     CreateTime = table.Column<DateTime>(nullable: false)
@@ -258,7 +259,7 @@ namespace SmartLiving.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     IsDelete = table.Column<bool>(nullable: false)
                         .Annotation("ColumnOrder", 999),
                     CreateTime = table.Column<DateTime>(nullable: false)
@@ -293,7 +294,7 @@ namespace SmartLiving.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     IsDelete = table.Column<bool>(nullable: false)
                         .Annotation("ColumnOrder", 999),
                     CreateTime = table.Column<DateTime>(nullable: false)
@@ -327,7 +328,7 @@ namespace SmartLiving.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     IsDelete = table.Column<bool>(nullable: false)
                         .Annotation("ColumnOrder", 999),
                     CreateTime = table.Column<DateTime>(nullable: false)
@@ -355,7 +356,7 @@ namespace SmartLiving.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     IsDelete = table.Column<bool>(nullable: false)
                         .Annotation("ColumnOrder", 999),
                     CreateTime = table.Column<DateTime>(nullable: false)
@@ -404,7 +405,7 @@ namespace SmartLiving.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     IsDelete = table.Column<bool>(nullable: false)
                         .Annotation("ColumnOrder", 999),
                     CreateTime = table.Column<DateTime>(nullable: false)
@@ -433,7 +434,7 @@ namespace SmartLiving.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     IsDelete = table.Column<bool>(nullable: false)
                         .Annotation("ColumnOrder", 999),
                     CreateTime = table.Column<DateTime>(nullable: false)
@@ -462,7 +463,7 @@ namespace SmartLiving.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     IsDelete = table.Column<bool>(nullable: false)
                         .Annotation("ColumnOrder", 999),
                     CreateTime = table.Column<DateTime>(nullable: false)
@@ -497,7 +498,7 @@ namespace SmartLiving.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     IsDelete = table.Column<bool>(nullable: false)
                         .Annotation("ColumnOrder", 999),
                     CreateTime = table.Column<DateTime>(nullable: false)
@@ -544,7 +545,7 @@ namespace SmartLiving.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     IsDelete = table.Column<bool>(nullable: false)
                         .Annotation("ColumnOrder", 999),
                     CreateTime = table.Column<DateTime>(nullable: false)

@@ -2,7 +2,7 @@
 
 namespace SmartLiving.Domain.Models
 {
-    public class LoginResponseModel
+    public class SignInResponseModel
     {
         public string Id { get; }
         public string FirstName { get; }
@@ -11,7 +11,7 @@ namespace SmartLiving.Domain.Models
         public string Token { get; }
 
 
-        public LoginResponseModel(User user, string token)
+        public SignInResponseModel(User user, string token)
         {
             Id = user.Id;
             FirstName = user.FirstName;
