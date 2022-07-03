@@ -15,22 +15,22 @@ namespace SmartLiving.Api.Controllers
     [Route("api/[controller]")]
     [EnableCors("CorsPolicy")]
     [ApiController]
-    public class DeviceController : BaseController
+    public class ScheduleController : BaseController
     {
         private readonly ISupervisor _supervisor;
 
-        public DeviceController(ISupervisor supervisor)
+        public ScheduleController(ISupervisor supervisor)
         {
             _supervisor = supervisor;
         }
 
-        //GET: api/Device/GetAllDevices
+        //GET: api/Schedule/GetAllSchedules
         [HttpGet("[action]")]
-        public ActionResult<IEnumerable<DeviceGetDto>> GetAllDevices()
+        public ActionResult<IEnumerable<ScheduleGetDto>> GetAllSchedules()
         {
             try
             {
-                var allItems = _supervisor.GetAllDevices();
+                var allItems = _supervisor.GetAllSchedules();
 
                 if (allItems.Any())
                     return Ok(allItems);
@@ -42,16 +42,16 @@ namespace SmartLiving.Api.Controllers
             }
         }
 
-        //GET: api/Device/GetPagedList
+        //GET: api/Schedule/GetPagedList
         [HttpGet("[action]")]
-        public ActionResult<PagedList<DeviceGetDto>> GetPagedList(int pageIndex = 1, int pageSize = SystemConstants.PageSizeDefault)
+        public ActionResult<PagedList<ScheduleGetDto>> GetPagedList(int pageIndex = 1, int pageSize = SystemConstants.PageSizeDefault)
         {
             try
             {
-                var devicePagedList = _supervisor.GetPagedList<DeviceGetDto>(_supervisor.GetAllDevices().ToList() ,pageIndex, pageSize);
+                var schedulePagedList = _supervisor.GetPagedList<ScheduleGetDto>(_supervisor.GetAllSchedules().ToList() ,pageIndex, pageSize);
 
-                if (devicePagedList.Any())
-                    return Ok(devicePagedList);
+                if (schedulePagedList.Any())
+                    return Ok(schedulePagedList);
                 return NotFound();
             }
             catch (Exception e)
@@ -60,16 +60,16 @@ namespace SmartLiving.Api.Controllers
             }
         }
 
-        //GET: api/Device/{id}
-        [HttpGet("{id}", Name = "GetDeviceById")]
-        public ActionResult<DeviceGetDto> GetDeviceById(int id)
+        //GET: api/Schedule/{id}
+        [HttpGet("{id}", Name = "GetScheduleById")]
+        public ActionResult<ScheduleGetDto> GetScheduleById(int id)
         {
             try
             {
-                var device = _supervisor.GetDeviceById(id);
+                var schedule = _supervisor.GetScheduleById(id);
 
-                if (device != null)
-                    return Ok(device);
+                if (schedule != null)
+                    return Ok(schedule);
                 return NotFound();
             }
             catch (Exception e)
@@ -78,17 +78,17 @@ namespace SmartLiving.Api.Controllers
             }
         }
 
-        //POST: api/Device
+        //POST: api/Schedule
         [HttpPost]
-        public ActionResult<DeviceGetDto> CreateDevice([FromBody] DeviceGetDto model)
+        public ActionResult<ScheduleGetDto> CreateSchedule([FromBody] ScheduleGetDto model)
         {
             try
             {
                 if (model == null || !ModelState.IsValid) return BadRequest();
 
-                model = _supervisor.CreateDevice(model);
+                model = _supervisor.CreateSchedule(model);
 
-                return CreatedAtRoute(nameof(GetDeviceById), new {id = model.Id}, model);
+                return CreatedAtRoute(nameof(GetScheduleById), new {id = model.Id}, model);
             }
             catch (Exception e)
             {
@@ -96,19 +96,19 @@ namespace SmartLiving.Api.Controllers
             }
         }
 
-        //PUT: api/Device/{id}
+        //PUT: api/Schedule/{id}
         [HttpPut("{id}")]
-        public ActionResult<DeviceGetDto> UpdateDevice(int id, [FromBody] DeviceGetDto model)
+        public ActionResult<ScheduleGetDto> UpdateSchedule(int id, [FromBody] ScheduleGetDto model)
         {
             try
             {
                 if (model == null || !ModelState.IsValid) return BadRequest();
 
-                if (_supervisor.GetDeviceById(id) == null) return NotFound();
+                if (_supervisor.GetScheduleById(id) == null) return NotFound();
 
                 model.Id = id;
 
-                return _supervisor.UpdateDevice(model) ? NoContent() : StatusCode(500);
+                return _supervisor.UpdateSchedule(model) ? NoContent() : StatusCode(500);
             }
             catch (Exception e)
             {
@@ -116,13 +116,13 @@ namespace SmartLiving.Api.Controllers
             }
         }
 
-        //PATCH: api/Device/{id}
+        //PATCH: api/Schedule/{id}
         [HttpPatch("{id}")]
-        public ActionResult PartialUpdateDevice(int id, [FromBody] JsonPatchDocument<DeviceGetDto> patchDoc)
+        public ActionResult PartialUpdateSchedule(int id, [FromBody] JsonPatchDocument<ScheduleGetDto> patchDoc)
         {
             try
             {
-                var model = _supervisor.GetDeviceById(id);
+                var model = _supervisor.GetScheduleById(id);
                 if (model == null) return NotFound();
 
                 patchDoc.ApplyTo(model, ModelState);
@@ -134,7 +134,7 @@ namespace SmartLiving.Api.Controllers
 
                 model.Id = id;
 
-                return _supervisor.UpdateDevice(model) ? NoContent() : StatusCode(500);
+                return _supervisor.UpdateSchedule(model) ? NoContent() : StatusCode(500);
             }
             catch (Exception e)
             {
@@ -142,15 +142,15 @@ namespace SmartLiving.Api.Controllers
             }
         }
 
-        //DELETE: api/Device/id
+        //DELETE: api/Schedule/id
         [HttpDelete("{id}")]
-        public ActionResult DeleteDevice(int id)
+        public ActionResult DeleteSchedule(int id)
         {
             try
             {
-                if (_supervisor.GetDeviceById(id) == null) return NotFound();
+                if (_supervisor.GetScheduleById(id) == null) return NotFound();
 
-                return _supervisor.DeleteDevice(id) ? NoContent() : StatusCode(500);
+                return _supervisor.DeleteSchedule(id) ? NoContent() : StatusCode(500);
             }
             catch (Exception e)
             {

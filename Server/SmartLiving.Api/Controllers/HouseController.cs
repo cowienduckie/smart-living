@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using SmartLiving.Domain.DataTransferObjects;
@@ -15,22 +14,22 @@ namespace SmartLiving.Api.Controllers
     [Route("api/[controller]")]
     [EnableCors("CorsPolicy")]
     [ApiController]
-    public class DeviceController : BaseController
+    public class HouseController : BaseController
     {
         private readonly ISupervisor _supervisor;
 
-        public DeviceController(ISupervisor supervisor)
+        public HouseController(ISupervisor supervisor)
         {
             _supervisor = supervisor;
         }
 
-        //GET: api/Device/GetAllDevices
+        //GET: api/House/GetAllHouses
         [HttpGet("[action]")]
-        public ActionResult<IEnumerable<DeviceGetDto>> GetAllDevices()
+        public ActionResult<IEnumerable<HouseGetDto>> GetAllHouses()
         {
             try
             {
-                var allItems = _supervisor.GetAllDevices();
+                var allItems = _supervisor.GetAllHouses();
 
                 if (allItems.Any())
                     return Ok(allItems);
@@ -42,16 +41,16 @@ namespace SmartLiving.Api.Controllers
             }
         }
 
-        //GET: api/Device/GetPagedList
+        //GET: api/House/GetPagedList
         [HttpGet("[action]")]
-        public ActionResult<PagedList<DeviceGetDto>> GetPagedList(int pageIndex = 1, int pageSize = SystemConstants.PageSizeDefault)
+        public ActionResult<PagedList<HouseGetDto>> GetPagedList(int pageIndex = 1, int pageSize = SystemConstants.PageSizeDefault)
         {
             try
             {
-                var devicePagedList = _supervisor.GetPagedList<DeviceGetDto>(_supervisor.GetAllDevices().ToList() ,pageIndex, pageSize);
+                var housePagedList = _supervisor.GetPagedList<HouseGetDto>(_supervisor.GetAllHouses().ToList() ,pageIndex, pageSize);
 
-                if (devicePagedList.Any())
-                    return Ok(devicePagedList);
+                if (housePagedList.Any())
+                    return Ok(housePagedList);
                 return NotFound();
             }
             catch (Exception e)
@@ -60,16 +59,16 @@ namespace SmartLiving.Api.Controllers
             }
         }
 
-        //GET: api/Device/{id}
-        [HttpGet("{id}", Name = "GetDeviceById")]
-        public ActionResult<DeviceGetDto> GetDeviceById(int id)
+        //GET: api/House/{id}
+        [HttpGet("{id}", Name = "GetHouseById")]
+        public ActionResult<HouseGetDto> GetHouseById(int id)
         {
             try
             {
-                var device = _supervisor.GetDeviceById(id);
+                var house = _supervisor.GetHouseById(id);
 
-                if (device != null)
-                    return Ok(device);
+                if (house != null)
+                    return Ok(house);
                 return NotFound();
             }
             catch (Exception e)
@@ -78,17 +77,17 @@ namespace SmartLiving.Api.Controllers
             }
         }
 
-        //POST: api/Device
+        //POST: api/House
         [HttpPost]
-        public ActionResult<DeviceGetDto> CreateDevice([FromBody] DeviceGetDto model)
+        public ActionResult<HouseGetDto> CreateHouse([FromBody] HouseGetDto model)
         {
             try
             {
                 if (model == null || !ModelState.IsValid) return BadRequest();
 
-                model = _supervisor.CreateDevice(model);
+                model = _supervisor.CreateHouse(model);
 
-                return CreatedAtRoute(nameof(GetDeviceById), new {id = model.Id}, model);
+                return CreatedAtRoute(nameof(GetHouseById), new {id = model.Id}, model);
             }
             catch (Exception e)
             {
@@ -96,19 +95,19 @@ namespace SmartLiving.Api.Controllers
             }
         }
 
-        //PUT: api/Device/{id}
+        //PUT: api/House/{id}
         [HttpPut("{id}")]
-        public ActionResult<DeviceGetDto> UpdateDevice(int id, [FromBody] DeviceGetDto model)
+        public ActionResult<HouseGetDto> UpdateHouse(int id, [FromBody] HouseGetDto model)
         {
             try
             {
                 if (model == null || !ModelState.IsValid) return BadRequest();
 
-                if (_supervisor.GetDeviceById(id) == null) return NotFound();
+                if (_supervisor.GetHouseById(id) == null) return NotFound();
 
                 model.Id = id;
 
-                return _supervisor.UpdateDevice(model) ? NoContent() : StatusCode(500);
+                return _supervisor.UpdateHouse(model) ? NoContent() : StatusCode(500);
             }
             catch (Exception e)
             {
@@ -116,13 +115,13 @@ namespace SmartLiving.Api.Controllers
             }
         }
 
-        //PATCH: api/Device/{id}
+        //PATCH: api/House/{id}
         [HttpPatch("{id}")]
-        public ActionResult PartialUpdateDevice(int id, [FromBody] JsonPatchDocument<DeviceGetDto> patchDoc)
+        public ActionResult PartialUpdateHouse(int id, [FromBody] JsonPatchDocument<HouseGetDto> patchDoc)
         {
             try
             {
-                var model = _supervisor.GetDeviceById(id);
+                var model = _supervisor.GetHouseById(id);
                 if (model == null) return NotFound();
 
                 patchDoc.ApplyTo(model, ModelState);
@@ -134,7 +133,7 @@ namespace SmartLiving.Api.Controllers
 
                 model.Id = id;
 
-                return _supervisor.UpdateDevice(model) ? NoContent() : StatusCode(500);
+                return _supervisor.UpdateHouse(model) ? NoContent() : StatusCode(500);
             }
             catch (Exception e)
             {
@@ -142,15 +141,15 @@ namespace SmartLiving.Api.Controllers
             }
         }
 
-        //DELETE: api/Device/id
+        //DELETE: api/House/id
         [HttpDelete("{id}")]
-        public ActionResult DeleteDevice(int id)
+        public ActionResult DeleteHouse(int id)
         {
             try
             {
-                if (_supervisor.GetDeviceById(id) == null) return NotFound();
+                if (_supervisor.GetHouseById(id) == null) return NotFound();
 
-                return _supervisor.DeleteDevice(id) ? NoContent() : StatusCode(500);
+                return _supervisor.DeleteHouse(id) ? NoContent() : StatusCode(500);
             }
             catch (Exception e)
             {

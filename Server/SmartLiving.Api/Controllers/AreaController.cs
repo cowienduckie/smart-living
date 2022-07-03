@@ -12,25 +12,27 @@ using SmartLiving.Library.DataTypes;
 
 namespace SmartLiving.Api.Controllers
 {
+    namespace SmartLiving.Api.Controllers
+{
     [Route("api/[controller]")]
     [EnableCors("CorsPolicy")]
     [ApiController]
-    public class DeviceController : BaseController
+    public class AreaController : BaseController
     {
         private readonly ISupervisor _supervisor;
 
-        public DeviceController(ISupervisor supervisor)
+        public AreaController(ISupervisor supervisor)
         {
             _supervisor = supervisor;
         }
 
-        //GET: api/Device/GetAllDevices
+        //GET: api/Area/GetAllAreas
         [HttpGet("[action]")]
-        public ActionResult<IEnumerable<DeviceGetDto>> GetAllDevices()
+        public ActionResult<IEnumerable<AreaGetDto>> GetAllAreas()
         {
             try
             {
-                var allItems = _supervisor.GetAllDevices();
+                var allItems = _supervisor.GetAllAreas();
 
                 if (allItems.Any())
                     return Ok(allItems);
@@ -42,16 +44,16 @@ namespace SmartLiving.Api.Controllers
             }
         }
 
-        //GET: api/Device/GetPagedList
+        //GET: api/Area/GetPagedList
         [HttpGet("[action]")]
-        public ActionResult<PagedList<DeviceGetDto>> GetPagedList(int pageIndex = 1, int pageSize = SystemConstants.PageSizeDefault)
+        public ActionResult<PagedList<AreaGetDto>> GetPagedList(int pageIndex = 1, int pageSize = SystemConstants.PageSizeDefault)
         {
             try
             {
-                var devicePagedList = _supervisor.GetPagedList<DeviceGetDto>(_supervisor.GetAllDevices().ToList() ,pageIndex, pageSize);
+                var areaPagedList = _supervisor.GetPagedList<AreaGetDto>(_supervisor.GetAllAreas().ToList() ,pageIndex, pageSize);
 
-                if (devicePagedList.Any())
-                    return Ok(devicePagedList);
+                if (areaPagedList.Any())
+                    return Ok(areaPagedList);
                 return NotFound();
             }
             catch (Exception e)
@@ -60,16 +62,16 @@ namespace SmartLiving.Api.Controllers
             }
         }
 
-        //GET: api/Device/{id}
-        [HttpGet("{id}", Name = "GetDeviceById")]
-        public ActionResult<DeviceGetDto> GetDeviceById(int id)
+        //GET: api/Area/{id}
+        [HttpGet("{id}", Name = "GetAreaById")]
+        public ActionResult<AreaGetDto> GetAreaById(int id)
         {
             try
             {
-                var device = _supervisor.GetDeviceById(id);
+                var area = _supervisor.GetAreaById(id);
 
-                if (device != null)
-                    return Ok(device);
+                if (area != null)
+                    return Ok(area);
                 return NotFound();
             }
             catch (Exception e)
@@ -78,17 +80,17 @@ namespace SmartLiving.Api.Controllers
             }
         }
 
-        //POST: api/Device
+        //POST: api/Area
         [HttpPost]
-        public ActionResult<DeviceGetDto> CreateDevice([FromBody] DeviceGetDto model)
+        public ActionResult<AreaGetDto> CreateArea([FromBody] AreaGetDto model)
         {
             try
             {
                 if (model == null || !ModelState.IsValid) return BadRequest();
 
-                model = _supervisor.CreateDevice(model);
+                model = _supervisor.CreateArea(model);
 
-                return CreatedAtRoute(nameof(GetDeviceById), new {id = model.Id}, model);
+                return CreatedAtRoute(nameof(GetAreaById), new {id = model.Id}, model);
             }
             catch (Exception e)
             {
@@ -96,19 +98,19 @@ namespace SmartLiving.Api.Controllers
             }
         }
 
-        //PUT: api/Device/{id}
+        //PUT: api/Area/{id}
         [HttpPut("{id}")]
-        public ActionResult<DeviceGetDto> UpdateDevice(int id, [FromBody] DeviceGetDto model)
+        public ActionResult<AreaGetDto> UpdateArea(int id, [FromBody] AreaGetDto model)
         {
             try
             {
                 if (model == null || !ModelState.IsValid) return BadRequest();
 
-                if (_supervisor.GetDeviceById(id) == null) return NotFound();
+                if (_supervisor.GetAreaById(id) == null) return NotFound();
 
                 model.Id = id;
 
-                return _supervisor.UpdateDevice(model) ? NoContent() : StatusCode(500);
+                return _supervisor.UpdateArea(model) ? NoContent() : StatusCode(500);
             }
             catch (Exception e)
             {
@@ -116,13 +118,13 @@ namespace SmartLiving.Api.Controllers
             }
         }
 
-        //PATCH: api/Device/{id}
+        //PATCH: api/Area/{id}
         [HttpPatch("{id}")]
-        public ActionResult PartialUpdateDevice(int id, [FromBody] JsonPatchDocument<DeviceGetDto> patchDoc)
+        public ActionResult PartialUpdateArea(int id, [FromBody] JsonPatchDocument<AreaGetDto> patchDoc)
         {
             try
             {
-                var model = _supervisor.GetDeviceById(id);
+                var model = _supervisor.GetAreaById(id);
                 if (model == null) return NotFound();
 
                 patchDoc.ApplyTo(model, ModelState);
@@ -134,7 +136,7 @@ namespace SmartLiving.Api.Controllers
 
                 model.Id = id;
 
-                return _supervisor.UpdateDevice(model) ? NoContent() : StatusCode(500);
+                return _supervisor.UpdateArea(model) ? NoContent() : StatusCode(500);
             }
             catch (Exception e)
             {
@@ -142,15 +144,15 @@ namespace SmartLiving.Api.Controllers
             }
         }
 
-        //DELETE: api/Device/id
+        //DELETE: api/Area/id
         [HttpDelete("{id}")]
-        public ActionResult DeleteDevice(int id)
+        public ActionResult DeleteArea(int id)
         {
             try
             {
-                if (_supervisor.GetDeviceById(id) == null) return NotFound();
+                if (_supervisor.GetAreaById(id) == null) return NotFound();
 
-                return _supervisor.DeleteDevice(id) ? NoContent() : StatusCode(500);
+                return _supervisor.DeleteArea(id) ? NoContent() : StatusCode(500);
             }
             catch (Exception e)
             {
@@ -158,4 +160,5 @@ namespace SmartLiving.Api.Controllers
             }
         }
     }
+}
 }

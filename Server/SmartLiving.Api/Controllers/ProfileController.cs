@@ -15,22 +15,22 @@ namespace SmartLiving.Api.Controllers
     [Route("api/[controller]")]
     [EnableCors("CorsPolicy")]
     [ApiController]
-    public class DeviceController : BaseController
+    public class ProfileController : BaseController
     {
         private readonly ISupervisor _supervisor;
 
-        public DeviceController(ISupervisor supervisor)
+        public ProfileController(ISupervisor supervisor)
         {
             _supervisor = supervisor;
         }
 
-        //GET: api/Device/GetAllDevices
+        //GET: api/Profile/GetAllProfiles
         [HttpGet("[action]")]
-        public ActionResult<IEnumerable<DeviceGetDto>> GetAllDevices()
+        public ActionResult<IEnumerable<ProfileGetDto>> GetAllProfiles()
         {
             try
             {
-                var allItems = _supervisor.GetAllDevices();
+                var allItems = _supervisor.GetAllProfiles();
 
                 if (allItems.Any())
                     return Ok(allItems);
@@ -42,16 +42,16 @@ namespace SmartLiving.Api.Controllers
             }
         }
 
-        //GET: api/Device/GetPagedList
+        //GET: api/Profile/GetPagedList
         [HttpGet("[action]")]
-        public ActionResult<PagedList<DeviceGetDto>> GetPagedList(int pageIndex = 1, int pageSize = SystemConstants.PageSizeDefault)
+        public ActionResult<PagedList<ProfileGetDto>> GetPagedList(int pageIndex = 1, int pageSize = SystemConstants.PageSizeDefault)
         {
             try
             {
-                var devicePagedList = _supervisor.GetPagedList<DeviceGetDto>(_supervisor.GetAllDevices().ToList() ,pageIndex, pageSize);
+                var profilePagedList = _supervisor.GetPagedList<ProfileGetDto>(_supervisor.GetAllProfiles().ToList() ,pageIndex, pageSize);
 
-                if (devicePagedList.Any())
-                    return Ok(devicePagedList);
+                if (profilePagedList.Any())
+                    return Ok(profilePagedList);
                 return NotFound();
             }
             catch (Exception e)
@@ -60,16 +60,16 @@ namespace SmartLiving.Api.Controllers
             }
         }
 
-        //GET: api/Device/{id}
-        [HttpGet("{id}", Name = "GetDeviceById")]
-        public ActionResult<DeviceGetDto> GetDeviceById(int id)
+        //GET: api/Profile/{id}
+        [HttpGet("{id}", Name = "GetProfileById")]
+        public ActionResult<ProfileGetDto> GetProfileById(int id)
         {
             try
             {
-                var device = _supervisor.GetDeviceById(id);
+                var profile = _supervisor.GetProfileById(id);
 
-                if (device != null)
-                    return Ok(device);
+                if (profile != null)
+                    return Ok(profile);
                 return NotFound();
             }
             catch (Exception e)
@@ -78,17 +78,17 @@ namespace SmartLiving.Api.Controllers
             }
         }
 
-        //POST: api/Device
+        //POST: api/Profile
         [HttpPost]
-        public ActionResult<DeviceGetDto> CreateDevice([FromBody] DeviceGetDto model)
+        public ActionResult<ProfileGetDto> CreateProfile([FromBody] ProfileGetDto model)
         {
             try
             {
                 if (model == null || !ModelState.IsValid) return BadRequest();
 
-                model = _supervisor.CreateDevice(model);
+                model = _supervisor.CreateProfile(model);
 
-                return CreatedAtRoute(nameof(GetDeviceById), new {id = model.Id}, model);
+                return CreatedAtRoute(nameof(GetProfileById), new {id = model.Id}, model);
             }
             catch (Exception e)
             {
@@ -96,19 +96,19 @@ namespace SmartLiving.Api.Controllers
             }
         }
 
-        //PUT: api/Device/{id}
+        //PUT: api/Profile/{id}
         [HttpPut("{id}")]
-        public ActionResult<DeviceGetDto> UpdateDevice(int id, [FromBody] DeviceGetDto model)
+        public ActionResult<ProfileGetDto> UpdateProfile(int id, [FromBody] ProfileGetDto model)
         {
             try
             {
                 if (model == null || !ModelState.IsValid) return BadRequest();
 
-                if (_supervisor.GetDeviceById(id) == null) return NotFound();
+                if (_supervisor.GetProfileById(id) == null) return NotFound();
 
                 model.Id = id;
 
-                return _supervisor.UpdateDevice(model) ? NoContent() : StatusCode(500);
+                return _supervisor.UpdateProfile(model) ? NoContent() : StatusCode(500);
             }
             catch (Exception e)
             {
@@ -116,13 +116,13 @@ namespace SmartLiving.Api.Controllers
             }
         }
 
-        //PATCH: api/Device/{id}
+        //PATCH: api/Profile/{id}
         [HttpPatch("{id}")]
-        public ActionResult PartialUpdateDevice(int id, [FromBody] JsonPatchDocument<DeviceGetDto> patchDoc)
+        public ActionResult PartialUpdateProfile(int id, [FromBody] JsonPatchDocument<ProfileGetDto> patchDoc)
         {
             try
             {
-                var model = _supervisor.GetDeviceById(id);
+                var model = _supervisor.GetProfileById(id);
                 if (model == null) return NotFound();
 
                 patchDoc.ApplyTo(model, ModelState);
@@ -134,7 +134,7 @@ namespace SmartLiving.Api.Controllers
 
                 model.Id = id;
 
-                return _supervisor.UpdateDevice(model) ? NoContent() : StatusCode(500);
+                return _supervisor.UpdateProfile(model) ? NoContent() : StatusCode(500);
             }
             catch (Exception e)
             {
@@ -142,15 +142,15 @@ namespace SmartLiving.Api.Controllers
             }
         }
 
-        //DELETE: api/Device/id
+        //DELETE: api/Profile/id
         [HttpDelete("{id}")]
-        public ActionResult DeleteDevice(int id)
+        public ActionResult DeleteProfile(int id)
         {
             try
             {
-                if (_supervisor.GetDeviceById(id) == null) return NotFound();
+                if (_supervisor.GetProfileById(id) == null) return NotFound();
 
-                return _supervisor.DeleteDevice(id) ? NoContent() : StatusCode(500);
+                return _supervisor.DeleteProfile(id) ? NoContent() : StatusCode(500);
             }
             catch (Exception e)
             {
