@@ -16,7 +16,7 @@ namespace SmartLiving.Api.Configurations
             IConfiguration configuration)
         {
             var connection = configuration["ConnectionStrings:DigitalOcean"] ??
-                             "Data Source=SmartLiving.db";
+                             "";
 
             services.AddDbContextPool<DataContext>((serviceProvider, optionsBuilder) =>
             {
