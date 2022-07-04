@@ -21,8 +21,10 @@ jobs:
         with:
           dotnet-version: '3.1.301'
           include-prerelease: true
-      - name: Cd Server
-        run: cd Server
+
+      - name: Install dependencies
+        run: dotnet restore
+        working-directory: Server/
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
