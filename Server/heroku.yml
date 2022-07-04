@@ -1,0 +1,8 @@
+build:
+  docker: SmartLiving.Api/Dockerfile
+  config:
+    ASPNETCORE_URLS: "https://+;http://+"
+    ASPNETCORE_HTTPS_PORT: "8081"
+    ASPNETCORE_ENVIROMENT: "Development"
+run:
+  web: bundle exec puma -C config/puma.rb

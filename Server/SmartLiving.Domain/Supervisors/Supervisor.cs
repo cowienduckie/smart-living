@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using AutoMapper;
 using Microsoft.Extensions.Caching.Memory;
+using SmartLiving.Domain.DataTransferObjects;
 using SmartLiving.Domain.Supervisors.Interfaces;
 using SmartLiving.Library.Constants;
+using SmartLiving.Library.DataTypes;
 
 namespace SmartLiving.Domain.Supervisors
 {
-    public class Supervisor : ISupervisor
+    public partial class Supervisor : ISupervisor
     {
         private readonly IMemoryCache _cache;
         private readonly IMapper _mapper;
@@ -20,7 +23,6 @@ namespace SmartLiving.Domain.Supervisors
         }
 
         #region Shared Methods
-
         private void SetCache<TEntity>(int id, TEntity product)
         {
             var cacheEntryOptions =
@@ -34,6 +36,12 @@ namespace SmartLiving.Domain.Supervisors
             return _cache.Get<TEntity>(string.Concat(nameof(TEntity), "-", id));
         }
 
+        public PagedList<TEntity> GetPagedList<TEntity>(IList<TEntity> items, int pageIndex, int pageSize)
+        {
+            var pagedList = new PagedList<TEntity>(_mapper.Map<IList<TEntity>>(items), pageIndex, pageSize);
+
+            return pagedList;
+        }
         #endregion
     }
 }

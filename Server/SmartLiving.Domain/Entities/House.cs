@@ -11,8 +11,14 @@ namespace SmartLiving.Domain.Entities
 
         [Required] public string UserId { get; set; }
 
-        public User User { get; set; }
+        public virtual User User { get; set; }
+
+        [Required] public int HouseTypeId { get; set; }
+
+        public virtual  HouseType HouseType { get; set; }
 
         public virtual IList<Device> Devices { get; set; }
+
+        public virtual IList<Area> Areas { get; set; }
     }
 }

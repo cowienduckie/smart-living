@@ -14,6 +14,34 @@ namespace SmartLiving.Data.Configurations
             entity.HasOne(d => d.House)
                 .WithMany(h => h.Devices)
                 .HasForeignKey(d => d.HouseId);
+
+            entity.HasOne(d => d.Area)
+                .WithMany(a => a.Devices)
+                .HasForeignKey(d => d.AreaId);
+
+            entity.HasOne(d => d.DeviceType)
+                .WithMany(dt => dt.Devices)
+                .HasForeignKey(d => d.DeviceTypeId);
+
+            entity.HasMany(d => d.ProfileDevices)
+                .WithOne(pd => pd.Device)
+                .HasForeignKey(pd => pd.DeviceId);
+
+            entity.HasMany(d => d.Schedules)
+                .WithOne(s => s.Device)
+                .HasForeignKey(s => s.DeviceId);
+
+            entity.HasMany(d => d.Commands)
+                .WithOne(c => c.Device)
+                .HasForeignKey(c => c.DeviceId);
+
+            entity.HasMany(d => d.DeviceData)
+                .WithOne(dd => dd.Device)
+                .HasForeignKey(dd => dd.DeviceId);
+
+            entity.HasMany(d => d.AutoMessages)
+                .WithOne(am => am.Device)
+                .HasForeignKey(am => am.DeviceId);
         }
     }
 }

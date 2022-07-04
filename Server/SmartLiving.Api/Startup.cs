@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using SmartLiving.Api.Configurations;
+using SmartLiving.Api.Middleware;
+using SmartLiving.Domain.Models;
 
 namespace SmartLiving.Api
 {
@@ -28,9 +30,11 @@ namespace SmartLiving.Api
             services.AddConnectionProvider(Configuration);
             services.AddAppSettings(Configuration);
             services.AddCaching();
-            services.AddCORS();
+            Configurations.ConfigureServices.AddCors(services);
             services.AddAutoMapper();
             services.AddNewtonsoft();
+            services.ConfigureIdentity();
+            services.AddServices();
 
             services.AddHealthChecks();
 
@@ -39,13 +43,14 @@ namespace SmartLiving.Api
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Title = "Clothing Shop API",
+                    Title = "Smart Living API",
                     Contact = new OpenApiContact
                     {
                         Name = "Minh Tran",
-                        Url = new Uri("https://github.com/cowienduckie")
+                        Url = new Uri("https://lowkeycode.me")
                     }
                 });
+                c.OperationFilter<AddRequiredHeaderParameter>();
             });
         }
 
@@ -64,6 +69,8 @@ namespace SmartLiving.Api
             app.UseAuthorization();
 
             app.UseCors("CorsPolicy");
+
+            app.UseMiddleware<JwtMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

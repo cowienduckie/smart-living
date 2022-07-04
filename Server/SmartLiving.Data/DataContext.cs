@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Net.Http.Headers;
+using System.Threading;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -8,9 +9,9 @@ using SmartLiving.Domain.Entities;
 
 namespace SmartLiving.Data
 {
-    public class DataContext : IdentityDbContext<User, IdentityRole, string,
+    public class DataContext : IdentityDbContext<User, Role, string,
         IdentityUserClaim<string>,
-        IdentityUserRole<string>,
+        UserRole,
         IdentityUserLogin<string>,
         IdentityRoleClaim<string>,
         IdentityUserToken<string>>
@@ -22,9 +23,19 @@ namespace SmartLiving.Data
             Interlocked.Increment(ref _instanceCount);
         }
 
-        public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<Device> Categories { get; set; }
-        public virtual DbSet<House> ProductCategories { get; set; }
+        public virtual DbSet<Device> Devices { get; set; }
+        public virtual DbSet<House> Houses { get; set; }
+        public virtual DbSet<Area> Areas { get; set; }
+        public virtual DbSet<AutoMessage> AutoMessages { get; set; }
+        public virtual DbSet<Command> Commands { get; set; }
+        public virtual DbSet<CommandType> CommandTypes { get; set; }
+        public virtual DbSet<DeviceData> DeviceData { get; set; }
+        public virtual DbSet<DeviceType> DeviceTypes { get; set; }
+        public virtual DbSet<HouseType> HouseTypes { get; set; }
+        public virtual DbSet<Profile> Profiles { get; set; }
+        public virtual DbSet<ProfileDevice> ProfileDevices { get; set; }
+        public virtual DbSet<Schedule> Schedules { get; set; }
+        public virtual DbSet<SharedWith> SharedWith { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -42,6 +53,21 @@ namespace SmartLiving.Data
             new UserConfiguration(modelBuilder.Entity<User>());
             new DeviceConfiguration();
             new HouseConfiguration();
+            new AreaConfiguration();
+            new AutoMessageConfiguration();
+            new CommandConfiguration();
+            new CommandTypeConfiguration();
+            new DeviceDataConfiguration();
+            new DeviceTypeConfiguration();
+            new HouseTypeConfiguration();
+            new ProfileConfiguration();
+            new ProfileDeviceConfiguration();
+            new ScheduleConfiguration();
+            new SharedWithConfiguration();
+
+            //Create DbSet for Role and UserRole with keys
+            modelBuilder.Entity<IdentityUserRole<string>>().HasKey(ur => new { ur.UserId, ur.RoleId });
+            modelBuilder.Entity<IdentityRole<string>>().HasKey(r => r.Id);
         }
     }
 }
