@@ -1,6 +1,0 @@
-build:
-  docker: SmartLiving.Api/Dockerfile
-  config:
-    ASPNETCORE_URLS: "https://+;http://+"
-    ASPNETCORE_HTTPS_PORT: "8081"
-    ASPNETCORE_ENVIROMENT: "Production"
