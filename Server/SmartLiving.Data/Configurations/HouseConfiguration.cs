@@ -17,7 +17,15 @@ namespace SmartLiving.Data.Configurations
 
             entity.HasOne(h => h.User)
                 .WithMany(u => u.Houses)
-                .HasForeignKey(u => u.UserId);
+                .HasForeignKey(h => h.UserId);
+
+            entity.HasMany(h => h.Areas)
+                .WithOne(a => a.House)
+                .HasForeignKey(a => a.HouseId);
+
+            entity.HasOne(h => h.HouseType)
+                .WithMany(ht => ht.Houses)
+                .HasForeignKey(h => h.HouseTypeId);
         }
     }
 }

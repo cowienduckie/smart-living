@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SmartLiving.Domain.Models;
 
 namespace SmartLiving.Api.Configurations
 {
