@@ -22,11 +22,17 @@ jobs:
           dotnet-version: '3.1.301'
           include-prerelease: true
 
+      - name: Install dependencies
+        run: dotnet restore
+        working-directory: Server/
+
       - name: Build with dotnet
         run: dotnet build --configuration Release
+        working-directory: Server/
 
       - name: dotnet publish
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        working-directory: Server/
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
