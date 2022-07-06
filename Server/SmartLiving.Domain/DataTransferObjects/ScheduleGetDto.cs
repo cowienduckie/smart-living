@@ -1,4 +1,6 @@
-﻿namespace SmartLiving.Domain.DataTransferObjects
+﻿using System;
+
+namespace SmartLiving.Domain.DataTransferObjects
 {
     public class ScheduleGetDto
     {
