@@ -7,39 +7,63 @@ namespace SmartLiving.Data.Repositories
 {
     public class DeviceRepository : IDeviceRepository
     {
+        private readonly DataContext _context;
+
+        public DeviceRepository(DataContext context)
+        {
+            _context = context;
+        }
+
         public void Dispose()
         {
-            throw new NotImplementedException();
+            _context.Dispose();
         }
 
         public bool IsExist(int id)
         {
-            throw new NotImplementedException();
+            return _context.Device.Any(d => !d.IsDelete && d.Id == id);
         }
 
         public IEnumerable<Device> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.Device.Where(d => !d.IsDelete).AsNoTracking().ToList();
         }
 
         public Device GetById(int id)
         {
-            throw new NotImplementedException();
+            return _context.Device.FirstOrDefault(d => !d.IsDelete && d.Id == id);
         }
 
         public Device Create(Device entity)
         {
-            throw new NotImplementedException();
+            _context.Device.Add(entity);
+            _context.SaveChanges();
+            return entity;
         }
 
         public bool Update(Device entity)
         {
-            throw new NotImplementedException();
+            if (!IsExist(entity.Id)) return false;
+
+            entity.LastModified = DateTime.Now;
+
+            _context.Device.Update(entity);
+            _context.SaveChanges();
+            return true;
         }
 
         public bool Delete(int id)
         {
-            throw new NotImplementedException();
+            if (!IsExist(id)) return false;
+
+            var device = _context.Categories.First(d => !d.IsDelete && d.Id == id);
+
+            device.IsDelete = true;
+            device.LastModified = DateTime.Now;
+
+            _context.Device.Update(device);
+            _context.SaveChanges();
+            return true;
         }
     }
 }
