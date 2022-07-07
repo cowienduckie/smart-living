@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using SmartLiving.Domain.DataTransferObjects;
+using SmartLiving.Domain.Entities;
 
 namespace SmartLiving.Domain.Supervisors
 {
@@ -7,27 +9,49 @@ namespace SmartLiving.Domain.Supervisors
     {
         public IEnumerable<HouseGetDto> GetAllHouses()
         {
-            throw new System.NotImplementedException();
+            var allItems = _mapper.Map<IEnumerable<HouseGetDto>>(_houseRepository.GetAll()).ToList();
+            allItems.ForEach(item => SetCache(item.Id, item));
+
+            return allItems;
         }
 
         public HouseGetDto GetHouseById(int id)
         {
-            throw new System.NotImplementedException();
+            var item = GetCache<HouseGetDto>(id);
+            if (item != null)
+            {
+                return item;
+            }
+            item = _mapper.Map<HouseGetDto>(_houseRepository.GetById(id));
+            SetCache(item.Id, item);
+
+            return item;
         }
 
         public HouseGetDto CreateHouse(HouseGetDto newModel)
         {
-            throw new System.NotImplementedException();
+            var item = _mapper.Map<House>(newModel);
+            item = _houseRepository.Create(item);
+            newModel.Id = item.Id;
+
+            return newModel;
         }
 
         public bool UpdateHouse(HouseGetDto updateModel)
         {
-            throw new System.NotImplementedException();
+            var item = _houseRepository.GetById(updateModel.Id);
+            if (item == null)
+            {
+                return false;
+            }
+            _mapper.Map(updateModel, item);
+
+            return _houseRepository.Update(item);
         }
 
         public bool DeleteHouse(int id)
         {
-            throw new System.NotImplementedException();
+            return _houseRepository.Delete(id);
         }
     }
 }

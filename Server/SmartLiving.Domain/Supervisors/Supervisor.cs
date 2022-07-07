@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using AutoMapper;
 using Microsoft.Extensions.Caching.Memory;
 using SmartLiving.Domain.DataTransferObjects;
+using SmartLiving.Domain.RepositoryInterfaces;
 using SmartLiving.Domain.Supervisors.Interfaces;
 using SmartLiving.Library.Constants;
 using SmartLiving.Library.DataTypes;
@@ -14,12 +15,31 @@ namespace SmartLiving.Domain.Supervisors
         private readonly IMemoryCache _cache;
         private readonly IMapper _mapper;
 
+        private readonly IAreaRepository _areaRepository;
+        private readonly ICommandRepository _commandRepository;
+        private readonly IDeviceRepository _deviceRepository;
+        private readonly IHouseRepository _houseRepository;
+        private readonly IProfileRepository _profileRepository;
+        private readonly IScheduleRepository _scheduleRepository;
+
         public Supervisor(
             IMemoryCache cache,
-            IMapper mapper)
+            IMapper mapper,
+            IAreaRepository areaRepository,
+            ICommandRepository commandRepository,
+            IDeviceRepository deviceRepository,
+            IHouseRepository houseRepository,
+            IProfileRepository profileRepository,
+            IScheduleRepository scheduleRepository)
         {
             _cache = cache;
             _mapper = mapper;
+            _areaRepository = areaRepository;
+            _commandRepository = commandRepository;
+            _deviceRepository = deviceRepository;
+            _houseRepository = houseRepository;
+            _profileRepository = profileRepository;
+            _scheduleRepository = scheduleRepository;
         }
 
         #region Shared Methods
