@@ -17,8 +17,11 @@ namespace SmartLiving.Domain.Supervisors
 
         private readonly IAreaRepository _areaRepository;
         private readonly ICommandRepository _commandRepository;
+        private readonly ICommandTypeRepository _commandTypeRepository;
         private readonly IDeviceRepository _deviceRepository;
+        private readonly IDeviceTypeRepository _deviceTypeRepository;
         private readonly IHouseRepository _houseRepository;
+        private readonly IHouseTypeRepository _houseTypeRepository;
         private readonly IProfileRepository _profileRepository;
         private readonly IScheduleRepository _scheduleRepository;
 
@@ -27,8 +30,11 @@ namespace SmartLiving.Domain.Supervisors
             IMapper mapper,
             IAreaRepository areaRepository,
             ICommandRepository commandRepository,
+            ICommandTypeRepository commandTypeRepository,
             IDeviceRepository deviceRepository,
+            IDeviceTypeRepository deviceTypeRepository,
             IHouseRepository houseRepository,
+            IHouseTypeRepository houseTypeRepository,
             IProfileRepository profileRepository,
             IScheduleRepository scheduleRepository)
         {
@@ -36,8 +42,11 @@ namespace SmartLiving.Domain.Supervisors
             _mapper = mapper;
             _areaRepository = areaRepository;
             _commandRepository = commandRepository;
+            _commandTypeRepository = commandTypeRepository;
             _deviceRepository = deviceRepository;
+            _deviceTypeRepository = deviceTypeRepository;
             _houseRepository = houseRepository;
+            _houseTypeRepository = houseTypeRepository;
             _profileRepository = profileRepository;
             _scheduleRepository = scheduleRepository;
         }
