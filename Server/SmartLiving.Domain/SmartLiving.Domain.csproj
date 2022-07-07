@@ -15,10 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Profiles\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\SmartLiving.Library\SmartLiving.Library.csproj" />
   </ItemGroup>
 
