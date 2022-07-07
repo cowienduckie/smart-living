@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using SmartLiving.Api.Middleware;
 using SmartLiving.Domain.DataTransferObjects;
 using SmartLiving.Domain.Supervisors.Interfaces;
 using SmartLiving.Library.Constants;
@@ -17,6 +18,7 @@ namespace SmartLiving.Api.Controllers
     [Route("api/[controller]")]
     [EnableCors("CorsPolicy")]
     [ApiController]
+    [Authorize]
     public class AreaController : BaseController
     {
         private readonly ISupervisor _supervisor;

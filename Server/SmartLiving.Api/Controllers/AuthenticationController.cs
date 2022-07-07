@@ -55,6 +55,7 @@ namespace SmartLiving.Api.Controllers
         }
 
         [HttpGet("[action]")]
+        [Authorize]
         public async Task<IActionResult> SignOut()
         {
             try
