@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using SmartLiving.Domain.Entities;
 using SmartLiving.Domain.RepositoryInterfaces;
 
@@ -21,22 +23,22 @@ namespace SmartLiving.Data.Repositories
 
         public bool IsExist(int id)
         {
-            return _context.Device.Any(d => !d.IsDelete && d.Id == id);
+            return _context.Devices.Any(d => !d.IsDelete && d.Id == id);
         }
 
         public IEnumerable<Device> GetAll()
         {
-            return _context.Device.Where(d => !d.IsDelete).AsNoTracking().ToList();
+            return _context.Devices.Where(d => !d.IsDelete).AsNoTracking().ToList();
         }
 
         public Device GetById(int id)
         {
-            return _context.Device.FirstOrDefault(d => !d.IsDelete && d.Id == id);
+            return _context.Devices.FirstOrDefault(d => !d.IsDelete && d.Id == id);
         }
 
         public Device Create(Device entity)
         {
-            _context.Device.Add(entity);
+            _context.Devices.Add(entity);
             _context.SaveChanges();
             return entity;
         }
@@ -47,7 +49,7 @@ namespace SmartLiving.Data.Repositories
 
             entity.LastModified = DateTime.Now;
 
-            _context.Device.Update(entity);
+            _context.Devices.Update(entity);
             _context.SaveChanges();
             return true;
         }
@@ -56,12 +58,12 @@ namespace SmartLiving.Data.Repositories
         {
             if (!IsExist(id)) return false;
 
-            var device = _context.Categories.First(d => !d.IsDelete && d.Id == id);
+            var device = _context.Devices.First(d => !d.IsDelete && d.Id == id);
 
             device.IsDelete = true;
             device.LastModified = DateTime.Now;
 
-            _context.Device.Update(device);
+            _context.Devices.Update(device);
             _context.SaveChanges();
             return true;
         }

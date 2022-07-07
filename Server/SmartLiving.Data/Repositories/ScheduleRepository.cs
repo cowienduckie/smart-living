@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using SmartLiving.Domain.Entities;
 using SmartLiving.Domain.RepositoryInterfaces;
 
@@ -21,22 +23,22 @@ namespace SmartLiving.Data.Repositories
 
         public bool IsExist(int id)
         {
-            return _context.Schedule.Any(s => !s.IsDelete && s.Id == id);
+            return _context.Schedules.Any(s => !s.IsDelete && s.Id == id);
         }
 
         public IEnumerable<Schedule> GetAll()
         {
-            return _context.Schedule.Where(s => !s.IsDelete).AsNoTracking().ToList();
+            return _context.Schedules.Where(s => !s.IsDelete).AsNoTracking().ToList();
         }
 
         public Schedule GetById(int id)
         {
-            return _context.Schedule.FirstOrDefault(s => !s.IsDelete && s.Id == id);
+            return _context.Schedules.FirstOrDefault(s => !s.IsDelete && s.Id == id);
         }
 
         public Schedule Create(Schedule entity)
         {
-            _context.Schedule.Add(entity);
+            _context.Schedules.Add(entity);
             _context.SaveChanges();
             return entity;
         }
@@ -47,7 +49,7 @@ namespace SmartLiving.Data.Repositories
 
             entity.LastModified = DateTime.Now;
 
-            _context.Schedule.Update(entity);
+            _context.Schedules.Update(entity);
             _context.SaveChanges();
             return true;
         }
@@ -56,12 +58,12 @@ namespace SmartLiving.Data.Repositories
         {
             if (!IsExist(id)) return false;
 
-            var schedule = _context.Categories.First(s => !s.IsDelete && s.Id == id);
+            var schedule = _context.Schedules.First(s => !s.IsDelete && s.Id == id);
 
             schedule.IsDelete = true;
             schedule.LastModified = DateTime.Now;
 
-            _context.Schedule.Update(schedule);
+            _context.Schedules.Update(schedule);
             _context.SaveChanges();
             return true;
         }

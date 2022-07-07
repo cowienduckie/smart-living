@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using SmartLiving.Domain.Entities;
 using SmartLiving.Domain.RepositoryInterfaces;
 
@@ -21,22 +23,22 @@ namespace SmartLiving.Data.Repositories
 
         public bool IsExist(int id)
         {
-            return _context.Area.Any(a => !a.IsDelete && a.Id == id);
+            return _context.Areas.Any(a => !a.IsDelete && a.Id == id);
         }
 
         public IEnumerable<Area> GetAll()
         {
-            return _context.Area.Where(a => !a.IsDelete).AsNoTracking().ToList();
+            return _context.Areas.Where(a => !a.IsDelete).AsNoTracking().ToList();
         }
 
         public Area GetById(int id)
         {
-            return _context.Area.FirstOrDefault(a => !a.IsDelete && a.Id == id);
+            return _context.Areas.FirstOrDefault(a => !a.IsDelete && a.Id == id);
         }
 
         public Area Create(Area entity)
         {
-            _context.Area.Add(entity);
+            _context.Areas.Add(entity);
             _context.SaveChanges();
             return entity;
         }
@@ -47,7 +49,7 @@ namespace SmartLiving.Data.Repositories
 
             entity.LastModified = DateTime.Now;
 
-            _context.Area.Update(entity);
+            _context.Areas.Update(entity);
             _context.SaveChanges();
             return true;
         }
@@ -56,12 +58,12 @@ namespace SmartLiving.Data.Repositories
         {
             if (!IsExist(id)) return false;
 
-            var area = _context.Categories.First(a => !a.IsDelete && a.Id == id);
+            var area = _context.Areas.First(a => !a.IsDelete && a.Id == id);
 
             area.IsDelete = true;
             area.LastModified = DateTime.Now;
 
-            _context.Area.Update(area);
+            _context.Areas.Update(area);
             _context.SaveChanges();
             return true;
         }

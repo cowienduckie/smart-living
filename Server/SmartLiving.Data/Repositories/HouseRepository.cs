@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using SmartLiving.Domain.Entities;
 using SmartLiving.Domain.RepositoryInterfaces;
 
@@ -21,22 +23,22 @@ namespace SmartLiving.Data.Repositories
 
         public bool IsExist(int id)
         {
-            return _context.House.Any(h => !h.IsDelete && h.Id == id);
+            return _context.Houses.Any(h => !h.IsDelete && h.Id == id);
         }
 
         public IEnumerable<House> GetAll()
         {
-            return _context.House.Where(h => !h.IsDelete).AsNoTracking().ToList();
+            return _context.Houses.Where(h => !h.IsDelete).AsNoTracking().ToList();
         }
 
         public House GetById(int id)
         {
-            return _context.House.FirstOrDefault(h => !h.IsDelete && h.Id == id);
+            return _context.Houses.FirstOrDefault(h => !h.IsDelete && h.Id == id);
         }
 
         public House Create(House entity)
         {
-            _context.House.Add(entity);
+            _context.Houses.Add(entity);
             _context.SaveChanges();
             return entity;
         }
@@ -47,7 +49,7 @@ namespace SmartLiving.Data.Repositories
 
             entity.LastModified = DateTime.Now;
 
-            _context.House.Update(entity);
+            _context.Houses.Update(entity);
             _context.SaveChanges();
             return true;
         }
@@ -56,12 +58,12 @@ namespace SmartLiving.Data.Repositories
         {
             if (!IsExist(id)) return false;
 
-            var house = _context.Categories.First(h => !h.IsDelete && h.Id == id);
+            var house = _context.Houses.First(h => !h.IsDelete && h.Id == id);
 
             house.IsDelete = true;
             house.LastModified = DateTime.Now;
 
-            _context.House.Update(house);
+            _context.Houses.Update(house);
             _context.SaveChanges();
             return true;
         }

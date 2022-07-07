@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using SmartLiving.Domain.Entities;
 using SmartLiving.Domain.RepositoryInterfaces;
 
@@ -21,22 +23,22 @@ namespace SmartLiving.Data.Repositories
 
         public bool IsExist(int id)
         {
-            return _context.Command.Any(c => !c.IsDelete && c.Id == id);
+            return _context.Commands.Any(c => !c.IsDelete && c.Id == id);
         }
 
         public IEnumerable<Command> GetAll()
         {
-            return _context.Command.Where(c => !c.IsDelete).AsNoTracking().ToList();
+            return _context.Commands.Where(c => !c.IsDelete).AsNoTracking().ToList();
         }
 
         public Command GetById(int id)
         {
-            return _context.Command.FirstOrDefault(c => !c.IsDelete && c.Id == id);
+            return _context.Commands.FirstOrDefault(c => !c.IsDelete && c.Id == id);
         }
 
         public Command Create(Command entity)
         {
-            _context.Command.Add(entity);
+            _context.Commands.Add(entity);
             _context.SaveChanges();
             return entity;
         }
@@ -47,7 +49,7 @@ namespace SmartLiving.Data.Repositories
 
             entity.LastModified = DateTime.Now;
 
-            _context.Command.Update(entity);
+            _context.Commands.Update(entity);
             _context.SaveChanges();
             return true;
         }
@@ -56,12 +58,12 @@ namespace SmartLiving.Data.Repositories
         {
             if (!IsExist(id)) return false;
 
-            var command = _context.Categories.First(c => !c.IsDelete && c.Id == id);
+            var command = _context.Commands.First(c => !c.IsDelete && c.Id == id);
 
             command.IsDelete = true;
             command.LastModified = DateTime.Now;
 
-            _context.Command.Update(command);
+            _context.Commands.Update(command);
             _context.SaveChanges();
             return true;
         }
