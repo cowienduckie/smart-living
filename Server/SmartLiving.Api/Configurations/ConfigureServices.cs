@@ -23,6 +23,9 @@ namespace SmartLiving.Api.Configurations
             services.AddScoped<ICommandRepository, CommandRepository>();
             services.AddScoped<IProfileRepository, ProfileRepository>();
             services.AddScoped<IScheduleRepository, ScheduleRepository>();
+            services.AddScoped<ICommandTypeRepository, CommandTypeRepository>();
+            services.AddScoped<IDeviceTypeRepository, DeviceTypeRepository>();
+            services.AddScoped<IHouseTypeRepository, HouseTypeRepository>();
         }
 
         public static void ConfigureSupervisor(this IServiceCollection services)
