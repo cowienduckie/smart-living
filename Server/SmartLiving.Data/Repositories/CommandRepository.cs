@@ -26,24 +26,26 @@ namespace SmartLiving.Data.Repositories
             return _context.Commands.Any(c => !c.IsDelete && c.Id == id);
         }
 
-        public IEnumerable<Command> GetAll()
+        public IEnumerable<Command> GetAll(string userId)
         {
-            return _context.Commands.Where(c => !c.IsDelete).AsNoTracking().ToList();
+            return _context.Commands.Where(c => !c.IsDelete && c.UserId == userId).AsNoTracking().ToList();
         }
 
-        public Command GetById(int id)
+        public Command GetById(int id, string userId)
         {
-            return _context.Commands.FirstOrDefault(c => !c.IsDelete && c.Id == id);
+            return _context.Commands.FirstOrDefault(c => !c.IsDelete && c.Id == id && c.UserId == userId);
         }
 
-        public Command Create(Command entity)
+        public Command Create(Command entity, string userId)
         {
+            entity.UserId = userId;
+
             _context.Commands.Add(entity);
             _context.SaveChanges();
             return entity;
         }
 
-        public bool Update(Command entity)
+        public bool Update(Command entity, string userId)
         {
             if (!IsExist(entity.Id)) return false;
 
@@ -54,11 +56,11 @@ namespace SmartLiving.Data.Repositories
             return true;
         }
 
-        public bool Delete(int id)
+        public bool Delete(int id, string userId)
         {
             if (!IsExist(id)) return false;
 
-            var command = _context.Commands.First(c => !c.IsDelete && c.Id == id);
+            var command = _context.Commands.First(c => !c.IsDelete && c.Id == id && c.UserId == userId);
 
             command.IsDelete = true;
             command.LastModified = DateTime.Now;

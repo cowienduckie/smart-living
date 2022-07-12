@@ -7,10 +7,10 @@ namespace SmartLiving.Domain.Supervisors.Interfaces
 {
     public partial interface ISupervisor
     {
-        IEnumerable<DeviceGetDto> GetAllDevices();
-        DeviceGetDto GetDeviceById(int id);
-        DeviceGetDto CreateDevice(DeviceGetDto newModel);
-        bool UpdateDevice(DeviceGetDto updateModel);
-        bool DeleteDevice(int id);
+        IEnumerable<DeviceGetDto> GetAllDevices(string userId);
+        DeviceGetDto GetDeviceById(int id, string userId);
+        DeviceGetDto CreateDevice(DeviceGetDto newModel, string userId);
+        bool UpdateDevice(DeviceGetDto updateModel, string userId);
+        bool DeleteDevice(int id, string userId);
     }
 }

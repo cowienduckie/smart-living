@@ -26,24 +26,24 @@ namespace SmartLiving.Data.Repositories
             return _context.Areas.Any(a => !a.IsDelete && a.Id == id);
         }
 
-        public IEnumerable<Area> GetAll()
+        public IEnumerable<Area> GetAll(string userId)
         {
-            return _context.Areas.Where(a => !a.IsDelete).AsNoTracking().ToList();
+            return _context.Areas.Where(a => !a.IsDelete && a.House.UserId == userId).AsNoTracking().ToList();
         }
 
-        public Area GetById(int id)
+        public Area GetById(int id, string userId)
         {
-            return _context.Areas.FirstOrDefault(a => !a.IsDelete && a.Id == id);
+            return _context.Areas.FirstOrDefault(a => !a.IsDelete && a.Id == id && a.House.UserId == userId);
         }
 
-        public Area Create(Area entity)
+        public Area Create(Area entity, string userId)
         {
             _context.Areas.Add(entity);
             _context.SaveChanges();
             return entity;
         }
 
-        public bool Update(Area entity)
+        public bool Update(Area entity, string userId)
         {
             if (!IsExist(entity.Id)) return false;
 
@@ -54,11 +54,11 @@ namespace SmartLiving.Data.Repositories
             return true;
         }
 
-        public bool Delete(int id)
+        public bool Delete(int id, string userId)
         {
             if (!IsExist(id)) return false;
 
-            var area = _context.Areas.First(a => !a.IsDelete && a.Id == id);
+            var area = _context.Areas.First(a => !a.IsDelete && a.Id == id && a.House.UserId == userId);
 
             area.IsDelete = true;
             area.LastModified = DateTime.Now;

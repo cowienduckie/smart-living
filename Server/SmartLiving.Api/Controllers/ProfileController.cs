@@ -32,7 +32,7 @@ namespace SmartLiving.Api.Controllers
         {
             try
             {
-                var allItems = _supervisor.GetAllProfiles();
+                var allItems = _supervisor.GetAllProfiles(CurrentUser.Id);
 
                 if (allItems.Any())
                     return Ok(allItems);
@@ -50,7 +50,7 @@ namespace SmartLiving.Api.Controllers
         {
             try
             {
-                var profilePagedList = _supervisor.GetPagedList<ProfileGetDto>(_supervisor.GetAllProfiles().ToList() ,pageIndex, pageSize);
+                var profilePagedList = _supervisor.GetPagedList<ProfileGetDto>(_supervisor.GetAllProfiles(CurrentUser.Id).ToList() ,pageIndex, pageSize);
 
                 if (profilePagedList.Any())
                     return Ok(profilePagedList);
@@ -68,7 +68,7 @@ namespace SmartLiving.Api.Controllers
         {
             try
             {
-                var profile = _supervisor.GetProfileById(id);
+                var profile = _supervisor.GetProfileById(id, CurrentUser.Id);
 
                 if (profile != null)
                     return Ok(profile);
@@ -88,7 +88,7 @@ namespace SmartLiving.Api.Controllers
             {
                 if (model == null || !ModelState.IsValid) return BadRequest();
 
-                model = _supervisor.CreateProfile(model);
+                model = _supervisor.CreateProfile(model, CurrentUser.Id);
 
                 return CreatedAtRoute(nameof(GetProfileById), new {id = model.Id}, model);
             }
@@ -106,11 +106,11 @@ namespace SmartLiving.Api.Controllers
             {
                 if (model == null || !ModelState.IsValid) return BadRequest();
 
-                if (_supervisor.GetProfileById(id) == null) return NotFound();
+                if (_supervisor.GetProfileById(id, CurrentUser.Id) == null) return NotFound();
 
                 model.Id = id;
 
-                return _supervisor.UpdateProfile(model) ? NoContent() : StatusCode(500);
+                return _supervisor.UpdateProfile(model, CurrentUser.Id) ? NoContent() : StatusCode(500);
             }
             catch (Exception e)
             {
@@ -124,19 +124,19 @@ namespace SmartLiving.Api.Controllers
         {
             try
             {
-                var model = _supervisor.GetProfileById(id);
+                var model = _supervisor.GetProfileById(id, CurrentUser.Id);
                 if (model == null) return NotFound();
 
                 patchDoc.ApplyTo(model, ModelState);
 
-                if (!TryValidateModel(model))
+                if (!TryValidateModel(model, CurrentUser.Id))
                 {
                     return ValidationProblem(ModelState);
                 }
 
                 model.Id = id;
 
-                return _supervisor.UpdateProfile(model) ? NoContent() : StatusCode(500);
+                return _supervisor.UpdateProfile(model, CurrentUser.Id) ? NoContent() : StatusCode(500);
             }
             catch (Exception e)
             {
@@ -150,9 +150,9 @@ namespace SmartLiving.Api.Controllers
         {
             try
             {
-                if (_supervisor.GetProfileById(id) == null) return NotFound();
+                if (_supervisor.GetProfileById(id, CurrentUser.Id) == null) return NotFound();
 
-                return _supervisor.DeleteProfile(id) ? NoContent() : StatusCode(500);
+                return _supervisor.DeleteProfile(id, CurrentUser.Id) ? NoContent() : StatusCode(500);
             }
             catch (Exception e)
             {

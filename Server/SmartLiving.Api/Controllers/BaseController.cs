@@ -1,10 +1,13 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
+using SmartLiving.Domain.Entities;
 
 namespace SmartLiving.Api.Controllers
 {
     public class BaseController : ControllerBase
     {
+        protected User CurrentUser => (User)HttpContext.Items["User"];
+
         protected ActionResult HandleException(Exception e)
         {
             Console.WriteLine(e);

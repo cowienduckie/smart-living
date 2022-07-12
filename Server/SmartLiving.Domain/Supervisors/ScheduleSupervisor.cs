@@ -9,51 +9,53 @@ namespace SmartLiving.Domain.Supervisors
 {
     public partial class Supervisor
     {
-        public IEnumerable<ScheduleGetDto> GetAllSchedules()
+        public IEnumerable<ScheduleGetDto> GetAllSchedules(string userId)
         {
-            var allItems = _mapper.Map<IEnumerable<ScheduleGetDto>>(_scheduleRepository.GetAll()).ToList();
-            allItems.ForEach(item => SetCache(item.Id, item));
+            var allItems = _mapper.Map<IEnumerable<ScheduleGetDto>>(_scheduleRepository.GetAll(userId)).ToList();
+            allItems.ForEach(item => SetCache(item.Id, item, userId));
 
             return allItems;
         }
 
-        public ScheduleGetDto GetScheduleById(int id)
+        public ScheduleGetDto GetScheduleById(int id, string userId)
         {
-            var item = GetCache<ScheduleGetDto>(id);
+            var item = GetCache<ScheduleGetDto>(id, userId);
             if (item != null)
             {
                 return item;
             }
-            item = _mapper.Map<ScheduleGetDto>(_scheduleRepository.GetById(id));
-            SetCache(item.Id, item);
+            item = _mapper.Map<ScheduleGetDto>(_scheduleRepository.GetById(id, userId));
+            
+            if(item != null)
+                SetCache(item.Id, item, userId);
 
             return item;
         }
 
-        public ScheduleGetDto CreateSchedule(ScheduleGetDto newModel)
+        public ScheduleGetDto CreateSchedule(ScheduleGetDto newModel, string userId)
         {
             var item = _mapper.Map<Schedule>(newModel);
-            item = _scheduleRepository.Create(item);
+            item = _scheduleRepository.Create(item, userId);
             newModel.Id = item.Id;
 
             return newModel;
         }
 
-        public bool UpdateSchedule(ScheduleGetDto updateModel)
+        public bool UpdateSchedule(ScheduleGetDto updateModel, string userId)
         {
-            var item = _scheduleRepository.GetById(updateModel.Id);
+            var item = _scheduleRepository.GetById(updateModel.Id, userId);
             if (item == null)
             {
                 return false;
             }
             _mapper.Map(updateModel, item);
 
-            return _scheduleRepository.Update(item);
+            return _scheduleRepository.Update(item, userId);
         }
 
-        public bool DeleteSchedule(int id)
+        public bool DeleteSchedule(int id, string userId)
         {
-            return _scheduleRepository.Delete(id);
+            return _scheduleRepository.Delete(id, userId);
         }
     }
 }

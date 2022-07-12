@@ -9,51 +9,53 @@ namespace SmartLiving.Domain.Supervisors
 {
     public partial class Supervisor
     {
-        public IEnumerable<CommandTypeGetDto> GetAllCommandTypes()
+        public IEnumerable<CommandTypeGetDto> GetAllCommandTypes(string userId)
         {
-            var allItems = _mapper.Map<IEnumerable<CommandTypeGetDto>>(_commandTypeRepository.GetAll()).ToList();
-            allItems.ForEach(item => SetCache(item.Id, item));
+            var allItems = _mapper.Map<IEnumerable<CommandTypeGetDto>>(_commandTypeRepository.GetAll(userId)).ToList();
+            allItems.ForEach(item => SetCache(item.Id, item, userId));
 
             return allItems;
         }
 
-        public CommandTypeGetDto GetCommandTypeById(int id)
+        public CommandTypeGetDto GetCommandTypeById(int id, string userId)
         {
-            var item = GetCache<CommandTypeGetDto>(id);
+            var item = GetCache<CommandTypeGetDto>(id, userId);
             if (item != null)
             {
                 return item;
             }
-            item = _mapper.Map<CommandTypeGetDto>(_commandTypeRepository.GetById(id));
-            SetCache(item.Id, item);
+            item = _mapper.Map<CommandTypeGetDto>(_commandTypeRepository.GetById(id, userId));
+            
+            if(item != null)
+                SetCache(item.Id, item, userId);
 
             return item;
         }
 
-        public CommandTypeGetDto CreateCommandType(CommandTypeGetDto newModel)
+        public CommandTypeGetDto CreateCommandType(CommandTypeGetDto newModel, string userId)
         {
             var item = _mapper.Map<CommandType>(newModel);
-            item = _commandTypeRepository.Create(item);
+            item = _commandTypeRepository.Create(item, userId);
             newModel.Id = item.Id;
 
             return newModel;
         }
 
-        public bool UpdateCommandType(CommandTypeGetDto updateModel)
+        public bool UpdateCommandType(CommandTypeGetDto updateModel, string userId)
         {
-            var item = _commandTypeRepository.GetById(updateModel.Id);
+            var item = _commandTypeRepository.GetById(updateModel.Id, userId);
             if (item == null)
             {
                 return false;
             }
             _mapper.Map(updateModel, item);
 
-            return _commandTypeRepository.Update(item);
+            return _commandTypeRepository.Update(item, userId);
         }
 
-        public bool DeleteCommandType(int id)
+        public bool DeleteCommandType(int id, string userId)
         {
-            return _commandTypeRepository.Delete(id);
+            return _commandTypeRepository.Delete(id, userId);
         }
     }
 }

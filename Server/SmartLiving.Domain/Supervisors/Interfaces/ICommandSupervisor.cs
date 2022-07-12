@@ -5,10 +5,10 @@ namespace SmartLiving.Domain.Supervisors.Interfaces
 {
     public partial interface ISupervisor
     {
-        IEnumerable<CommandGetDto> GetAllCommands();
-        CommandGetDto GetCommandById(int id);
-        CommandGetDto CreateCommand(CommandGetDto newModel);
-        bool UpdateCommand(CommandGetDto updateModel);
-        bool DeleteCommand(int id);
+        IEnumerable<CommandGetDto> GetAllCommands(string userId);
+        CommandGetDto GetCommandById(int id, string userId);
+        CommandGetDto CreateCommand(CommandGetDto newModel, string userId);
+        bool UpdateCommand(CommandGetDto updateModel, string userId);
+        bool DeleteCommand(int id, string userId);
     }
 }

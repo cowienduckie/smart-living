@@ -32,7 +32,7 @@ namespace SmartLiving.Api.Controllers
         {
             try
             {
-                var allItems = _supervisor.GetAllDevices();
+                var allItems = _supervisor.GetAllDevices(CurrentUser.Id);
 
                 if (allItems.Any())
                     return Ok(allItems);
@@ -50,7 +50,7 @@ namespace SmartLiving.Api.Controllers
         {
             try
             {
-                var devicePagedList = _supervisor.GetPagedList<DeviceGetDto>(_supervisor.GetAllDevices().ToList() ,pageIndex, pageSize);
+                var devicePagedList = _supervisor.GetPagedList<DeviceGetDto>(_supervisor.GetAllDevices(CurrentUser.Id).ToList() ,pageIndex, pageSize);
 
                 if (devicePagedList.Any())
                     return Ok(devicePagedList);
@@ -68,7 +68,7 @@ namespace SmartLiving.Api.Controllers
         {
             try
             {
-                var device = _supervisor.GetDeviceById(id);
+                var device = _supervisor.GetDeviceById(id, CurrentUser.Id);
 
                 if (device != null)
                     return Ok(device);
@@ -88,7 +88,7 @@ namespace SmartLiving.Api.Controllers
             {
                 if (model == null || !ModelState.IsValid) return BadRequest();
 
-                model = _supervisor.CreateDevice(model);
+                model = _supervisor.CreateDevice(model, CurrentUser.Id);
 
                 return CreatedAtRoute(nameof(GetDeviceById), new {id = model.Id}, model);
             }
@@ -106,11 +106,11 @@ namespace SmartLiving.Api.Controllers
             {
                 if (model == null || !ModelState.IsValid) return BadRequest();
 
-                if (_supervisor.GetDeviceById(id) == null) return NotFound();
+                if (_supervisor.GetDeviceById(id, CurrentUser.Id) == null) return NotFound();
 
                 model.Id = id;
 
-                return _supervisor.UpdateDevice(model) ? NoContent() : StatusCode(500);
+                return _supervisor.UpdateDevice(model, CurrentUser.Id) ? NoContent() : StatusCode(500);
             }
             catch (Exception e)
             {
@@ -124,19 +124,19 @@ namespace SmartLiving.Api.Controllers
         {
             try
             {
-                var model = _supervisor.GetDeviceById(id);
+                var model = _supervisor.GetDeviceById(id, CurrentUser.Id);
                 if (model == null) return NotFound();
 
                 patchDoc.ApplyTo(model, ModelState);
 
-                if (!TryValidateModel(model))
+                if (!TryValidateModel(model, CurrentUser.Id))
                 {
                     return ValidationProblem(ModelState);
                 }
 
                 model.Id = id;
 
-                return _supervisor.UpdateDevice(model) ? NoContent() : StatusCode(500);
+                return _supervisor.UpdateDevice(model, CurrentUser.Id) ? NoContent() : StatusCode(500);
             }
             catch (Exception e)
             {
@@ -150,9 +150,9 @@ namespace SmartLiving.Api.Controllers
         {
             try
             {
-                if (_supervisor.GetDeviceById(id) == null) return NotFound();
+                if (_supervisor.GetDeviceById(id, CurrentUser.Id) == null) return NotFound();
 
-                return _supervisor.DeleteDevice(id) ? NoContent() : StatusCode(500);
+                return _supervisor.DeleteDevice(id, CurrentUser.Id) ? NoContent() : StatusCode(500);
             }
             catch (Exception e)
             {

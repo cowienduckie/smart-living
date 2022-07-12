@@ -31,7 +31,7 @@ namespace SmartLiving.Api.Controllers
         {
             try
             {
-                var allItems = _supervisor.GetAllHouses();
+                var allItems = _supervisor.GetAllHouses(CurrentUser.Id);
 
                 if (allItems.Any())
                     return Ok(allItems);
@@ -49,7 +49,7 @@ namespace SmartLiving.Api.Controllers
         {
             try
             {
-                var housePagedList = _supervisor.GetPagedList(_supervisor.GetAllHouses().ToList() ,pageIndex, pageSize);
+                var housePagedList = _supervisor.GetPagedList(_supervisor.GetAllHouses(CurrentUser.Id).ToList() ,pageIndex, pageSize);
 
                 if (housePagedList.Any())
                     return Ok(housePagedList);
@@ -67,7 +67,7 @@ namespace SmartLiving.Api.Controllers
         {
             try
             {
-                var house = _supervisor.GetHouseById(id);
+                var house = _supervisor.GetHouseById(id, CurrentUser.Id);
 
                 if (house != null)
                     return Ok(house);
@@ -87,7 +87,7 @@ namespace SmartLiving.Api.Controllers
             {
                 if (model == null || !ModelState.IsValid) return BadRequest();
 
-                model = _supervisor.CreateHouse(model);
+                model = _supervisor.CreateHouse(model, CurrentUser.Id);
 
                 return CreatedAtRoute(nameof(GetHouseById), new {id = model.Id}, model);
             }
@@ -105,11 +105,11 @@ namespace SmartLiving.Api.Controllers
             {
                 if (model == null || !ModelState.IsValid) return BadRequest();
 
-                if (_supervisor.GetHouseById(id) == null) return NotFound();
+                if (_supervisor.GetHouseById(id, CurrentUser.Id) == null) return NotFound();
 
                 model.Id = id;
 
-                return _supervisor.UpdateHouse(model) ? NoContent() : StatusCode(500);
+                return _supervisor.UpdateHouse(model, CurrentUser.Id) ? NoContent() : StatusCode(500);
             }
             catch (Exception e)
             {
@@ -123,19 +123,19 @@ namespace SmartLiving.Api.Controllers
         {
             try
             {
-                var model = _supervisor.GetHouseById(id);
+                var model = _supervisor.GetHouseById(id, CurrentUser.Id);
                 if (model == null) return NotFound();
 
                 patchDoc.ApplyTo(model, ModelState);
 
-                if (!TryValidateModel(model))
+                if (!TryValidateModel(model, CurrentUser.Id))
                 {
                     return ValidationProblem(ModelState);
                 }
 
                 model.Id = id;
 
-                return _supervisor.UpdateHouse(model) ? NoContent() : StatusCode(500);
+                return _supervisor.UpdateHouse(model, CurrentUser.Id) ? NoContent() : StatusCode(500);
             }
             catch (Exception e)
             {
@@ -149,9 +149,9 @@ namespace SmartLiving.Api.Controllers
         {
             try
             {
-                if (_supervisor.GetHouseById(id) == null) return NotFound();
+                if (_supervisor.GetHouseById(id, CurrentUser.Id) == null) return NotFound();
 
-                return _supervisor.DeleteHouse(id) ? NoContent() : StatusCode(500);
+                return _supervisor.DeleteHouse(id, CurrentUser.Id) ? NoContent() : StatusCode(500);
             }
             catch (Exception e)
             {

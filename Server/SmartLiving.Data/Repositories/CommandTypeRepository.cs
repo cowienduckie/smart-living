@@ -26,24 +26,24 @@ namespace SmartLiving.Data.Repositories
             return _context.CommandTypes.Any(c => !c.IsDelete && c.Id == id);
         }
 
-        public IEnumerable<CommandType> GetAll()
+        public IEnumerable<CommandType> GetAll(string userId)
         {
             return _context.CommandTypes.Where(c => !c.IsDelete).AsNoTracking().ToList();
         }
 
-        public CommandType GetById(int id)
+        public CommandType GetById(int id, string userId)
         {
             return _context.CommandTypes.FirstOrDefault(c => !c.IsDelete && c.Id == id);
         }
 
-        public CommandType Create(CommandType entity)
+        public CommandType Create(CommandType entity, string userId)
         {
             _context.CommandTypes.Add(entity);
             _context.SaveChanges();
             return entity;
         }
 
-        public bool Update(CommandType entity)
+        public bool Update(CommandType entity, string userId)
         {
             if (!IsExist(entity.Id)) return false;
 
@@ -54,7 +54,7 @@ namespace SmartLiving.Data.Repositories
             return true;
         }
 
-        public bool Delete(int id)
+        public bool Delete(int id, string userId)
         {
             if (!IsExist(id)) return false;
 

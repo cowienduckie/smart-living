@@ -5,10 +5,10 @@ namespace SmartLiving.Domain.Supervisors.Interfaces
 {
     public partial interface ISupervisor
     {
-        IEnumerable<HouseTypeGetDto> GetAllHouseTypes();
-        HouseTypeGetDto GetHouseTypeById(int id);
-        HouseTypeGetDto CreateHouseType(HouseTypeGetDto newModel);
-        bool UpdateHouseType(HouseTypeGetDto updateModel);
-        bool DeleteHouseType(int id);
+        IEnumerable<HouseTypeGetDto> GetAllHouseTypes(string userId);
+        HouseTypeGetDto GetHouseTypeById(int id, string userId);
+        HouseTypeGetDto CreateHouseType(HouseTypeGetDto newModel, string userId);
+        bool UpdateHouseType(HouseTypeGetDto updateModel, string userId);
+        bool DeleteHouseType(int id, string userId);
     }
 }

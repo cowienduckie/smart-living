@@ -7,14 +7,14 @@ namespace SmartLiving.Domain.RepositoryInterfaces
     {
         bool IsExist(int id);
 
-        IEnumerable<TEntity> GetAll();
+        IEnumerable<TEntity> GetAll(string userId);
 
-        TEntity GetById(int id);
+        TEntity GetById(int id, string userId);
 
-        TEntity Create(TEntity entity);
+        TEntity Create(TEntity entity, string userId);
 
-        bool Update(TEntity entity);
+        bool Update(TEntity entity, string userId);
 
-        bool Delete(int id);
+        bool Delete(int id, string userId);
     }
 }

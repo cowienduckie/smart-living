@@ -52,17 +52,17 @@ namespace SmartLiving.Domain.Supervisors
         }
 
         #region Shared Methods
-        private void SetCache<TEntity>(int id, TEntity product)
+        private void SetCache<TEntity>(int id, TEntity product, string userId)
         {
             var cacheEntryOptions =
                 new MemoryCacheEntryOptions().SetSlidingExpiration(
                     TimeSpan.FromSeconds(SystemConstants.CacheLifetimeSeconds));
-            _cache.Set(string.Concat(nameof(TEntity), "-", id), product, cacheEntryOptions);
+            _cache.Set(string.Concat(nameof(TEntity), "-", id) + "-" + userId, product, cacheEntryOptions);
         }
 
-        private TEntity GetCache<TEntity>(int id)
+        private TEntity GetCache<TEntity>(int id, string userId)
         {
-            return _cache.Get<TEntity>(string.Concat(nameof(TEntity), "-", id));
+            return _cache.Get<TEntity>(string.Concat(nameof(TEntity), "-", id) + "-" + userId);
         }
 
         public PagedList<TEntity> GetPagedList<TEntity>(IList<TEntity> items, int pageIndex, int pageSize)

@@ -32,7 +32,7 @@ namespace SmartLiving.Api.Controllers
         {
             try
             {
-                var allItems = _supervisor.GetAllSchedules();
+                var allItems = _supervisor.GetAllSchedules(CurrentUser.Id);
 
                 if (allItems.Any())
                     return Ok(allItems);
@@ -50,7 +50,7 @@ namespace SmartLiving.Api.Controllers
         {
             try
             {
-                var schedulePagedList = _supervisor.GetPagedList<ScheduleGetDto>(_supervisor.GetAllSchedules().ToList() ,pageIndex, pageSize);
+                var schedulePagedList = _supervisor.GetPagedList<ScheduleGetDto>(_supervisor.GetAllSchedules(CurrentUser.Id).ToList() ,pageIndex, pageSize);
 
                 if (schedulePagedList.Any())
                     return Ok(schedulePagedList);
@@ -63,12 +63,12 @@ namespace SmartLiving.Api.Controllers
         }
 
         //GET: api/Schedule/{id}
-        [HttpGet("{id}", Name = "GetScheduleById")]
+        [HttpGet("[action]/{id}")]
         public ActionResult<ScheduleGetDto> GetScheduleById(int id)
         {
             try
             {
-                var schedule = _supervisor.GetScheduleById(id);
+                var schedule = _supervisor.GetScheduleById(id, CurrentUser.Id);
 
                 if (schedule != null)
                     return Ok(schedule);
@@ -81,14 +81,14 @@ namespace SmartLiving.Api.Controllers
         }
 
         //POST: api/Schedule
-        [HttpPost]
+        [HttpPost("[action]")]
         public ActionResult<ScheduleGetDto> CreateSchedule([FromBody] ScheduleGetDto model)
         {
             try
             {
                 if (model == null || !ModelState.IsValid) return BadRequest();
 
-                model = _supervisor.CreateSchedule(model);
+                model = _supervisor.CreateSchedule(model, CurrentUser.Id);
 
                 return CreatedAtRoute(nameof(GetScheduleById), new {id = model.Id}, model);
             }
@@ -99,18 +99,18 @@ namespace SmartLiving.Api.Controllers
         }
 
         //PUT: api/Schedule/{id}
-        [HttpPut("{id}")]
+        [HttpPut("[action]/{id}")]
         public ActionResult<ScheduleGetDto> UpdateSchedule(int id, [FromBody] ScheduleGetDto model)
         {
             try
             {
                 if (model == null || !ModelState.IsValid) return BadRequest();
 
-                if (_supervisor.GetScheduleById(id) == null) return NotFound();
+                if (_supervisor.GetScheduleById(id, CurrentUser.Id) == null) return NotFound();
 
                 model.Id = id;
 
-                return _supervisor.UpdateSchedule(model) ? NoContent() : StatusCode(500);
+                return _supervisor.UpdateSchedule(model, CurrentUser.Id) ? NoContent() : StatusCode(500);
             }
             catch (Exception e)
             {
@@ -119,24 +119,24 @@ namespace SmartLiving.Api.Controllers
         }
 
         //PATCH: api/Schedule/{id}
-        [HttpPatch("{id}")]
+        [HttpPatch("[action]/{id}")]
         public ActionResult PartialUpdateSchedule(int id, [FromBody] JsonPatchDocument<ScheduleGetDto> patchDoc)
         {
             try
             {
-                var model = _supervisor.GetScheduleById(id);
+                var model = _supervisor.GetScheduleById(id, CurrentUser.Id);
                 if (model == null) return NotFound();
 
                 patchDoc.ApplyTo(model, ModelState);
 
-                if (!TryValidateModel(model))
+                if (!TryValidateModel(model, CurrentUser.Id))
                 {
                     return ValidationProblem(ModelState);
                 }
 
                 model.Id = id;
 
-                return _supervisor.UpdateSchedule(model) ? NoContent() : StatusCode(500);
+                return _supervisor.UpdateSchedule(model, CurrentUser.Id) ? NoContent() : StatusCode(500);
             }
             catch (Exception e)
             {
@@ -145,14 +145,14 @@ namespace SmartLiving.Api.Controllers
         }
 
         //DELETE: api/Schedule/id
-        [HttpDelete("{id}")]
+        [HttpDelete("[action]/{id}")]
         public ActionResult DeleteSchedule(int id)
         {
             try
             {
-                if (_supervisor.GetScheduleById(id) == null) return NotFound();
+                if (_supervisor.GetScheduleById(id, CurrentUser.Id) == null) return NotFound();
 
-                return _supervisor.DeleteSchedule(id) ? NoContent() : StatusCode(500);
+                return _supervisor.DeleteSchedule(id, CurrentUser.Id) ? NoContent() : StatusCode(500);
             }
             catch (Exception e)
             {

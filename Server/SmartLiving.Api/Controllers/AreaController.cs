@@ -34,7 +34,7 @@ namespace SmartLiving.Api.Controllers
         {
             try
             {
-                var allItems = _supervisor.GetAllAreas();
+                var allItems = _supervisor.GetAllAreas(CurrentUser.Id);
 
                 if (allItems.Any())
                     return Ok(allItems);
@@ -52,7 +52,7 @@ namespace SmartLiving.Api.Controllers
         {
             try
             {
-                var areaPagedList = _supervisor.GetPagedList<AreaGetDto>(_supervisor.GetAllAreas().ToList() ,pageIndex, pageSize);
+                var areaPagedList = _supervisor.GetPagedList<AreaGetDto>(_supervisor.GetAllAreas(CurrentUser.Id).ToList() ,pageIndex, pageSize);
 
                 if (areaPagedList.Any())
                     return Ok(areaPagedList);
@@ -70,7 +70,7 @@ namespace SmartLiving.Api.Controllers
         {
             try
             {
-                var area = _supervisor.GetAreaById(id);
+                var area = _supervisor.GetAreaById(id, CurrentUser.Id);
 
                 if (area != null)
                     return Ok(area);
@@ -90,7 +90,7 @@ namespace SmartLiving.Api.Controllers
             {
                 if (model == null || !ModelState.IsValid) return BadRequest();
 
-                model = _supervisor.CreateArea(model);
+                model = _supervisor.CreateArea(model, CurrentUser.Id);
 
                 return CreatedAtRoute(nameof(GetAreaById), new {id = model.Id}, model);
             }
@@ -108,11 +108,11 @@ namespace SmartLiving.Api.Controllers
             {
                 if (model == null || !ModelState.IsValid) return BadRequest();
 
-                if (_supervisor.GetAreaById(id) == null) return NotFound();
+                if (_supervisor.GetAreaById(id, CurrentUser.Id) == null) return NotFound();
 
                 model.Id = id;
 
-                return _supervisor.UpdateArea(model) ? NoContent() : StatusCode(500);
+                return _supervisor.UpdateArea(model, CurrentUser.Id) ? NoContent() : StatusCode(500);
             }
             catch (Exception e)
             {
@@ -126,7 +126,7 @@ namespace SmartLiving.Api.Controllers
         {
             try
             {
-                var model = _supervisor.GetAreaById(id);
+                var model = _supervisor.GetAreaById(id, CurrentUser.Id);
                 if (model == null) return NotFound();
 
                 patchDoc.ApplyTo(model, ModelState);
@@ -138,7 +138,7 @@ namespace SmartLiving.Api.Controllers
 
                 model.Id = id;
 
-                return _supervisor.UpdateArea(model) ? NoContent() : StatusCode(500);
+                return _supervisor.UpdateArea(model, CurrentUser.Id) ? NoContent() : StatusCode(500);
             }
             catch (Exception e)
             {
@@ -152,9 +152,9 @@ namespace SmartLiving.Api.Controllers
         {
             try
             {
-                if (_supervisor.GetAreaById(id) == null) return NotFound();
+                if (_supervisor.GetAreaById(id, CurrentUser.Id) == null) return NotFound();
 
-                return _supervisor.DeleteArea(id) ? NoContent() : StatusCode(500);
+                return _supervisor.DeleteArea(id, CurrentUser.Id) ? NoContent() : StatusCode(500);
             }
             catch (Exception e)
             {

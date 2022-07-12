@@ -5,10 +5,10 @@ namespace SmartLiving.Domain.Supervisors.Interfaces
 {
     public partial interface ISupervisor
     {
-        IEnumerable<ScheduleGetDto> GetAllSchedules();
-        ScheduleGetDto GetScheduleById(int id);
-        ScheduleGetDto CreateSchedule(ScheduleGetDto newModel);
-        bool UpdateSchedule(ScheduleGetDto updateModel);
-        bool DeleteSchedule(int id);
+        IEnumerable<ScheduleGetDto> GetAllSchedules(string userId);
+        ScheduleGetDto GetScheduleById(int id, string userId);
+        ScheduleGetDto CreateSchedule(ScheduleGetDto newModel, string userId);
+        bool UpdateSchedule(ScheduleGetDto updateModel, string userId);
+        bool DeleteSchedule(int id, string userId);
     }
 }

@@ -26,24 +26,26 @@ namespace SmartLiving.Data.Repositories
             return _context.Schedules.Any(s => !s.IsDelete && s.Id == id);
         }
 
-        public IEnumerable<Schedule> GetAll()
+        public IEnumerable<Schedule> GetAll(string userId)
         {
-            return _context.Schedules.Where(s => !s.IsDelete).AsNoTracking().ToList();
+            return _context.Schedules.Where(s => !s.IsDelete && s.UserId == userId).AsNoTracking().ToList();
         }
 
-        public Schedule GetById(int id)
+        public Schedule GetById(int id, string userId)
         {
-            return _context.Schedules.FirstOrDefault(s => !s.IsDelete && s.Id == id);
+            return _context.Schedules.FirstOrDefault(s => !s.IsDelete && s.Id == id && s.UserId == userId);
         }
 
-        public Schedule Create(Schedule entity)
+        public Schedule Create(Schedule entity, string userId)
         {
+            entity.UserId = userId;
+
             _context.Schedules.Add(entity);
             _context.SaveChanges();
             return entity;
         }
 
-        public bool Update(Schedule entity)
+        public bool Update(Schedule entity, string userId)
         {
             if (!IsExist(entity.Id)) return false;
 
@@ -54,11 +56,11 @@ namespace SmartLiving.Data.Repositories
             return true;
         }
 
-        public bool Delete(int id)
+        public bool Delete(int id, string userId)
         {
             if (!IsExist(id)) return false;
 
-            var schedule = _context.Schedules.First(s => !s.IsDelete && s.Id == id);
+            var schedule = _context.Schedules.First(s => !s.IsDelete && s.Id == id && s.UserId == userId);
 
             schedule.IsDelete = true;
             schedule.LastModified = DateTime.Now;

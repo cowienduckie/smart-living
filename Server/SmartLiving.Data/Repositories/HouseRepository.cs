@@ -26,24 +26,29 @@ namespace SmartLiving.Data.Repositories
             return _context.Houses.Any(h => !h.IsDelete && h.Id == id);
         }
 
-        public IEnumerable<House> GetAll()
+        public IEnumerable<House> GetAll(string userId)
         {
-            return _context.Houses.Where(h => !h.IsDelete).AsNoTracking().ToList();
+            return _context.Houses
+                .Where(h => !h.IsDelete && h.UserId == userId)
+                .AsNoTracking()
+                .ToList();
         }
 
-        public House GetById(int id)
+        public House GetById(int id, string userId)
         {
-            return _context.Houses.FirstOrDefault(h => !h.IsDelete && h.Id == id);
+            return _context.Houses.FirstOrDefault(h => !h.IsDelete && h.Id == id && h.UserId == userId);
         }
 
-        public House Create(House entity)
+        public House Create(House entity, string userId)
         {
+            entity.UserId = userId;
+
             _context.Houses.Add(entity);
             _context.SaveChanges();
             return entity;
         }
 
-        public bool Update(House entity)
+        public bool Update(House entity, string userId)
         {
             if (!IsExist(entity.Id)) return false;
 
@@ -54,11 +59,11 @@ namespace SmartLiving.Data.Repositories
             return true;
         }
 
-        public bool Delete(int id)
+        public bool Delete(int id, string userId)
         {
             if (!IsExist(id)) return false;
 
-            var house = _context.Houses.First(h => !h.IsDelete && h.Id == id);
+            var house = _context.Houses.First(h => !h.IsDelete && h.Id == id && h.UserId == userId);
 
             house.IsDelete = true;
             house.LastModified = DateTime.Now;

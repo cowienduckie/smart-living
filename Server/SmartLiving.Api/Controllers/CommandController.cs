@@ -32,7 +32,7 @@ namespace SmartLiving.Api.Controllers
         {
             try
             {
-                var allItems = _supervisor.GetAllCommands();
+                var allItems = _supervisor.GetAllCommands(CurrentUser.Id);
 
                 if (allItems.Any())
                     return Ok(allItems);
@@ -50,7 +50,7 @@ namespace SmartLiving.Api.Controllers
         {
             try
             {
-                var commandPagedList = _supervisor.GetPagedList<CommandGetDto>(_supervisor.GetAllCommands().ToList() ,pageIndex, pageSize);
+                var commandPagedList = _supervisor.GetPagedList<CommandGetDto>(_supervisor.GetAllCommands(CurrentUser.Id).ToList() ,pageIndex, pageSize);
 
                 if (commandPagedList.Any())
                     return Ok(commandPagedList);
@@ -68,7 +68,7 @@ namespace SmartLiving.Api.Controllers
         {
             try
             {
-                var command = _supervisor.GetCommandById(id);
+                var command = _supervisor.GetCommandById(id, CurrentUser.Id);
 
                 if (command != null)
                     return Ok(command);
@@ -88,7 +88,7 @@ namespace SmartLiving.Api.Controllers
             {
                 if (model == null || !ModelState.IsValid) return BadRequest();
 
-                model = _supervisor.CreateCommand(model);
+                model = _supervisor.CreateCommand(model, CurrentUser.Id);
 
                 return CreatedAtRoute(nameof(GetCommandById), new {id = model.Id}, model);
             }
@@ -106,11 +106,11 @@ namespace SmartLiving.Api.Controllers
             {
                 if (model == null || !ModelState.IsValid) return BadRequest();
 
-                if (_supervisor.GetCommandById(id) == null) return NotFound();
+                if (_supervisor.GetCommandById(id, CurrentUser.Id) == null) return NotFound();
 
                 model.Id = id;
 
-                return _supervisor.UpdateCommand(model) ? NoContent() : StatusCode(500);
+                return _supervisor.UpdateCommand(model, CurrentUser.Id) ? NoContent() : StatusCode(500);
             }
             catch (Exception e)
             {
@@ -124,7 +124,7 @@ namespace SmartLiving.Api.Controllers
         {
             try
             {
-                var model = _supervisor.GetCommandById(id);
+                var model = _supervisor.GetCommandById(id, CurrentUser.Id);
                 if (model == null) return NotFound();
 
                 patchDoc.ApplyTo(model, ModelState);
@@ -136,7 +136,7 @@ namespace SmartLiving.Api.Controllers
 
                 model.Id = id;
 
-                return _supervisor.UpdateCommand(model) ? NoContent() : StatusCode(500);
+                return _supervisor.UpdateCommand(model, CurrentUser.Id) ? NoContent() : StatusCode(500);
             }
             catch (Exception e)
             {
@@ -150,9 +150,9 @@ namespace SmartLiving.Api.Controllers
         {
             try
             {
-                if (_supervisor.GetCommandById(id) == null) return NotFound();
+                if (_supervisor.GetCommandById(id, CurrentUser.Id) == null) return NotFound();
 
-                return _supervisor.DeleteCommand(id) ? NoContent() : StatusCode(500);
+                return _supervisor.DeleteCommand(id, CurrentUser.Id) ? NoContent() : StatusCode(500);
             }
             catch (Exception e)
             {

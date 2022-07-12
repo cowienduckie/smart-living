@@ -26,24 +26,24 @@ namespace SmartLiving.Data.Repositories
             return _context.DeviceTypes.Any(d => !d.IsDelete && d.Id == id);
         }
 
-        public IEnumerable<DeviceType> GetAll()
+        public IEnumerable<DeviceType> GetAll(string userId)
         {
             return _context.DeviceTypes.Where(d => !d.IsDelete).AsNoTracking().ToList();
         }
 
-        public DeviceType GetById(int id)
+        public DeviceType GetById(int id, string userId)
         {
             return _context.DeviceTypes.FirstOrDefault(d => !d.IsDelete && d.Id == id);
         }
 
-        public DeviceType Create(DeviceType entity)
+        public DeviceType Create(DeviceType entity, string userId)
         {
             _context.DeviceTypes.Add(entity);
             _context.SaveChanges();
             return entity;
         }
 
-        public bool Update(DeviceType entity)
+        public bool Update(DeviceType entity, string userId)
         {
             if (!IsExist(entity.Id)) return false;
 
@@ -54,7 +54,7 @@ namespace SmartLiving.Data.Repositories
             return true;
         }
 
-        public bool Delete(int id)
+        public bool Delete(int id, string userId)
         {
             if (!IsExist(id)) return false;
 

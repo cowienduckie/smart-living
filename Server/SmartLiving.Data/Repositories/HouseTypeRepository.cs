@@ -26,24 +26,24 @@ namespace SmartLiving.Data.Repositories
             return _context.HouseTypes.Any(h => !h.IsDelete && h.Id == id);
         }
 
-        public IEnumerable<HouseType> GetAll()
+        public IEnumerable<HouseType> GetAll(string userId)
         {
             return _context.HouseTypes.Where(h => !h.IsDelete).AsNoTracking().ToList();
         }
 
-        public HouseType GetById(int id)
+        public HouseType GetById(int id, string userId)
         {
             return _context.HouseTypes.FirstOrDefault(h => !h.IsDelete && h.Id == id);
         }
 
-        public HouseType Create(HouseType entity)
+        public HouseType Create(HouseType entity, string userId)
         {
             _context.HouseTypes.Add(entity);
             _context.SaveChanges();
             return entity;
         }
 
-        public bool Update(HouseType entity)
+        public bool Update(HouseType entity, string userId)
         {
             if (!IsExist(entity.Id)) return false;
 
@@ -54,7 +54,7 @@ namespace SmartLiving.Data.Repositories
             return true;
         }
 
-        public bool Delete(int id)
+        public bool Delete(int id, string userId)
         {
             if (!IsExist(id)) return false;
 

@@ -7,10 +7,10 @@ namespace SmartLiving.Domain.Supervisors.Interfaces
 {
     public partial interface ISupervisor
     {
-        IEnumerable<AreaGetDto> GetAllAreas();
-        AreaGetDto GetAreaById(int id);
-        AreaGetDto CreateArea(AreaGetDto newModel);
-        bool UpdateArea(AreaGetDto updateModel);
-        bool DeleteArea(int id);
+        IEnumerable<AreaGetDto> GetAllAreas(string userId);
+        AreaGetDto GetAreaById(int id, string userId);
+        AreaGetDto CreateArea(AreaGetDto newModel, string userId);
+        bool UpdateArea(AreaGetDto updateModel, string userId);
+        bool DeleteArea(int id, string userId);
     }
 }
