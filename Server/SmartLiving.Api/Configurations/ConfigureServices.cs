@@ -26,6 +26,7 @@ namespace SmartLiving.Api.Configurations
             services.AddScoped<ICommandTypeRepository, CommandTypeRepository>();
             services.AddScoped<IDeviceTypeRepository, DeviceTypeRepository>();
             services.AddScoped<IHouseTypeRepository, HouseTypeRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
         }
 
         public static void ConfigureSupervisor(this IServiceCollection services)
@@ -129,6 +130,7 @@ namespace SmartLiving.Api.Configurations
             services.AddControllers().AddNewtonsoftJson(s =>
             {
                 s.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                s.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
         }
     }
