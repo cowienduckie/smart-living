@@ -1,19 +1,21 @@
 ﻿using SmartLiving.DeviceMVC.BussinessLogics.Repositories.Interfaces;
 using SmartLiving.DeviceMVC.Entities.Models;
+using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace SmartLiving.DeviceMVC.BussinessLogics.Repositories
 {
-    public class DeviceRepository : IDeviceRepository
+    public class UserRepository : IUserRepository
     {
-        public List<DeviceModel> GetAll()
+        public List<UserModel> GetAll()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
-        public DeviceModel GetById()
+        public UserModel GetById()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }

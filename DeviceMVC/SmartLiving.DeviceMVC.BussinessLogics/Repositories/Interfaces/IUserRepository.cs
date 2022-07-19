@@ -1,8 +1,11 @@
 ﻿using SmartLiving.DeviceMVC.Entities.Models;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace SmartLiving.DeviceMVC.BussinessLogics.Repositories.Interfaces
 {
-    public interface IDeviceRepository : IBaseRepository<DeviceModel>
+    public interface IUserRepository : IBaseRepository<UserModel>
     {
     }
 }

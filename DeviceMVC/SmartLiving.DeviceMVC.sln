@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartLiving.DeviceMVC.WebApp", "SmartLiving.DeviceMVC\SmartLiving.DeviceMVC.WebApp.csproj", "{1EFB6832-986D-41A1-A77D-261B11903719}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartLiving.DeviceMVC", "SmartLiving.DeviceMVC\SmartLiving.DeviceMVC.csproj", "{1EFB6832-986D-41A1-A77D-261B11903719}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartLiving.DeviceMVC.BussinessLogics", "SmartLiving.DeviceMVC.BussinessLogics\SmartLiving.DeviceMVC.BussinessLogics.csproj", "{07D82DFE-6605-45BA-BF7F-3B475C107E38}"
 EndProject

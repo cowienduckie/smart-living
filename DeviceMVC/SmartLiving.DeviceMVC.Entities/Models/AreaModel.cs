@@ -1,6 +1,17 @@
-﻿namespace SmartLiving.DeviceMVC.Entities.Models
+﻿using System.Collections.Generic;
+
+namespace SmartLiving.DeviceMVC.Entities.Models
 {
     public class AreaModel
     {
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+
+        public int HouseId { get; set; }
+
+        public HouseModel House { get; set; }
+
+        public List<DeviceModel> Devices { get; set; }
     }
 }
