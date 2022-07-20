@@ -21,10 +21,28 @@ namespace SmartLiving.Data.Repositories
         {
             return _context.Users
                 .Where(u => !u.IsDelete)
-                    .Include(u => u.Houses)
-                        .ThenInclude(h => h.Devices)
                 .AsNoTracking()
                 .ToList();
+        }
+
+        public User GetById(string id)
+        {
+            return _context.Users
+                .Where(u => !u.IsDelete && u.Id == id)
+                .Include(u => u.Houses)
+                    .ThenInclude(h => h.HouseType)
+                .AsNoTracking()
+                .FirstOrDefault();
+        }
+
+        public bool IsExist(string id)
+        {
+            return _context.Users.Any(u => !u.IsDelete && u.Id == id);
+        }
+
+        public void Dispose()
+        {
+            _context.Dispose();
         }
     }
 }
