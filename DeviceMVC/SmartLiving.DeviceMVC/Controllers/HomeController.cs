@@ -9,26 +9,15 @@ namespace SmartLiving.DeviceMVC.Controllers
     public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IUserRepository _userRepository;
 
-        public HomeController(
-            ILogger<HomeController> logger,
-            IUserRepository userRepository)
+        public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            _userRepository = userRepository;
         }
 
         public IActionResult Index()
         {
-            var users = _userRepository.GetAll();
-
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
+            return RedirectToAction("Index", "User");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -49,6 +49,8 @@ namespace SmartLiving.Data.Repositories
                     .Include(d => d.DeviceType)
                     .Include(d => d.House)
                         .ThenInclude(h => h.HouseType)
+                    .Include(d => d.House)
+                        .ThenInclude(h => h.User)
                     .Include(d => d.Area)
                 .AsNoTracking()
                 .FirstOrDefault();

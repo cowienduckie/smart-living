@@ -1,1 +1,106 @@
 ﻿@model HouseModel
+@{
+    ViewData["Title"] = "House Details";
+}
+
+<br />
+<h1>HOUSE DETAILS</h1>
+<br />
+@if (Model.Id == 0)
+{
+    <a asp-action="Index" asp-controller="User">Back to User List</a>
+}
+else
+{
+    <a asp-action="Details" asp-controller="User" asp-route-id="@Model.UserId">Back to User</a>
+}
+<hr />
+<br />
+
+@if (Model.Id == 0)
+{
+    <h5 class="text-center">Not available</h5>
+}
+else
+{
+    <div class="row">
+        <div class="col-5 border-right">
+            <dl class="row">
+                <dt class="col-4">@Html.DisplayNameFor(model => model.Id)</dt>
+                <dd class="col-8">@Html.DisplayFor(model => model.Id)</dd>
+                <dt class="col-4">@Html.DisplayNameFor(model => model.Name)</dt>
+                <dd class="col-8">@Html.DisplayFor(model => model.Name)</dd>
+                <dt class="col-4">@Html.DisplayNameFor(model => model.HouseType)</dt>
+                <dd class="col-8">@Html.DisplayFor(model => model.HouseType.Name)</dd>
+                <dt class="col-4">Area Count</dt>
+                <dd class="col-8">@Html.DisplayFor(model => model.Areas.Count)</dd>
+                <dt class="col-4">Device Count</dt>
+                <dd class="col-8">@Html.DisplayFor(model => model.Devices.Count)</dd>
+            </dl>
+        </div>
+        <div class="col-7">
+            @if (Model.Areas.Count == 0)
+            {
+                <h5 class="text-center">House has no area</h5>
+            }
+            else
+            {
+                <table class="table table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="align-middle" scope="col" style="text-align: center"></th>
+                            <th class="align-middle" scope="col" style="text-align: center">@Html.DisplayNameFor(m => m.Areas[0].Id)</th>                
+                            <th class="align-middle" scope="col" style="text-align: center">@Html.DisplayNameFor(m => m.Areas[0].Name)</th>          
+                            <th class="align-middle" scope="col" style="text-align: center"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (var i = 0; i < Model.Areas.Count; ++i)
+                        {
+                            <tr>
+                                 <th scope="row" class="align-middle" style="text-align: center">@(i + 1)</th>
+                                 <td class="align-middle" align="center">@Html.DisplayFor(m => m.Areas[i].Id)</td>
+                                 <td class="align-middle">@Html.DisplayFor(m => m.Areas[i].Name)</td>
+                                 <td class="align-middle" align="center"><a asp-action="Details" asp-controller="Area" asp-route-id="@Model.Areas[i].Id">View</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>                
+            }
+            <br />
+            @if (Model.Devices.Count == 0)
+            {
+                <hr />
+                <h5 class="text-center">House has no devices</h5>
+            }
+            else
+            {
+                <table class="table table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="align-middle" scope="col" style="text-align: center"></th>
+                            <th class="align-middle" scope="col" style="text-align: center">@Html.DisplayNameFor(m => m.Devices[0].Id)</th>                
+                            <th class="align-middle" scope="col" style="text-align: center">@Html.DisplayNameFor(m => m.Devices[0].Name)</th>                                            
+                            <th class="align-middle" scope="col" style="text-align: center">@Html.DisplayNameFor(m => m.Devices[0].DeviceType)</th>
+                            <th class="align-middle" scope="col" style="text-align: center">@Html.DisplayNameFor(m => m.Devices[0].Status)</th>                            
+                            <th class="align-middle" scope="col" style="text-align: center"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (var i = 0; i < Model.Devices.Count; ++i)
+                        {
+                            <tr>
+                                 <th scope="row" class="align-middle" style="text-align: center">@(i + 1)</th>
+                                 <td class="align-middle" align="center">@Html.DisplayFor(m => m.Devices[i].Id)</td>
+                                 <td class="align-middle">@Html.DisplayFor(m => m.Devices[i].Name)</td>                                 
+                                 <td class="align-middle" align="center">@Html.DisplayFor(m => m.Devices[i].DeviceType.Name)</td>                                 
+                                 <td class="align-middle" align="center">@Html.DisplayFor(m => m.Devices[i].Status)</td>
+                                 <td class="align-middle" align="center"><a asp-action="Details" asp-controller="Device" asp-route-id="@Model.Devices[i].Id">View</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>                
+            }
+        </div>
+    </div>    
+}

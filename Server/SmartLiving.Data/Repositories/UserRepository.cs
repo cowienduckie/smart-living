@@ -21,6 +21,7 @@ namespace SmartLiving.Data.Repositories
         {
             return _context.Users
                 .Where(u => !u.IsDelete)
+                    .Include(u => u.Houses)
                 .AsNoTracking()
                 .ToList();
         }
