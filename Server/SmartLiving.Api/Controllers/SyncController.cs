@@ -20,7 +20,7 @@ namespace SmartLiving.Api.Controllers
             _supervisor = supervisor;
         }
 
-        //GET: api/User/GetAllUsers()
+        //GET: api/Sync/GetAllUsers()
         [HttpGet("[action]")]
         public ActionResult<IEnumerable<UserModel>> GetAllUsers()
         {
@@ -30,6 +30,82 @@ namespace SmartLiving.Api.Controllers
 
                 if (allItems.Any())
                     return Ok(allItems);
+                return NotFound();
+            }
+            catch (Exception e)
+            {
+                return HandleException(e);
+            }
+        }
+
+        //GET: api/Sync/GetUserById()
+        [HttpGet("[action]/{id}")]
+        public ActionResult<UserModel> GetUserById(string id)
+        {
+            try
+            {
+                var item = _supervisor.GetUserById(id);
+
+                if (item != null)
+                    return Ok(item);
+
+                return NotFound();
+            }
+            catch (Exception e)
+            {
+                return HandleException(e);
+            }
+        }
+
+        //GET: api/Sync/GetHouseById()
+        [HttpGet("[action]/{id}")]
+        public ActionResult<HouseModel> GetHouseById(int id)
+        {
+            try
+            {
+                var item = _supervisor.GetHouseById(id);
+
+                if (item != null)
+                    return Ok(item);
+
+                return NotFound();
+            }
+            catch (Exception e)
+            {
+                return HandleException(e);
+            }
+        }
+
+        //GET: api/Sync/GetAreaById()
+        [HttpGet("[action]/{id}")]
+        public ActionResult<AreaModel> GetAreaById(int id)
+        {
+            try
+            {
+                var item = _supervisor.GetAreaById(id);
+
+                if (item != null)
+                    return Ok(item);
+
+                return NotFound();
+            }
+            catch (Exception e)
+            {
+                return HandleException(e);
+            }
+        }
+
+        //GET: api/Sync/GetDeviceById()
+        [HttpGet("[action]/{id}")]
+        public ActionResult<DeviceModel> GetDeviceById(int id)
+        {
+            try
+            {
+                var item = _supervisor.GetDeviceById(id);
+
+                if (item != null)
+                    return Ok(item);
+
                 return NotFound();
             }
             catch (Exception e)
