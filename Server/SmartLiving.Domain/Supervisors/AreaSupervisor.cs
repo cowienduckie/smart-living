@@ -4,17 +4,32 @@ using System.Linq;
 using System.Text;
 using SmartLiving.Domain.DataTransferObjects;
 using SmartLiving.Domain.Entities;
+using SmartLiving.Domain.Models;
 
 namespace SmartLiving.Domain.Supervisors
 {
     public partial class Supervisor
     {
+        public IEnumerable<AreaModel> GetAllAreas()
+        {
+            var allItems = _mapper.Map<IEnumerable<AreaModel>>(_areaRepository.GetAll()).ToList();
+
+            return allItems;
+        }
+
         public IEnumerable<AreaGetDto> GetAllAreas(string userId)
         {
             var allItems = _mapper.Map<IEnumerable<AreaGetDto>>(_areaRepository.GetAll(userId)).ToList();
             allItems.ForEach(item => SetCache(item.Id, item, userId));
 
             return allItems;
+        }
+
+        public AreaModel GetAreaById(int id)
+        {
+            var item = _mapper.Map<AreaModel>(_areaRepository.GetById(id));
+
+            return item;
         }
 
         public AreaGetDto GetAreaById(int id, string userId)

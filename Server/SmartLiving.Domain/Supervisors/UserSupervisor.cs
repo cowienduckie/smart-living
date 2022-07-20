@@ -14,5 +14,12 @@ namespace SmartLiving.Domain.Supervisors
 
             return allItems;
         }
+
+        public UserModel GetUserById(string id)
+        {
+            var item = _mapper.Map<UserModel>(_userRepository.GetById(id));
+
+            return item;
+        }
     }
 }
