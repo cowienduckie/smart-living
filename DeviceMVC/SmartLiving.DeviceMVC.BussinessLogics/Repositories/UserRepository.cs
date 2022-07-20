@@ -12,11 +12,9 @@ namespace SmartLiving.DeviceMVC.BussinessLogics.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private string Url = $"{ConnectConfigs.LOCAL_API_URL}:{ConnectConfigs.LOCAL_IIS_API_PORT}";
-
-        public List<UserModel> GetAll()
+        public IEnumerable<UserModel> GetAll()
         {
-            var client = new RestClient(Url + "/api/Sync/GetAllUsers");
+            var client = new RestClient(ConnectConfigs.URL + "/api/Sync/GetAllUsers");
             var request = new RestRequest(Method.GET);
             var response = client.Execute(request);
 
@@ -30,9 +28,20 @@ namespace SmartLiving.DeviceMVC.BussinessLogics.Repositories
             return null;
         }
 
-        public UserModel GetById()
+        public UserModel GetById(string id)
         {
-            throw new NotImplementedException();
+            var client = new RestClient(ConnectConfigs.URL + $"/api/Sync/GetUserById/{id}");
+            var request = new RestRequest(Method.GET);
+            var response = client.Execute(request);
+
+            if (response.IsSuccessful)
+            {
+                var content = JsonConvert.DeserializeObject<JToken>(response.Content);
+
+                return content.ToObject<UserModel>();
+            }
+
+            return null;
         }
     }
 }

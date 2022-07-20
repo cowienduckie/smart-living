@@ -7,6 +7,6 @@ namespace SmartLiving.DeviceMVC.BussinessLogics.Repositories.Interfaces
 {
     public interface IHouseRepository : IBaseRepository<HouseModel>
     {
-        List<HouseModel> GetByUser(string userId);
+        IEnumerable<HouseModel> GetByUser(string userId);
     }
 }

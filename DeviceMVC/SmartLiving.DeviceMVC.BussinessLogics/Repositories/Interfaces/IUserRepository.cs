@@ -5,7 +5,9 @@ using System.Text;
 
 namespace SmartLiving.DeviceMVC.BussinessLogics.Repositories.Interfaces
 {
-    public interface IUserRepository : IBaseRepository<UserModel>
+    public interface IUserRepository
     {
+        IEnumerable<UserModel> GetAll();
+        UserModel GetById(string id);
     }
 }
