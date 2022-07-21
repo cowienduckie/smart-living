@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SmartLiving.DeviceMVC.Entities.Models
 {
-    public class DeviceModel
+     public class DeviceModel
     {
         public int Id { get; set; }
 
@@ -23,12 +23,16 @@ namespace SmartLiving.DeviceMVC.Entities.Models
 
          public string Params { get; set; }
 
-        public string Status { get; set; } = "{\"status\" : \"off\"}";
-
-        public DateTime? TimeActivated { get; set; }
-
-        public DateTime? TimeDeactivated { get; set; }
-
         public bool IsActive { get; set; }
+
+        public List<DeviceCommandTypeModel> DeviceCommandTypes { get; set; }
+    }
+
+    public class DeviceCommandTypeModel
+    {
+        public int DeviceId { get; set; }
+        public DeviceModel Device { get; set; }
+        public int CommandTypeId { get; set; }
+        public CommandTypeModel CommandType { get; set;}
     }
 }
