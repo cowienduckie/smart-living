@@ -81,7 +81,7 @@ namespace SmartLiving.Api.Controllers
 
         //POST: api/House
         [HttpPost]
-        public ActionResult<HouseGetDto> CreateHouse([FromBody] HouseGetDto model)
+        public ActionResult<HouseGetDto> CreateHouse([FromBody] HousePostDto model)
         {
             try
             {
@@ -99,7 +99,7 @@ namespace SmartLiving.Api.Controllers
 
         //PUT: api/House/{id}
         [HttpPut("{id}")]
-        public ActionResult<HouseGetDto> UpdateHouse(int id, [FromBody] HouseGetDto model)
+        public ActionResult<HouseGetDto> UpdateHouse(int id, [FromBody] HousePostDto model)
         {
             try
             {

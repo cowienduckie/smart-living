@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using SmartLiving.Domain.Entities;
 using SmartLiving.Domain.RepositoryInterfaces;
 
@@ -38,6 +40,10 @@ namespace SmartLiving.Data.Repositories
         {
             return _context.Devices
                 .Where(d => !d.IsDelete && d.House.UserId == userId)
+                    .Include(d => d.DeviceType)
+                    .Include(d => d.House)
+                        .ThenInclude(h => h.HouseType)
+                    .Include(d => d.Area)
                 .AsNoTracking()
                 .ToList();
         }
@@ -49,8 +55,6 @@ namespace SmartLiving.Data.Repositories
                     .Include(d => d.DeviceType)
                     .Include(d => d.House)
                         .ThenInclude(h => h.HouseType)
-                    .Include(d => d.House)
-                        .ThenInclude(h => h.User)
                     .Include(d => d.Area)
                 .AsNoTracking()
                 .FirstOrDefault();
@@ -58,18 +62,47 @@ namespace SmartLiving.Data.Repositories
 
         public Device GetById(int id, string userId)
         {
-            return _context.Devices.FirstOrDefault(d => !d.IsDelete && d.Id == id && d.House.UserId == userId);
+            return _context.Devices
+                .Where(d => !d.IsDelete && d.Id == id && d.House.UserId == userId)
+                    .Include(d => d.DeviceType)
+                    .Include(d => d.House)
+                        .ThenInclude(h => h.HouseType)
+                    .Include(d => d.Area)
+                .AsNoTracking()
+                .FirstOrDefault();
         }
 
         public Device Create(Device entity, string userId)
         {
-            _context.Devices.Add(entity);
-
             if (entity.DeviceTypeId != 0)
             {
-                entity.Params = _context.DeviceTypes.FirstOrDefault(dt => dt.Id == entity.DeviceTypeId)?.DefaultParams;
+                var deviceType = _context.DeviceTypes
+                    .Where(dt => dt.Id == entity.DeviceTypeId)
+                        .Include(dt => dt.DeviceTypeCommandTypes)
+                            .ThenInclude(dt => dt.CommandType)
+                    .FirstOrDefault();
+                if (deviceType != null)
+                {
+                    var paramJson = JObject.Parse(deviceType.DefaultParams);
+                    var controls = new JObject();
+
+                    entity.DeviceCommandTypes = new List<DeviceCommandType>();
+
+                    deviceType.DeviceTypeCommandTypes
+                        .ToList()
+                        .ForEach(dtct =>
+                        {
+                            controls.Add(Convert.ToString(dtct.CommandType.Id), JObject.Parse(dtct.CommandType.DefaultParams));
+
+                            entity.DeviceCommandTypes.Add(new DeviceCommandType {CommandType = dtct.CommandType});
+                        });
+
+                    paramJson["controls"] = controls;
+                    entity.Params = paramJson.ToString(Formatting.None);
+                }
             }
 
+            _context.Devices.Add(entity);
             _context.SaveChanges();
 
             return entity;

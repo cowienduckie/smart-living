@@ -102,7 +102,7 @@ namespace SmartLiving.Api.Controllers
 
         //POST: api/Area
         [HttpPost]
-        public ActionResult<AreaGetDto> CreateArea([FromBody] AreaGetDto model)
+        public ActionResult CreateArea([FromBody] AreaPostDto model)
         {
             try
             {
@@ -120,7 +120,7 @@ namespace SmartLiving.Api.Controllers
 
         //PUT: api/Area/{id}
         [HttpPut("{id}")]
-        public ActionResult<AreaGetDto> UpdateArea(int id, [FromBody] AreaGetDto model)
+        public ActionResult<AreaGetDto> UpdateArea(int id, [FromBody] AreaPostDto model)
         {
             try
             {

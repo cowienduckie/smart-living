@@ -47,11 +47,11 @@ namespace SmartLiving.Domain.Supervisors
             return item;
         }
 
-        public HouseGetDto CreateHouse(HouseGetDto newModel, string userId)
+        public HousePostDto CreateHouse(HousePostDto newModel, string userId)
         {
             var item = _mapper.Map<House>(newModel);
             item = _houseRepository.Create(item, userId);
-            newModel.Id = item.Id;
+            newModel = _mapper.Map<HousePostDto>(item);
 
             if(newModel != null)
                 SetCache(newModel.Id, newModel, userId);
@@ -59,7 +59,7 @@ namespace SmartLiving.Domain.Supervisors
             return newModel;
         }
 
-        public bool UpdateHouse(HouseGetDto updateModel, string userId)
+        public bool UpdateHouse(HousePostDto updateModel, string userId)
         {
             var item = _houseRepository.GetById(updateModel.Id, userId);
             if (item == null)

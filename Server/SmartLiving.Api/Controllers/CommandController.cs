@@ -98,25 +98,25 @@ namespace SmartLiving.Api.Controllers
             }
         }
 
-        //PUT: api/Command/{id}
-        [HttpPut("{id}")]
-        public ActionResult<CommandGetDto> UpdateCommand(int id, [FromBody] CommandGetDto model)
-        {
-            try
-            {
-                if (model == null || !ModelState.IsValid) return BadRequest();
+        ////PUT: api/Command/{id}
+        //[HttpPut("{id}")]
+        //public ActionResult<CommandGetDto> UpdateCommand(int id, [FromBody] CommandGetDto model)
+        //{
+        //    try
+        //    {
+        //        if (model == null || !ModelState.IsValid) return BadRequest();
 
-                if (_supervisor.GetCommandById(id, CurrentUser.Id) == null) return NotFound();
+        //        if (_supervisor.GetCommandById(id, CurrentUser.Id) == null) return NotFound();
 
-                model.Id = id;
+        //        model.Id = id;
 
-                return _supervisor.UpdateCommand(model, CurrentUser.Id) ? NoContent() : StatusCode(500);
-            }
-            catch (Exception e)
-            {
-                return HandleException(e);
-            }
-        }
+        //        return _supervisor.UpdateCommand(model, CurrentUser.Id) ? NoContent() : StatusCode(500);
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return HandleException(e);
+        //    }
+        //}
 
         ////PATCH: api/Command/{id}
         //[HttpPatch("{id}")]
@@ -144,20 +144,20 @@ namespace SmartLiving.Api.Controllers
         //    }
         //}
 
-        //DELETE: api/Command/id
-        [HttpDelete("{id}")]
-        public ActionResult DeleteCommand(int id)
-        {
-            try
-            {
-                if (_supervisor.GetCommandById(id, CurrentUser.Id) == null) return NotFound();
+        ////DELETE: api/Command/id
+        //[HttpDelete("{id}")]
+        //public ActionResult DeleteCommand(int id)
+        //{
+        //    try
+        //    {
+        //        if (_supervisor.GetCommandById(id, CurrentUser.Id) == null) return NotFound();
 
-                return _supervisor.DeleteCommand(id, CurrentUser.Id) ? NoContent() : StatusCode(500);
-            }
-            catch (Exception e)
-            {
-                return HandleException(e);
-            }
-        }
+        //        return _supervisor.DeleteCommand(id, CurrentUser.Id) ? NoContent() : StatusCode(500);
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return HandleException(e);
+        //    }
+        //}
     }
 }

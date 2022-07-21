@@ -30,6 +30,10 @@ namespace SmartLiving.Data.Repositories
         {
             return _context.Areas
                 .Where(a => !a.IsDelete)
+                    .Include(a => a.Devices)
+                        .ThenInclude(d => d.DeviceType)
+                    .Include(a => a.House)
+                        .ThenInclude(h => h.HouseType)
                 .AsNoTracking()
                 .ToList();
         }
@@ -39,6 +43,10 @@ namespace SmartLiving.Data.Repositories
         {
             return _context.Areas
                 .Where(a => !a.IsDelete && a.House.UserId == userId)
+                    .Include(a => a.Devices)
+                        .ThenInclude(d => d.DeviceType)
+                    .Include(a => a.House)
+                        .ThenInclude(h => h.HouseType)
                 .AsNoTracking()
                 .ToList();
         }

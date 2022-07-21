@@ -82,7 +82,7 @@ namespace SmartLiving.Api.Controllers
 
         //POST: api/Device
         [HttpPost]
-        public ActionResult<DeviceGetDto> CreateDevice([FromBody] DeviceGetDto model)
+        public ActionResult<DeviceGetDto> CreateDevice([FromBody] DevicePostDto model)
         {
             try
             {
@@ -100,7 +100,7 @@ namespace SmartLiving.Api.Controllers
 
         //PUT: api/Device/{id}
         [HttpPut("{id}")]
-        public ActionResult<DeviceGetDto> UpdateDevice(int id, [FromBody] DeviceGetDto model)
+        public ActionResult<DeviceGetDto> UpdateDevice(int id, [FromBody] DevicePostDto model)
         {
             try
             {

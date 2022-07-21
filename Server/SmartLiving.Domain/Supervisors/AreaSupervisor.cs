@@ -55,11 +55,11 @@ namespace SmartLiving.Domain.Supervisors
             return allItems;
         }
 
-        public AreaGetDto CreateArea(AreaGetDto newModel, string userId)
+        public AreaPostDto CreateArea(AreaPostDto newModel, string userId)
         {
             var item = _mapper.Map<Area>(newModel);
             item = _areaRepository.Create(item, userId);
-            newModel = _mapper.Map<AreaGetDto>(item);
+            newModel = _mapper.Map<AreaPostDto>(item);
 
             if(newModel != null)
                 SetCache(newModel.Id, newModel, userId);
@@ -67,7 +67,7 @@ namespace SmartLiving.Domain.Supervisors
             return newModel;
         }
 
-        public bool UpdateArea(AreaGetDto updateModel, string userId)
+        public bool UpdateArea(AreaPostDto updateModel, string userId)
         {
             var item = _areaRepository.GetById(updateModel.Id, userId);
             if (item == null)

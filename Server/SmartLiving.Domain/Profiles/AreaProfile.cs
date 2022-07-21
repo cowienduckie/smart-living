@@ -9,8 +9,10 @@ namespace SmartLiving.Domain.Profiles
     {
         public AreaProfile()
         {
-            CreateMap<Area, AreaGetDto>();
-            CreateMap<AreaGetDto, Area>();
+            CreateMap<Area, AreaGetDto>().PreserveReferences();
+            CreateMap<AreaGetDto, Area>().PreserveReferences();
+            CreateMap<Area, AreaPostDto>().PreserveReferences();
+            CreateMap<AreaPostDto, Area>().PreserveReferences();
             CreateMap<Area, AreaModel>().PreserveReferences();
             CreateMap<AreaModel, Area>().PreserveReferences();
         }

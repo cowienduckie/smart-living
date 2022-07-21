@@ -9,8 +9,10 @@ namespace SmartLiving.Domain.Profiles
     {
         public HouseProfile()
         {
-            CreateMap<House, HouseGetDto>();
-            CreateMap<HouseGetDto, House>();
+            CreateMap<House, HouseGetDto>().PreserveReferences();
+            CreateMap<HouseGetDto, House>().PreserveReferences();
+            CreateMap<House, HousePostDto>().PreserveReferences();
+            CreateMap<HousePostDto, House>().PreserveReferences();
             CreateMap<House, HouseModel>().PreserveReferences();
             CreateMap<HouseModel, House>().PreserveReferences();
         }

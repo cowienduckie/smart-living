@@ -47,11 +47,11 @@ namespace SmartLiving.Domain.Supervisors
             return item;
         }
 
-        public DeviceGetDto CreateDevice(DeviceGetDto newModel, string userId)
+        public DevicePostDto CreateDevice(DevicePostDto newModel, string userId)
         {
             var item = _mapper.Map<Device>(newModel);
             item = _deviceRepository.Create(item, userId);
-            newModel = _mapper.Map<DeviceGetDto>(item);
+            newModel = _mapper.Map<DevicePostDto>(item);
 
             if (newModel != null)
             {
@@ -61,7 +61,7 @@ namespace SmartLiving.Domain.Supervisors
             return newModel;
         }
 
-        public bool UpdateDevice(DeviceGetDto updateModel, string userId)
+        public bool UpdateDevice(DevicePostDto updateModel, string userId)
         {
             var item = _deviceRepository.GetById(updateModel.Id, userId);
             if (item == null)

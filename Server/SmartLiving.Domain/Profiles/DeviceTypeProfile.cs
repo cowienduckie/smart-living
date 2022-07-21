@@ -9,10 +9,10 @@ namespace SmartLiving.Domain.Profiles
     {
         public DeviceTypeProfile()
         {
-            CreateMap<DeviceType, DeviceTypeGetDto>();
-            CreateMap<DeviceTypeGetDto, DeviceType>();
-            CreateMap<DeviceType, DeviceTypeModel>();
-            CreateMap<DeviceTypeModel, DeviceType>();
+            CreateMap<DeviceType, DeviceTypeGetDto>().PreserveReferences();
+            CreateMap<DeviceTypeGetDto, DeviceType>().PreserveReferences();
+            CreateMap<DeviceType, DeviceTypeModel>().PreserveReferences();
+            CreateMap<DeviceTypeModel, DeviceType>().PreserveReferences();
         }
     }
 }

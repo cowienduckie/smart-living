@@ -12,8 +12,8 @@ namespace SmartLiving.Domain.Supervisors.Interfaces
         DeviceModel GetDeviceById(int id);
         IEnumerable<DeviceGetDto> GetAllDevices(string userId);
         DeviceGetDto GetDeviceById(int id, string userId);
-        DeviceGetDto CreateDevice(DeviceGetDto newModel, string userId);
-        bool UpdateDevice(DeviceGetDto updateModel, string userId);
+        DevicePostDto CreateDevice(DevicePostDto newModel, string userId);
+        bool UpdateDevice(DevicePostDto updateModel, string userId);
         bool DeleteDevice(int id, string userId);
     }
 }

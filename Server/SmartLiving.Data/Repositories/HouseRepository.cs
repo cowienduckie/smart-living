@@ -30,6 +30,10 @@ namespace SmartLiving.Data.Repositories
         {
             return _context.Houses
                 .Where(h => !h.IsDelete)
+                    .Include(h => h.HouseType)
+                    .Include(h => h.Areas)
+                    .Include(h => h.Devices)
+                        .ThenInclude(d => d.DeviceType)
                 .AsNoTracking()
                 .ToList();
         }
@@ -38,6 +42,10 @@ namespace SmartLiving.Data.Repositories
         {
             return _context.Houses
                 .Where(h => !h.IsDelete && h.UserId == userId)
+                    .Include(h => h.HouseType)
+                    .Include(h => h.Areas)
+                    .Include(h => h.Devices)
+                        .ThenInclude(d => d.DeviceType)
                 .AsNoTracking()
                 .ToList();
         }
@@ -46,7 +54,6 @@ namespace SmartLiving.Data.Repositories
         {
             return _context.Houses
                 .Where(h => !h.IsDelete && h.Id == id )
-                    .Include(h => h.User)
                     .Include(h => h.HouseType)
                     .Include(h => h.Areas)
                     .Include(h => h.Devices)
@@ -57,7 +64,14 @@ namespace SmartLiving.Data.Repositories
 
         public House GetById(int id, string userId)
         {
-            return _context.Houses.FirstOrDefault(h => !h.IsDelete && h.Id == id && h.UserId == userId);
+            return _context.Houses
+                .Where(h => !h.IsDelete && h.Id == id && h.UserId == userId)
+                    .Include(h => h.HouseType)
+                    .Include(h => h.Areas)
+                    .Include(h => h.Devices)
+                        .ThenInclude(d => d.DeviceType)
+                .AsNoTracking()
+                .FirstOrDefault();
         }
 
         public House Create(House entity, string userId)

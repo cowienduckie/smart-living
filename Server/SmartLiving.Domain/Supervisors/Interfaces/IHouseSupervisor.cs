@@ -10,8 +10,8 @@ namespace SmartLiving.Domain.Supervisors.Interfaces
         HouseModel GetHouseById(int id);
         IEnumerable<HouseGetDto> GetAllHouses(string userId);
         HouseGetDto GetHouseById(int id, string userId);
-        HouseGetDto CreateHouse(HouseGetDto newModel, string userId);
-        bool UpdateHouse(HouseGetDto updateModel, string userId);
+        HousePostDto CreateHouse(HousePostDto newModel, string userId);
+        bool UpdateHouse(HousePostDto updateModel, string userId);
         bool DeleteHouse(int id, string userId);
     }
 }
