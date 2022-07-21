@@ -82,7 +82,7 @@ else
                             <th class="align-middle" scope="col" style="text-align: center">@Html.DisplayNameFor(m => m.Devices[0].Id)</th>                
                             <th class="align-middle" scope="col" style="text-align: center">@Html.DisplayNameFor(m => m.Devices[0].Name)</th>                                            
                             <th class="align-middle" scope="col" style="text-align: center">@Html.DisplayNameFor(m => m.Devices[0].DeviceType)</th>
-                            <th class="align-middle" scope="col" style="text-align: center">@Html.DisplayNameFor(m => m.Devices[0].Status)</th>                            
+                            <th class="align-middle" scope="col" style="text-align: center">@Html.DisplayNameFor(m => m.Devices[0].Params)</th>                            
                             <th class="align-middle" scope="col" style="text-align: center"></th>
                         </tr>
                     </thead>
@@ -94,7 +94,7 @@ else
                                  <td class="align-middle" align="center">@Html.DisplayFor(m => m.Devices[i].Id)</td>
                                  <td class="align-middle">@Html.DisplayFor(m => m.Devices[i].Name)</td>                                 
                                  <td class="align-middle" align="center">@Html.DisplayFor(m => m.Devices[i].DeviceType.Name)</td>                                 
-                                 <td class="align-middle" align="center">@Html.DisplayFor(m => m.Devices[i].Status)</td>
+                                 <td class="align-middle" align="center">@Html.DisplayFor(m => m.Devices[i].Params)</td>
                                  <td class="align-middle" align="center"><a asp-action="Details" asp-controller="Device" asp-route-id="@Model.Devices[i].Id">View</a></td>
                             </tr>
                         }

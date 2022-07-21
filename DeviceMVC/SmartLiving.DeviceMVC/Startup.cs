@@ -3,8 +3,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using SmartLiving.DeviceMVC.BussinessLogics.Repositories;
-using SmartLiving.DeviceMVC.BussinessLogics.Repositories.Interfaces;
+using SmartLiving.Api.Configurations;
+using SmartLiving.DeviceMVC.BusinessLogics.Repositories;
+using SmartLiving.DeviceMVC.BusinessLogics.Repositories.Interfaces;
 
 namespace SmartLiving.DeviceMVC
 {
@@ -21,11 +22,10 @@ namespace SmartLiving.DeviceMVC
         {
             services.AddControllersWithViews();
             
-            // DI
-            services.AddScoped<IAreaRepository, AreaRepository>();
-            services.AddScoped<IDeviceRepository, DeviceRepository>();
-            services.AddScoped<IHouseRepository, HouseRepository>();
-            services.AddScoped<IUserRepository, UserRepository>();
+            services.ConfigureRepositories();
+            services.AddConnectionProvider(Configuration);
+            services.AddAppSettings(Configuration);
+            
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

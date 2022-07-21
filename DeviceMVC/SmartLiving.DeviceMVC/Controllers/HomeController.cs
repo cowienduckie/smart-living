@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using SmartLiving.DeviceMVC.BussinessLogics.Repositories.Interfaces;
-using SmartLiving.DeviceMVC.Entities.Models;
+using SmartLiving.DeviceMVC.BusinessLogics.Repositories.Interfaces;
+using SmartLiving.DeviceMVC.Data.Models;
 using System.Diagnostics;
 
 namespace SmartLiving.DeviceMVC.Controllers
