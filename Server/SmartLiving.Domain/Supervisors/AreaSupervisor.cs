@@ -44,7 +44,10 @@ namespace SmartLiving.Domain.Supervisors
         {
             var item = _mapper.Map<Area>(newModel);
             item = _areaRepository.Create(item, userId);
-            newModel.Id = item.Id;
+            newModel = _mapper.Map<AreaGetDto>(item);
+
+            if(newModel != null)
+                SetCache(newModel.Id, newModel, userId);
 
             return newModel;
         }
@@ -57,6 +60,9 @@ namespace SmartLiving.Domain.Supervisors
                 return false;
             }
             _mapper.Map(updateModel, item);
+
+            if(updateModel != null)
+                SetCache(updateModel.Id, updateModel, userId);
 
             return _areaRepository.Update(item, userId);
         }

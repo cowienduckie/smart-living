@@ -36,7 +36,12 @@ namespace SmartLiving.Domain.Supervisors
         {
             var item = _mapper.Map<Device>(newModel);
             item = _deviceRepository.Create(item, userId);
-            newModel = _mapper.Map<DeviceGetDto>(item);            
+            newModel = _mapper.Map<DeviceGetDto>(item);
+
+            if (newModel != null)
+            {
+                SetCache(newModel.Id, newModel, userId);
+            }
 
             return newModel;
         }
@@ -49,6 +54,11 @@ namespace SmartLiving.Domain.Supervisors
                 return false;
             }
             _mapper.Map(updateModel, item);
+
+            if (updateModel != null)
+            {
+                SetCache(updateModel.Id, updateModel, userId);
+            }
 
             return _deviceRepository.Update(item, userId);
         }
