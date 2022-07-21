@@ -36,7 +36,7 @@ namespace SmartLiving.Domain.Supervisors
         {
             var item = _mapper.Map<Device>(newModel);
             item = _deviceRepository.Create(item, userId);
-            newModel.Id = item.Id;
+            newModel = _mapper.Map<DeviceGetDto>(item);            
 
             return newModel;
         }

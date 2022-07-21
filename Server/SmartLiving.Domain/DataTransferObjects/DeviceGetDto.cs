@@ -20,12 +20,6 @@ namespace SmartLiving.Domain.DataTransferObjects
 
         [Required] public string Params { get; set; }
 
-        [Required] public string Status { get; set; } = "Off";
-
-        public DateTime? TimeActivated { get; set; }
-
-        public DateTime? TimeDeactivated { get; set; }
-
         [Required] public bool IsActive { get; set; }
     }
 }

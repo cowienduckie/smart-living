@@ -14,6 +14,30 @@ namespace SmartLiving.Data.Configurations
             entity.HasMany(dt => dt.Devices)
                 .WithOne(d => d.DeviceType)
                 .HasForeignKey(d => d.DeviceTypeId);
+
+            entity.HasMany(dt => dt.DeviceTypeCommandTypes)
+                .WithOne(dtct => dtct.DeviceType)
+                .HasForeignKey(dtct => dtct.DeviceTypeId);
+        }
+    }    
+
+    public class DeviceTypeCommandTypeConfiguration
+    {
+        public string SchemaName { get; } = "dbo";
+
+        public string TableName => nameof(DeviceTypeCommandType);
+
+        public DeviceTypeCommandTypeConfiguration(EntityTypeBuilder<DeviceTypeCommandType> entity)
+        {
+            entity.HasKey(e => new {e.DeviceTypeId, e.CommandTypeId});
+
+            entity.HasOne(e => e.DeviceType)
+                .WithMany(dt => dt.DeviceTypeCommandTypes)
+                .HasForeignKey(e => e.DeviceTypeId);
+
+            entity.HasOne(e => e.CommandType)
+                .WithMany(ct => ct.DeviceTypeCommandTypes)
+                .HasForeignKey(e => e.CommandTypeId);
         }
     }
 }

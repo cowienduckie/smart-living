@@ -9,6 +9,7 @@ namespace SmartLiving.Domain.Supervisors.Interfaces
     {
         IEnumerable<AreaGetDto> GetAllAreas(string userId);
         AreaGetDto GetAreaById(int id, string userId);
+        IEnumerable<AreaGetDto> GetAreaByHouse(int houseId, string userId);
         AreaGetDto CreateArea(AreaGetDto newModel, string userId);
         bool UpdateArea(AreaGetDto updateModel, string userId);
         bool DeleteArea(int id, string userId);

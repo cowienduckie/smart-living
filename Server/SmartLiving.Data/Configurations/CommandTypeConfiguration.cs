@@ -18,6 +18,14 @@ namespace SmartLiving.Data.Configurations
             entity.HasMany(ct => ct.Commands)
                 .WithOne(c => c.CommandType)
                 .HasForeignKey(c => c.CommandTypeId);
+
+            entity.HasMany(ct => ct.DeviceCommandTypes)
+                .WithOne(dct => dct.CommandType)
+                .HasForeignKey(dct => dct.CommandTypeId);
+
+            entity.HasMany(ct => ct.DeviceTypeCommandTypes)
+                .WithOne(dtct => dtct.CommandType)
+                .HasForeignKey(dtct => dtct.CommandTypeId);
         }
     }
 }

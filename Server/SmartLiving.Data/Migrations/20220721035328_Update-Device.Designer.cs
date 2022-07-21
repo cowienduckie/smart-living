@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SmartLiving.Data;
@@ -9,9 +10,10 @@ using SmartLiving.Data;
 namespace SmartLiving.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220721035328_Update-Device")]
+    partial class UpdateDevice
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -272,10 +274,6 @@ namespace SmartLiving.Data.Migrations
                         .HasColumnType("timestamp without time zone")
                         .HasAnnotation("ColumnOrder", 997);
 
-                    b.Property<string>("DefaultParams")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<bool>("IsDelete")
                         .HasColumnType("boolean")
                         .HasAnnotation("ColumnOrder", 999);
@@ -285,6 +283,10 @@ namespace SmartLiving.Data.Migrations
                         .HasAnnotation("ColumnOrder", 998);
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Params")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -342,21 +344,6 @@ namespace SmartLiving.Data.Migrations
                     b.HasIndex("HouseId");
 
                     b.ToTable("Device","dbo");
-                });
-
-            modelBuilder.Entity("SmartLiving.Domain.Entities.DeviceCommandType", b =>
-                {
-                    b.Property<int>("DeviceId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("CommandTypeId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("DeviceId", "CommandTypeId");
-
-                    b.HasIndex("CommandTypeId");
-
-                    b.ToTable("DeviceCommandTypes");
                 });
 
             modelBuilder.Entity("SmartLiving.Domain.Entities.DeviceData", b =>
@@ -424,21 +411,6 @@ namespace SmartLiving.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DeviceType","dbo");
-                });
-
-            modelBuilder.Entity("SmartLiving.Domain.Entities.DeviceTypeCommandType", b =>
-                {
-                    b.Property<int>("DeviceTypeId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("CommandTypeId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("DeviceTypeId", "CommandTypeId");
-
-                    b.HasIndex("CommandTypeId");
-
-                    b.ToTable("DeviceTypeCommandTypes");
                 });
 
             modelBuilder.Entity("SmartLiving.Domain.Entities.House", b =>
@@ -904,41 +876,11 @@ namespace SmartLiving.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SmartLiving.Domain.Entities.DeviceCommandType", b =>
-                {
-                    b.HasOne("SmartLiving.Domain.Entities.CommandType", "CommandType")
-                        .WithMany("DeviceCommandTypes")
-                        .HasForeignKey("CommandTypeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("SmartLiving.Domain.Entities.Device", "Device")
-                        .WithMany("DeviceCommandTypes")
-                        .HasForeignKey("DeviceId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("SmartLiving.Domain.Entities.DeviceData", b =>
                 {
                     b.HasOne("SmartLiving.Domain.Entities.Device", "Device")
                         .WithMany("DeviceData")
                         .HasForeignKey("DeviceId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("SmartLiving.Domain.Entities.DeviceTypeCommandType", b =>
-                {
-                    b.HasOne("SmartLiving.Domain.Entities.CommandType", "CommandType")
-                        .WithMany("DeviceTypeCommandTypes")
-                        .HasForeignKey("CommandTypeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("SmartLiving.Domain.Entities.DeviceType", "DeviceType")
-                        .WithMany("DeviceTypeCommandTypes")
-                        .HasForeignKey("DeviceTypeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
