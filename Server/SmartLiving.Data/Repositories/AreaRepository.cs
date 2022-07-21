@@ -26,9 +26,33 @@ namespace SmartLiving.Data.Repositories
             return _context.Areas.Any(a => !a.IsDelete && a.Id == id);
         }
 
+        public IEnumerable<Area> GetAll()
+        {
+            return _context.Areas
+                .Where(a => !a.IsDelete)
+                .AsNoTracking()
+                .ToList();
+        }
+
+
         public IEnumerable<Area> GetAll(string userId)
         {
-            return _context.Areas.Where(a => !a.IsDelete && a.House.UserId == userId).AsNoTracking().ToList();
+            return _context.Areas
+                .Where(a => !a.IsDelete && a.House.UserId == userId)
+                .AsNoTracking()
+                .ToList();
+        }
+
+        public Area GetById(int id)
+        {
+            return _context.Areas
+                .Where(a => !a.IsDelete && a.Id == id)
+                    .Include(a => a.Devices)
+                        .ThenInclude(d => d.DeviceType)
+                    .Include(a => a.House)
+                        .ThenInclude(h => h.HouseType)
+                .AsNoTracking()
+                .FirstOrDefault();
         }
 
         public Area GetById(int id, string userId)

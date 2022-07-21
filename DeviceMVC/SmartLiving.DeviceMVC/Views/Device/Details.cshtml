@@ -1,0 +1,49 @@
+﻿@model DeviceModel
+@{
+    ViewData["Title"] = "Device Details";
+}
+
+<br />
+<h1>DEVICE DETAILS</h1>
+<br />
+@if (Model.Id == 0)
+{
+    <a asp-action="Index" asp-controller="User">Back to User List</a>
+}
+else
+{
+    <a asp-action="Details" asp-controller="House" asp-route-id="@Model.HouseId">Back to House</a>
+}
+<hr />
+<br />
+
+@if (Model.Id == 0)
+{
+    <h5 class="text-center">Not available</h5>
+}
+else
+{
+    <div class="row">
+        <div class="col-5 border-right">
+            <dl class="row">
+                <dt class="col-4">@Html.DisplayNameFor(model => model.Id)</dt>
+                <dd class="col-8">@Html.DisplayFor(model => model.Id)</dd>
+                <dt class="col-4">@Html.DisplayNameFor(model => model.Name)</dt>
+                <dd class="col-8">@Html.DisplayFor(model => model.Name)</dd>
+                <dt class="col-4">@Html.DisplayNameFor(model => model.DeviceType)</dt>
+                <dd class="col-8">@Html.DisplayFor(model => model.DeviceType.Name)</dd>                
+                <dt class="col-4">@Html.DisplayNameFor(model => model.House.User)</dt>
+                <dd class="col-8">@Html.DisplayFor(model => model.House.User.UserName)</dd>
+                <dt class="col-4">@Html.DisplayNameFor(model => model.House)</dt>
+                <dd class="col-8">@Html.DisplayFor(model => model.House.Name)</dd>
+                <dt class="col-4">@Html.DisplayNameFor(model => model.Area)</dt>
+                <dd class="col-8">@Html.DisplayFor(model => model.Area.Name)</dd>                
+                <dt class="col-4">@Html.DisplayNameFor(model => model.Params)</dt>
+                <dd class="col-8">@Html.DisplayFor(model => model.Params)</dd>
+            </dl>
+        </div>
+        <div class="col-7">            
+            <h5 class="text-center">Manually Control</h5>
+        </div>
+    </div>    
+}

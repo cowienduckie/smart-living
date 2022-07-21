@@ -1,0 +1,44 @@
+﻿@model List<UserModel>
+@{
+    ViewData["Title"] = "User List";
+}
+
+<br />
+<h1>USER LIST</h1>
+<br />
+
+@if (Model.Count == 0)
+{
+    <hr/>
+    <h5 class="text-center">Not available</h5>
+}
+else
+{
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th class="align-middle" scope="col" style="text-align: center"></th>                
+                <th class="align-middle" scope="col" style="text-align: center">@Html.DisplayNameFor(model => model[0].Id)</th>    
+                <th class="align-middle" scope="col" style="text-align: center">@Html.DisplayNameFor(model => model[0].UserName)</th>                
+                <th class="align-middle" scope="col" style="text-align: center">Full Name</th>                
+                <th class="align-middle" scope="col" style="text-align: center">@Html.DisplayNameFor(model => model[0].Email)</th>                  
+                <th class="align-middle" scope="col" style="text-align: center">House Count</th>                 
+                <th class="align-middle" scope="col" style="text-align: center"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (var i = 0; i < Model.Count; ++i)
+            {
+                <tr>
+                     <th scope="row" class="align-middle" style="text-align: center">@(i + 1)</th>                     
+                     <td class="align-middle">@Html.DisplayFor(model => model[i].Id)</td>
+                     <td class="align-middle">@Html.DisplayFor(model => model[i].UserName)</td>
+                     <td class="align-middle">@(Model[i].FirstName+" "+Model[i].LastName)</td>
+                     <td class="align-middle">@Html.DisplayFor(model => model[i].Email)</td>                         
+                     <td class="align-middle" align="center">@Model[i].Houses.Count</td>
+                     <td class="align-middle" align="center"><a asp-action="Details" asp-route-id="@Model[i].Id">View</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

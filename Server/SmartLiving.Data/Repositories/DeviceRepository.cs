@@ -26,9 +26,34 @@ namespace SmartLiving.Data.Repositories
             return _context.Devices.Any(d => !d.IsDelete && d.Id == id);
         }
 
+        public IEnumerable<Device> GetAll()
+        {
+            return _context.Devices
+                .Where(d => !d.IsDelete)
+                .AsNoTracking()
+                .ToList();
+        }
+
         public IEnumerable<Device> GetAll(string userId)
         {
-            return _context.Devices.Where(d => !d.IsDelete && d.House.UserId == userId).AsNoTracking().ToList();
+            return _context.Devices
+                .Where(d => !d.IsDelete && d.House.UserId == userId)
+                .AsNoTracking()
+                .ToList();
+        }
+
+        public Device GetById(int id)
+        {
+            return _context.Devices
+                .Where(d => !d.IsDelete && d.Id == id)
+                    .Include(d => d.DeviceType)
+                    .Include(d => d.House)
+                        .ThenInclude(h => h.HouseType)
+                    .Include(d => d.House)
+                        .ThenInclude(h => h.User)
+                    .Include(d => d.Area)
+                .AsNoTracking()
+                .FirstOrDefault();
         }
 
         public Device GetById(int id, string userId)

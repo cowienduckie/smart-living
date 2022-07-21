@@ -2,11 +2,19 @@
 using System.Linq;
 using SmartLiving.Domain.DataTransferObjects;
 using SmartLiving.Domain.Entities;
+using SmartLiving.Domain.Models;
 
 namespace SmartLiving.Domain.Supervisors
 {
     public partial class Supervisor
     {
+        public IEnumerable<HouseModel> GetAllHouses()
+        {
+            var allItems = _mapper.Map<IEnumerable<HouseModel>>(_houseRepository.GetAll()).ToList();
+
+            return allItems;
+        }
+
         public IEnumerable<HouseGetDto> GetAllHouses(string userId)
         {
             var allItems = _mapper.Map<IEnumerable<HouseGetDto>>(_houseRepository.GetAll(userId)).ToList();
@@ -15,6 +23,13 @@ namespace SmartLiving.Domain.Supervisors
             allItems.ForEach(item => SetCache(item.Id, item, userId));
 
             return allItems;
+        }
+
+        public HouseModel GetHouseById(int id)
+        {
+            var item = _mapper.Map<HouseModel>(_houseRepository.GetById(id));
+
+            return item;
         }
 
         public HouseGetDto GetHouseById(int id, string userId)

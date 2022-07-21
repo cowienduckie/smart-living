@@ -24,6 +24,7 @@ namespace SmartLiving.Domain.Supervisors
         private readonly IHouseTypeRepository _houseTypeRepository;
         private readonly IProfileRepository _profileRepository;
         private readonly IScheduleRepository _scheduleRepository;
+        private readonly IUserRepository _userRepository;
 
         public Supervisor(
             IMemoryCache cache,
@@ -36,7 +37,8 @@ namespace SmartLiving.Domain.Supervisors
             IHouseRepository houseRepository,
             IHouseTypeRepository houseTypeRepository,
             IProfileRepository profileRepository,
-            IScheduleRepository scheduleRepository)
+            IScheduleRepository scheduleRepository,
+            IUserRepository userRepository)
         {
             _cache = cache;
             _mapper = mapper;
@@ -49,6 +51,7 @@ namespace SmartLiving.Domain.Supervisors
             _houseTypeRepository = houseTypeRepository;
             _profileRepository = profileRepository;
             _scheduleRepository = scheduleRepository;
+            _userRepository = userRepository;
         }
 
         #region Shared Methods
