@@ -60,6 +60,11 @@ namespace SmartLiving.Data.Repositories
             return _context.Areas.FirstOrDefault(a => !a.IsDelete && a.Id == id && a.House.UserId == userId);
         }
 
+        public IEnumerable<Area> GetByHouse(int houseId, string userId)
+        {
+            return _context.Areas.Where(a => !a.IsDelete && a.House.UserId == userId && a.HouseId == houseId).AsNoTracking().ToList(); 
+        }
+
         public Area Create(Area entity, string userId)
         {
             _context.Areas.Add(entity);

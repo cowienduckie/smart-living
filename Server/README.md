@@ -11,15 +11,20 @@ Setup User Secret `secret.json` or your environment as below
 ```json
 {
   "ConnectionStrings": {
-    "PostgreSql": "User ID=YourUserName;Password=YourPassword;Host=HostName;Port=PortNumber;Database=DatabaseName;",
-    "SqlServer": ""
+    "PostgreSql": "User ID=YourUserName;Password=YourPassword;Host=HostName;Port=PortNumber;Database=DatabaseName;"
   }
 }
+```
+Without Visual Studio, setup User Secret as below
+
+```shell
+dotnet user-secrets init
+dotnet user-secrets set "ConnectionStrings:PostgreSql" "User ID=YourUserName;Password=YourPassword;Host=HostName;Port=PortNumber;Database=DatabaseName;"
 ```
 
 ## Build and Run
 
-```cmd
+```shell
 cd SmartLiving/Server
 dotnet build
 dotnet run --project SmartLiving.Api

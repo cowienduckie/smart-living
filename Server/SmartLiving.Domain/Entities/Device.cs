@@ -24,12 +24,6 @@ namespace SmartLiving.Domain.Entities
 
         [Required] public string Params { get; set; }
 
-        [Required] public string Status { get; set; } = "Off";
-
-        public DateTime? TimeActivated { get; set; }
-
-        public DateTime? TimeDeactivated { get; set; }
-
         [Required] public bool IsActive { get; set; }
 
         public virtual IList<ProfileDevice> ProfileDevices { get; set; }
@@ -41,5 +35,15 @@ namespace SmartLiving.Domain.Entities
         public virtual IList<DeviceData> DeviceData { get; set; }
 
         public virtual IList<AutoMessage> AutoMessages { get; set; }
+
+        public virtual IList<DeviceCommandType> DeviceCommandTypes { get; set; }
+    }
+
+    public class DeviceCommandType
+    {
+        public int DeviceId { get; set; }
+        public virtual Device Device { get; set; }
+        public int CommandTypeId { get; set; }
+        public virtual CommandType CommandType { get; set;}
     }
 }

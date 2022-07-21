@@ -44,23 +44,23 @@ namespace SmartLiving.Api.Controllers
             }
         }
 
-        //GET: api/Device/GetPagedList
-        [HttpGet("[action]")]
-        public ActionResult<PagedList<DeviceGetDto>> GetPagedList(int pageIndex = 1, int pageSize = SystemConstants.PageSizeDefault)
-        {
-            try
-            {
-                var devicePagedList = _supervisor.GetPagedList<DeviceGetDto>(_supervisor.GetAllDevices(CurrentUser.Id).ToList() ,pageIndex, pageSize);
+        ////GET: api/Device/GetPagedList
+        //[HttpGet("[action]")]
+        //public ActionResult<PagedList<DeviceGetDto>> GetPagedList(int pageIndex = 1, int pageSize = SystemConstants.PageSizeDefault)
+        //{
+        //    try
+        //    {
+        //        var devicePagedList = _supervisor.GetPagedList<DeviceGetDto>(_supervisor.GetAllDevices(CurrentUser.Id).ToList() ,pageIndex, pageSize);
 
-                if (devicePagedList.Any())
-                    return Ok(devicePagedList);
-                return NotFound();
-            }
-            catch (Exception e)
-            {
-                return HandleException(e);
-            }
-        }
+        //        if (devicePagedList.Any())
+        //            return Ok(devicePagedList);
+        //        return NotFound();
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return HandleException(e);
+        //    }
+        //}
 
         //GET: api/Device/{id}
         [HttpGet("{id}", Name = "GetDeviceById")]
@@ -118,31 +118,31 @@ namespace SmartLiving.Api.Controllers
             }
         }
 
-        //PATCH: api/Device/{id}
-        [HttpPatch("{id}")]
-        public ActionResult PartialUpdateDevice(int id, [FromBody] JsonPatchDocument<DeviceGetDto> patchDoc)
-        {
-            try
-            {
-                var model = _supervisor.GetDeviceById(id, CurrentUser.Id);
-                if (model == null) return NotFound();
+        ////PATCH: api/Device/{id}
+        //[HttpPatch("{id}")]
+        //public ActionResult PartialUpdateDevice(int id, [FromBody] JsonPatchDocument<DeviceGetDto> patchDoc)
+        //{
+        //    try
+        //    {
+        //        var model = _supervisor.GetDeviceById(id, CurrentUser.Id);
+        //        if (model == null) return NotFound();
 
-                patchDoc.ApplyTo(model, ModelState);
+        //        patchDoc.ApplyTo(model, ModelState);
 
-                if (!TryValidateModel(model, CurrentUser.Id))
-                {
-                    return ValidationProblem(ModelState);
-                }
+        //        if (!TryValidateModel(model, CurrentUser.Id))
+        //        {
+        //            return ValidationProblem(ModelState);
+        //        }
 
-                model.Id = id;
+        //        model.Id = id;
 
-                return _supervisor.UpdateDevice(model, CurrentUser.Id) ? NoContent() : StatusCode(500);
-            }
-            catch (Exception e)
-            {
-                return HandleException(e);
-            }
-        }
+        //        return _supervisor.UpdateDevice(model, CurrentUser.Id) ? NoContent() : StatusCode(500);
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return HandleException(e);
+        //    }
+        //}
 
         //DELETE: api/Device/id
         [HttpDelete("{id}")]

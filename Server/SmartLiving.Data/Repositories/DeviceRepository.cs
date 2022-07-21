@@ -64,7 +64,14 @@ namespace SmartLiving.Data.Repositories
         public Device Create(Device entity, string userId)
         {
             _context.Devices.Add(entity);
+
+            if (entity.DeviceTypeId != 0)
+            {
+                entity.Params = _context.DeviceTypes.FirstOrDefault(dt => dt.Id == entity.DeviceTypeId)?.DefaultParams;
+            }
+
             _context.SaveChanges();
+
             return entity;
         }
 

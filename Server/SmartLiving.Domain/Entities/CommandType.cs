@@ -11,10 +11,14 @@ namespace SmartLiving.Domain.Entities
 
         [Required] public string Name { get; set; }
 
-        [Required] public string Params { get; set; }
+        [Required] public string DefaultParams { get; set; }
 
         public virtual IList<Command> Commands { get; set; }
 
         public virtual IList<Schedule> Schedules { get; set; }
+
+        public virtual IList<DeviceCommandType> DeviceCommandTypes { get; set; }
+
+        public virtual IList<DeviceTypeCommandType> DeviceTypeCommandTypes { get; set; }
     }
 }

@@ -47,6 +47,14 @@ namespace SmartLiving.Domain.Supervisors
             return item;
         }
 
+        public IEnumerable<AreaGetDto> GetAreaByHouse(int houseId, string userId)
+        {
+            var allItems = _mapper.Map<IEnumerable<AreaGetDto>>(_areaRepository.GetByHouse(houseId, userId)).ToList();
+            allItems.ForEach(item => SetCache(item.Id, item, userId));
+
+            return allItems;
+        }
+
         public AreaGetDto CreateArea(AreaGetDto newModel, string userId)
         {
             var item = _mapper.Map<Area>(newModel);
