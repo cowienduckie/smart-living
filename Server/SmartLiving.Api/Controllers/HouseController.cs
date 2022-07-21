@@ -43,23 +43,23 @@ namespace SmartLiving.Api.Controllers
             }
         }
 
-        //GET: api/House/GetPagedList
-        [HttpGet("[action]")]
-        public ActionResult<PagedList<HouseGetDto>> GetPagedList(int pageIndex = 1, int pageSize = SystemConstants.PageSizeDefault)
-        {
-            try
-            {
-                var housePagedList = _supervisor.GetPagedList(_supervisor.GetAllHouses(CurrentUser.Id).ToList() ,pageIndex, pageSize);
+        ////GET: api/House/GetPagedList
+        //[HttpGet("[action]")]
+        //public ActionResult<PagedList<HouseGetDto>> GetPagedList(int pageIndex = 1, int pageSize = SystemConstants.PageSizeDefault)
+        //{
+        //    try
+        //    {
+        //        var housePagedList = _supervisor.GetPagedList(_supervisor.GetAllHouses(CurrentUser.Id).ToList() ,pageIndex, pageSize);
 
-                if (housePagedList.Any())
-                    return Ok(housePagedList);
-                return NotFound();
-            }
-            catch (Exception e)
-            {
-                return HandleException(e);
-            }
-        }
+        //        if (housePagedList.Any())
+        //            return Ok(housePagedList);
+        //        return NotFound();
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return HandleException(e);
+        //    }
+        //}
 
         //GET: api/House/{id}
         [HttpGet("{id}", Name = "GetHouseById")]
@@ -117,31 +117,31 @@ namespace SmartLiving.Api.Controllers
             }
         }
 
-        //PATCH: api/House/{id}
-        [HttpPatch("{id}")]
-        public ActionResult PartialUpdateHouse(int id, [FromBody] JsonPatchDocument<HouseGetDto> patchDoc)
-        {
-            try
-            {
-                var model = _supervisor.GetHouseById(id, CurrentUser.Id);
-                if (model == null) return NotFound();
+        ////PATCH: api/House/{id}
+        //[HttpPatch("{id}")]
+        //public ActionResult PartialUpdateHouse(int id, [FromBody] JsonPatchDocument<HouseGetDto> patchDoc)
+        //{
+        //    try
+        //    {
+        //        var model = _supervisor.GetHouseById(id, CurrentUser.Id);
+        //        if (model == null) return NotFound();
 
-                patchDoc.ApplyTo(model, ModelState);
+        //        patchDoc.ApplyTo(model, ModelState);
 
-                if (!TryValidateModel(model, CurrentUser.Id))
-                {
-                    return ValidationProblem(ModelState);
-                }
+        //        if (!TryValidateModel(model, CurrentUser.Id))
+        //        {
+        //            return ValidationProblem(ModelState);
+        //        }
 
-                model.Id = id;
+        //        model.Id = id;
 
-                return _supervisor.UpdateHouse(model, CurrentUser.Id) ? NoContent() : StatusCode(500);
-            }
-            catch (Exception e)
-            {
-                return HandleException(e);
-            }
-        }
+        //        return _supervisor.UpdateHouse(model, CurrentUser.Id) ? NoContent() : StatusCode(500);
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return HandleException(e);
+        //    }
+        //}
 
         //DELETE: api/House/id
         [HttpDelete("{id}")]

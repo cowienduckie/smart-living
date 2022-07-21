@@ -11,8 +11,18 @@ namespace SmartLiving.Domain.Entities
 
         [Required] public string Name { get; set; }
 
-        public string Description { get; set; }
+        public string DefaultParams { get; set; }
 
         public virtual IList<Device> Devices { get; set; }
+
+        public virtual IList<DeviceTypeCommandType> DeviceTypeCommandTypes { get; set; }
+    }
+
+    public class DeviceTypeCommandType
+    {
+        public int DeviceTypeId { get; set; }
+        public virtual DeviceType DeviceType { get; set; }
+        public int CommandTypeId { get; set; }
+        public virtual CommandType CommandType { get; set;}
     }
 }

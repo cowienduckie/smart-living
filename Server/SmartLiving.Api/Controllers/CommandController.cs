@@ -44,23 +44,23 @@ namespace SmartLiving.Api.Controllers
             }
         }
 
-        //GET: api/Command/GetPagedList
-        [HttpGet("[action]")]
-        public ActionResult<PagedList<CommandGetDto>> GetPagedList(int pageIndex = 1, int pageSize = SystemConstants.PageSizeDefault)
-        {
-            try
-            {
-                var commandPagedList = _supervisor.GetPagedList<CommandGetDto>(_supervisor.GetAllCommands(CurrentUser.Id).ToList() ,pageIndex, pageSize);
+        ////GET: api/Command/GetPagedList
+        //[HttpGet("[action]")]
+        //public ActionResult<PagedList<CommandGetDto>> GetPagedList(int pageIndex = 1, int pageSize = SystemConstants.PageSizeDefault)
+        //{
+        //    try
+        //    {
+        //        var commandPagedList = _supervisor.GetPagedList<CommandGetDto>(_supervisor.GetAllCommands(CurrentUser.Id).ToList() ,pageIndex, pageSize);
 
-                if (commandPagedList.Any())
-                    return Ok(commandPagedList);
-                return NotFound();
-            }
-            catch (Exception e)
-            {
-                return HandleException(e);
-            }
-        }
+        //        if (commandPagedList.Any())
+        //            return Ok(commandPagedList);
+        //        return NotFound();
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return HandleException(e);
+        //    }
+        //}
 
         //GET: api/Command/{id}
         [HttpGet("{id}", Name = "GetCommandById")]
@@ -118,31 +118,31 @@ namespace SmartLiving.Api.Controllers
             }
         }
 
-        //PATCH: api/Command/{id}
-        [HttpPatch("{id}")]
-        public ActionResult PartialUpdateCommand(int id, [FromBody] JsonPatchDocument<CommandGetDto> patchDoc)
-        {
-            try
-            {
-                var model = _supervisor.GetCommandById(id, CurrentUser.Id);
-                if (model == null) return NotFound();
+        ////PATCH: api/Command/{id}
+        //[HttpPatch("{id}")]
+        //public ActionResult PartialUpdateCommand(int id, [FromBody] JsonPatchDocument<CommandGetDto> patchDoc)
+        //{
+        //    try
+        //    {
+        //        var model = _supervisor.GetCommandById(id, CurrentUser.Id);
+        //        if (model == null) return NotFound();
 
-                patchDoc.ApplyTo(model, ModelState);
+        //        patchDoc.ApplyTo(model, ModelState);
 
-                if (!TryValidateModel(model))
-                {
-                    return ValidationProblem(ModelState);
-                }
+        //        if (!TryValidateModel(model))
+        //        {
+        //            return ValidationProblem(ModelState);
+        //        }
 
-                model.Id = id;
+        //        model.Id = id;
 
-                return _supervisor.UpdateCommand(model, CurrentUser.Id) ? NoContent() : StatusCode(500);
-            }
-            catch (Exception e)
-            {
-                return HandleException(e);
-            }
-        }
+        //        return _supervisor.UpdateCommand(model, CurrentUser.Id) ? NoContent() : StatusCode(500);
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return HandleException(e);
+        //    }
+        //}
 
         //DELETE: api/Command/id
         [HttpDelete("{id}")]
