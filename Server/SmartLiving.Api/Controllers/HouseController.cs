@@ -35,12 +35,14 @@ namespace SmartLiving.Api.Controllers
 
                 if (allItems.Any())
                 {
-                    var jsonList = allItems.Select(item => new JObject
-                    {
-                        [Convert.ToString(item.Id)] = _jsonService.Serialize(item)
-                    });
+                    var json = new JObject();
 
-                    return Ok(jsonList);
+                    foreach (var item in allItems)
+                    {
+                        json[Convert.ToString(item.Id)] = _jsonService.Serialize(item);
+                    }
+
+                    return Ok(json);;
                 }
 
                 return NotFound();
