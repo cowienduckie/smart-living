@@ -32,6 +32,8 @@ namespace SmartLiving.Data.Repositories
                 .Where(h => !h.IsDelete)
                     .Include(h => h.HouseType)
                     .Include(h => h.Areas)
+                        .ThenInclude(a => a.Devices)
+                            .ThenInclude(d => d.DeviceType)
                 .AsNoTracking()
                 .ToList();
         }
@@ -42,6 +44,8 @@ namespace SmartLiving.Data.Repositories
                 .Where(h => !h.IsDelete && h.UserId == userId)
                     .Include(h => h.HouseType)
                     .Include(h => h.Areas)
+                        .ThenInclude(a => a.Devices)
+                            .ThenInclude(d => d.DeviceType)
                 .AsNoTracking()
                 .ToList();
         }

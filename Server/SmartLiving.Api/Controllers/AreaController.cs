@@ -7,13 +7,12 @@ using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using SmartLiving.Api.Middleware;
 using SmartLiving.Domain.DataTransferObjects;
+using SmartLiving.Domain.Service;
 using SmartLiving.Domain.Supervisors.Interfaces;
 using SmartLiving.Library.Constants;
 using SmartLiving.Library.DataTypes;
 
 namespace SmartLiving.Api.Controllers
-{
-    namespace SmartLiving.Api.Controllers
 {
     [Route("api/[controller]")]
     [EnableCors("CorsPolicy")]
@@ -22,10 +21,12 @@ namespace SmartLiving.Api.Controllers
     public class AreaController : BaseController
     {
         private readonly ISupervisor _supervisor;
+        private readonly IJsonStringService _jsonService;
 
-        public AreaController(ISupervisor supervisor)
+        public AreaController(ISupervisor supervisor, IJsonStringService jsonService)
         {
             _supervisor = supervisor;
+            _jsonService = jsonService;
         }
 
         //GET: api/Area/GetAllAreas
@@ -66,14 +67,18 @@ namespace SmartLiving.Api.Controllers
 
         //GET: api/Area/{id}
         [HttpGet("{id}", Name = "GetAreaById")]
-        public ActionResult<AreaGetDto> GetAreaById(int id)
+        public ActionResult GetAreaById(int id)
         {
             try
             {
                 var area = _supervisor.GetAreaById(id, CurrentUser.Id);
 
                 if (area != null)
-                    return Ok(area);
+                {
+                    var json = _jsonService.Serialize(area);
+
+                    return Ok(json);
+                }
                 return NotFound();
             }
             catch (Exception e)
@@ -102,7 +107,7 @@ namespace SmartLiving.Api.Controllers
 
         //PUT: api/Area/{id}
         [HttpPut("{id}")]
-        public ActionResult<AreaGetDto> UpdateArea(int id, [FromBody] AreaPostDto model)
+        public ActionResult UpdateArea(int id, [FromBody] AreaPostDto model)
         {
             try
             {
@@ -163,4 +168,4 @@ namespace SmartLiving.Api.Controllers
         }
     }
 }
-}
+
