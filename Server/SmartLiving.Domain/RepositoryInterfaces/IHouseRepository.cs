@@ -6,6 +6,6 @@ namespace SmartLiving.Domain.RepositoryInterfaces
     public interface IHouseRepository : IBaseRepository<House>
     {
         IEnumerable<House> GetAll();
-        House GetById(int id); 
+        House GetById(int id);
     }
 }

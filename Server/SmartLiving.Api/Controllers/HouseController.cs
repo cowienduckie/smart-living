@@ -27,7 +27,7 @@ namespace SmartLiving.Api.Controllers
 
         //GET: api/House/GetAllHouses
         [HttpGet("[action]")]
-        public ActionResult<IEnumerable<HouseGetDto>> GetAllHouses()
+        public ActionResult GetAllHouses()
         {
             try
             {

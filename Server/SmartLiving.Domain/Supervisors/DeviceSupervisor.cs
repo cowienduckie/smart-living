@@ -12,39 +12,32 @@ namespace SmartLiving.Domain.Supervisors
     {
         public IEnumerable<DeviceModel> GetAllDevices()
         {
-            var allItems = _mapper.Map<IEnumerable<DeviceModel>>(_deviceRepository.GetAll()).ToList();
-
-            return allItems;
+            return _mapper.Map<IEnumerable<DeviceModel>>(_deviceRepository.GetAll()).ToList();
         }
 
         public IEnumerable<DeviceGetDto> GetAllDevices(string userId)
         {
-            var allItems = _mapper.Map<IEnumerable<DeviceGetDto>>(_deviceRepository.GetAll(userId)).ToList();
-            allItems.ForEach(item => SetCache(item.Id, item, userId));
-
-            return allItems;
+            //allItems.ForEach(item => SetCache(item.Id, item, userId));
+            return _mapper.Map<IEnumerable<DeviceGetDto>>(_deviceRepository.GetAll(userId)).ToList();
         }
 
         public DeviceModel GetDeviceById(int id)
         {
-            var item = _mapper.Map<DeviceModel>(_deviceRepository.GetById(id));
-
-            return item;
+            return _mapper.Map<DeviceModel>(_deviceRepository.GetById(id));
         }
 
         public DeviceGetDto GetDeviceById(int id, string userId)
         {
-            var item = GetCache<DeviceGetDto>(id, userId);
-            if (item != null)
-            {
-                return item;
-            }
-            item = _mapper.Map<DeviceGetDto>(_deviceRepository.GetById(id, userId));
+            //var item = GetCache<DeviceGetDto>(id, userId);
+            //if (item != null)
+            //{
+            //    return item;
+            //}
+            
+            //if(item != null)
+            //    SetCache(item.Id, item, userId);
 
-            if(item != null)
-                SetCache(item.Id, item, userId);
-
-            return item;
+            return _mapper.Map<DeviceGetDto>(_deviceRepository.GetById(id, userId));
         }
 
         public DevicePostDto CreateDevice(DevicePostDto newModel, string userId)
@@ -53,10 +46,10 @@ namespace SmartLiving.Domain.Supervisors
             item = _deviceRepository.Create(item, userId);
             newModel = _mapper.Map<DevicePostDto>(item);
 
-            if (newModel != null)
-            {
-                SetCache(newModel.Id, newModel, userId);
-            }
+            //if (newModel != null)
+            //{
+            //    SetCache(newModel.Id, newModel, userId);
+            //}
 
             return newModel;
         }
@@ -70,10 +63,10 @@ namespace SmartLiving.Domain.Supervisors
             }
             _mapper.Map(updateModel, item);
 
-            if (updateModel != null)
-            {
-                SetCache(updateModel.Id, updateModel, userId);
-            }
+            //if (updateModel != null)
+            //{
+            //    SetCache(updateModel.Id, updateModel, userId);
+            //}
 
             return _deviceRepository.Update(item, userId);
         }

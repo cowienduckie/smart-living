@@ -18,14 +18,19 @@ namespace SmartLiving.Domain.DataTransferObjects
 
         public int? AreaId { get; set; }
 
-        public AreaGetDto Area { get; set; }
-
         public int HouseId { get; set; }
-
-        public HouseGetDto House { get; set; }
 
         public string Params { get; set; }
 
         public bool IsActive { get; set; }
+
+        public  List<DeviceCommandTypeGetDto> DeviceCommandTypes { get; set; }
+    }
+
+    public class DeviceCommandTypeGetDto
+    {
+        public int DeviceId { get; set; }
+        public int CommandTypeId { get; set; }
+        public CommandTypeGetDto CommandType { get; set; }
     }
 }

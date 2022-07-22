@@ -7,6 +7,5 @@ namespace SmartLiving.Domain.RepositoryInterfaces
     {
         IEnumerable<Area> GetAll();
         Area GetById(int id);
-        IEnumerable<Area> GetByHouse(int houseId, string userId);
     }
 }

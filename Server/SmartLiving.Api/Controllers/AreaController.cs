@@ -82,24 +82,6 @@ namespace SmartLiving.Api.Controllers
             }
         }
 
-        //GET: api/GetAreaByHouse?houseId={houseId}
-        [HttpGet("[action]")]
-        public ActionResult<AreaGetDto> GetAreaByHouse(int houseId)
-        {
-            try
-            {
-                var allItems = _supervisor.GetAreaByHouse(houseId, CurrentUser.Id);
-
-                if (allItems.Any())
-                    return Ok(allItems);
-                return NotFound();
-            }
-            catch (Exception e)
-            {
-                return HandleException(e);
-            }
-        }
-
         //POST: api/Area
         [HttpPost]
         public ActionResult CreateArea([FromBody] AreaPostDto model)

@@ -10,41 +10,32 @@ namespace SmartLiving.Domain.Supervisors
     {
         public IEnumerable<HouseModel> GetAllHouses()
         {
-            var allItems = _mapper.Map<IEnumerable<HouseModel>>(_houseRepository.GetAll()).ToList();
-
-            return allItems;
+            return _mapper.Map<IEnumerable<HouseModel>>(_houseRepository.GetAll()).ToList();
         }
 
         public IEnumerable<HouseGetDto> GetAllHouses(string userId)
         {
-            var allItems = _mapper.Map<IEnumerable<HouseGetDto>>(_houseRepository.GetAll(userId)).ToList();
-
-
-            allItems.ForEach(item => SetCache(item.Id, item, userId));
-
-            return allItems;
+            //allItems.ForEach(item => SetCache(item.Id, item, userId));
+            return _mapper.Map<IEnumerable<HouseGetDto>>(_houseRepository.GetAll(userId)).ToList();
         }
 
         public HouseModel GetHouseById(int id)
         {
-            var item = _mapper.Map<HouseModel>(_houseRepository.GetById(id));
-
-            return item;
+            return _mapper.Map<HouseModel>(_houseRepository.GetById(id));
         }
 
         public HouseGetDto GetHouseById(int id, string userId)
         {
-            var item = GetCache<HouseGetDto>(id, userId);
-            if (item != null)
-            {
-                return item;
-            }
-            item = _mapper.Map<HouseGetDto>(_houseRepository.GetById(id, userId));
+            //var item = GetCache<HouseGetDto>(id, userId);
+            //if (item != null)
+            //{
+            //    return item;
+            //}
 
-            if(item != null)
-                SetCache(item.Id, item, userId);
+            //if(item != null)
+            //    SetCache(item.Id, item, userId);
 
-            return item;
+            return _mapper.Map<HouseGetDto>(_houseRepository.GetById(id, userId));
         }
 
         public HousePostDto CreateHouse(HousePostDto newModel, string userId)
@@ -53,8 +44,8 @@ namespace SmartLiving.Domain.Supervisors
             item = _houseRepository.Create(item, userId);
             newModel = _mapper.Map<HousePostDto>(item);
 
-            if(newModel != null)
-                SetCache(newModel.Id, newModel, userId);
+            //if(newModel != null)
+            //    SetCache(newModel.Id, newModel, userId);
 
             return newModel;
         }
@@ -68,8 +59,8 @@ namespace SmartLiving.Domain.Supervisors
             }
             _mapper.Map(updateModel, item);
 
-            if(updateModel != null)
-                SetCache(updateModel.Id, updateModel, userId);
+            //if(updateModel != null)
+            //    SetCache(updateModel.Id, updateModel, userId);
 
             return _houseRepository.Update(item, userId);
         }
