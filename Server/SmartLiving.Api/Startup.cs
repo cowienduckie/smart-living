@@ -36,14 +36,9 @@ namespace SmartLiving.Api
             services.AddNewtonsoft();
             services.ConfigureIdentity();
             services.AddServices();
-
-            services.AddHealthChecks();
-
-            //Event Bus
-            var rabbitMqOptions = Configuration.GetSection("RabbitMq").Get<RabbitMqOptions>();
-
-            services.AddRabbitMqConnection(rabbitMqOptions);
-            services.AddRabbitMqRegistration(rabbitMqOptions);
+            services.AddEventBusRabbitMQ(Configuration);
+;
+            services.AddHealthChecks(); 
 
             services.AddSwaggerGen(c =>
             {
