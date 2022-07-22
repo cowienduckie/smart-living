@@ -7,16 +7,13 @@ namespace SmartLiving.DeviceMVC.BusinessLogics.IntegrationEvents.Handlers
 {
     public class ItemCreatedIntegrationEventHandler : IIntegrationEventHandler<ItemCreatedIntegrationEvent>
     {
-        public ItemCreatedIntegrationEventHandler()
-        {
-        }
-
-        public async Task Handle(ItemCreatedIntegrationEvent @event)
+        public Task Handle(ItemCreatedIntegrationEvent @event)
         {
             var itemTitle = @event.Title;
             var itemDescription = @event.Description;
 
             Console.WriteLine($"{itemTitle} : {itemDescription}");
+            return Task.CompletedTask;
         }
     }
 }

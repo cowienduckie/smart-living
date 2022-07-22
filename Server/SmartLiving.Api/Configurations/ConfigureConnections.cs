@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.SqlServer.Migrations.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Npgsql;
 using SmartLiving.Data;
+using SmartLiving.Data.EFCoreColumnOrder;
 using SmartLiving.Domain.DbInfo;
 
 namespace SmartLiving.Api.Configurations

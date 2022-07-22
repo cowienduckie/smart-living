@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SmartLiving.DeviceMVC.Data.Entities;
 
-namespace SmartLiving.DeviceMVC.BusinessLogic.DataContext.Configurations
+namespace SmartLiving.DeviceMVC.BusinessLogics.DataContext.Configurations
 {
     public class DeviceConfiguration : ConfigurationBase<Device>
     {
@@ -21,7 +21,7 @@ namespace SmartLiving.DeviceMVC.BusinessLogic.DataContext.Configurations
 
             entity.HasOne(d => d.DeviceType)
                 .WithMany(dt => dt.Devices)
-                .HasForeignKey(d => d.DeviceTypeId);          
+                .HasForeignKey(d => d.DeviceTypeId);
         }
     }
 }

@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Migrations.Operations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Internal;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Migrations;
 
-namespace Microsoft.EntityFrameworkCore.Migrations
+namespace SmartLiving.DeviceMVC.BusinessLogics.DataContext.EFCoreColumnOrder
 {
     public class CustomPostgreSqlMigrationsSqlGenerator : NpgsqlMigrationsSqlGenerator
     {
@@ -23,7 +24,7 @@ namespace Microsoft.EntityFrameworkCore.Migrations
             base.CreateTableColumns(operation, model, builder);
         }
 
-        internal class ColumnOrderComparision : IComparer<AddColumnOperation>
+        private class ColumnOrderComparision : IComparer<AddColumnOperation>
         {
             public int Compare(AddColumnOperation x, AddColumnOperation y)
             {

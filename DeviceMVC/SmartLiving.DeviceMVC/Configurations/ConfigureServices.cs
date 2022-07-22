@@ -1,17 +1,13 @@
-﻿using System;
-using EventBus.Base.Standard.Configuration;
+﻿using EventBus.Base.Standard.Configuration;
 using EventBus.RabbitMQ.Standard.Configuration;
 using EventBus.RabbitMQ.Standard.Options;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Serialization;
 using SmartLiving.DeviceMVC.BusinessLogics.Repositories;
 using SmartLiving.DeviceMVC.BusinessLogics.Repositories.Interfaces;
-using SmartLiving.DeviceMVC.Extenstions;
+using SmartLiving.DeviceMVC.Extensions;
 
-namespace SmartLiving.Api.Configurations
+namespace SmartLiving.DeviceMVC.Configurations
 {
     public static class ConfigureServices
     {
@@ -23,14 +19,13 @@ namespace SmartLiving.Api.Configurations
             services.AddScoped<IUserRepository, UserRepository>();
         }
 
-        public static void AddEventBusRabbitMQ(this IServiceCollection services, IConfiguration configuration)
+        public static void AddEventBusRabbitMq(this IServiceCollection services, IConfiguration configuration)
         {
             var rabbitMqOptions = configuration.GetSection("RabbitMq").Get<RabbitMqOptions>();
 
             services.AddRabbitMqConnection(rabbitMqOptions);
             services.AddRabbitMqRegistration(rabbitMqOptions);
             services.AddEventBusHandling(EventBusExtension.GetHandlers());
-
         }
     }
 }

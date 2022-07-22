@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using SmartLiving.DeviceMVC.BusinessLogics.Repositories.Interfaces;
 using SmartLiving.DeviceMVC.Data.Models;
-using System;
 
 namespace SmartLiving.DeviceMVC.Controllers
 {

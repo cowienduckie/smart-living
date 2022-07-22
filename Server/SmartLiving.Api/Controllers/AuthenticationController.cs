@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using SmartLiving.Api.Middleware;
 using SmartLiving.Domain.Models;
-using System;
-using System.Threading.Tasks;
 
 namespace SmartLiving.Api.Controllers
 {
@@ -25,7 +25,7 @@ namespace SmartLiving.Api.Controllers
                 var response = await _userService.SignIn(model);
 
                 if (response == null)
-                    return BadRequest(new { message = "Username or password is incorrect!" });
+                    return BadRequest(new {message = "Username or password is incorrect!"});
 
                 return Ok(response);
             }
@@ -43,7 +43,7 @@ namespace SmartLiving.Api.Controllers
                 var succeeded = await _userService.SignUp(model);
 
                 if (!succeeded)
-                    return BadRequest(new { message = "Something went wrong!" });
+                    return BadRequest(new {message = "Something went wrong!"});
 
                 return Ok();
             }

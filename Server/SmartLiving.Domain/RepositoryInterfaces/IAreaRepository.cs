@@ -1,5 +1,5 @@
-using SmartLiving.Domain.Entities;
 using System.Collections.Generic;
+using SmartLiving.Domain.Entities;
 
 namespace SmartLiving.Domain.RepositoryInterfaces
 {

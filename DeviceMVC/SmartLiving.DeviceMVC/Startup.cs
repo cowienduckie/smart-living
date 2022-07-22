@@ -1,15 +1,10 @@
-using EventBus.Base.Standard.Configuration;
-using EventBus.RabbitMQ.Standard.Configuration;
-using EventBus.RabbitMQ.Standard.Options;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using SmartLiving.Api.Configurations;
-using SmartLiving.DeviceMVC.BusinessLogics.Repositories;
-using SmartLiving.DeviceMVC.BusinessLogics.Repositories.Interfaces;
-using SmartLiving.DeviceMVC.Extenstions;
+using SmartLiving.DeviceMVC.Configurations;
+using SmartLiving.DeviceMVC.Extensions;
 
 namespace SmartLiving.DeviceMVC
 {
@@ -29,14 +24,7 @@ namespace SmartLiving.DeviceMVC
             services.ConfigureRepositories();
             services.AddConnectionProvider(Configuration);
             services.AddAppSettings(Configuration);
-
-            //Event Bus
-            var rabbitMqOptions = Configuration.GetSection("RabbitMq").Get<RabbitMqOptions>();
-
-            services.AddRabbitMqConnection(rabbitMqOptions);
-            services.AddRabbitMqRegistration(rabbitMqOptions);
-            services.AddEventBusHandling(EventBusExtension.GetHandlers());
-
+            services.AddEventBusRabbitMq(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -50,6 +38,7 @@ namespace SmartLiving.DeviceMVC
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -63,8 +52,8 @@ namespace SmartLiving.DeviceMVC
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    "default",
+                    "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

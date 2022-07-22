@@ -1,7 +1,4 @@
-﻿using SmartLiving.DeviceMVC.Data.Models;
-using System.Collections.Generic;
-
-namespace SmartLiving.DeviceMVC.Data.Models
+﻿namespace SmartLiving.DeviceMVC.Data.Models
 {
     public class DeviceTypeModel
     {

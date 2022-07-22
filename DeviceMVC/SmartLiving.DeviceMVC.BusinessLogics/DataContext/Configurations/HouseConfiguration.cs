@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SmartLiving.DeviceMVC.Data.Entities;
 
-namespace SmartLiving.DeviceMVC.BusinessLogic.DataContext.Configurations
+namespace SmartLiving.DeviceMVC.BusinessLogics.DataContext.Configurations
 {
     public class HouseConfiguration : ConfigurationBase<House>
     {

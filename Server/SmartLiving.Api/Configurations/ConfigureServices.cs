@@ -1,19 +1,20 @@
-﻿using EventBus.RabbitMQ.Standard.Configuration;
+﻿using System;
+using EventBus.RabbitMQ.Standard.Configuration;
 using EventBus.RabbitMQ.Standard.Options;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using SmartLiving.Api.Middleware;
 using SmartLiving.Data;
 using SmartLiving.Data.Repositories;
 using SmartLiving.Domain.Entities;
 using SmartLiving.Domain.RepositoryInterfaces;
-using SmartLiving.Domain.Service;
+using SmartLiving.Domain.Services;
 using SmartLiving.Domain.Supervisors;
 using SmartLiving.Domain.Supervisors.Interfaces;
-using System;
 
 namespace SmartLiving.Api.Configurations
 {
@@ -138,11 +139,11 @@ namespace SmartLiving.Api.Configurations
             services.AddControllers().AddNewtonsoftJson(s =>
             {
                 s.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-                s.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                s.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
         }
 
-        public static void AddEventBusRabbitMQ(this IServiceCollection services, IConfiguration configuration)
+        public static void AddEventBusRabbitMq(this IServiceCollection services, IConfiguration configuration)
         {
             var rabbitMqOptions = configuration.GetSection("RabbitMq").Get<RabbitMqOptions>();
 

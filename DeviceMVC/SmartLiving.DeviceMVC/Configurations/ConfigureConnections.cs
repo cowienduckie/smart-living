@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.SqlServer.Migrations.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Npgsql;
 using SmartLiving.DeviceMVC.BusinessLogics.DataContext;
+using SmartLiving.DeviceMVC.BusinessLogics.DataContext.EFCoreColumnOrder;
 
-namespace SmartLiving.Api.Configurations
+namespace SmartLiving.DeviceMVC.Configurations
 {
     public static class ConfigureConnections
     {

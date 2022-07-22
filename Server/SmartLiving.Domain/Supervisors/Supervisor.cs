@@ -1,26 +1,25 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using AutoMapper;
 using Microsoft.Extensions.Caching.Memory;
 using SmartLiving.Domain.RepositoryInterfaces;
 using SmartLiving.Domain.Supervisors.Interfaces;
 using SmartLiving.Library.Constants;
 using SmartLiving.Library.DataTypes;
-using System;
-using System.Collections.Generic;
 
 namespace SmartLiving.Domain.Supervisors
 {
     public partial class Supervisor : ISupervisor
     {
-        private readonly IMemoryCache _cache;
-        private readonly IMapper _mapper;
-
         private readonly IAreaRepository _areaRepository;
+        private readonly IMemoryCache _cache;
         private readonly ICommandRepository _commandRepository;
         private readonly ICommandTypeRepository _commandTypeRepository;
         private readonly IDeviceRepository _deviceRepository;
         private readonly IDeviceTypeRepository _deviceTypeRepository;
         private readonly IHouseRepository _houseRepository;
         private readonly IHouseTypeRepository _houseTypeRepository;
+        private readonly IMapper _mapper;
         private readonly IProfileRepository _profileRepository;
         private readonly IScheduleRepository _scheduleRepository;
         private readonly IUserRepository _userRepository;

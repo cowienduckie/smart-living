@@ -1,8 +1,4 @@
-﻿using SmartLiving.DeviceMVC.Data;
-using SmartLiving.DeviceMVC.Data.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using SmartLiving.DeviceMVC.Data.Models;
 
 namespace SmartLiving.DeviceMVC.BusinessLogics.Repositories.Interfaces
 {

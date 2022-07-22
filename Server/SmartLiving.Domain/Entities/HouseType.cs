@@ -5,7 +5,7 @@ namespace SmartLiving.Domain.Entities
 {
     public class HouseType : BaseEntity
     {
-        [Required][Key] public int Id { get; set; }
+        [Required] [Key] public int Id { get; set; }
 
         [Required] public string Name { get; set; }
 

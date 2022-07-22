@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 using SmartLiving.DeviceMVC.BusinessLogics.Repositories.Interfaces;
 using SmartLiving.DeviceMVC.Data.Models;
-using System;
-using System.Collections.Generic;
 
 namespace SmartLiving.DeviceMVC.Controllers
 {
@@ -21,10 +22,7 @@ namespace SmartLiving.DeviceMVC.Controllers
         {
             try
             {
-                var allItems = _userRepository.GetAll();
-
-                if (allItems == null)
-                    allItems = new List<UserModel>();
+                var allItems = _userRepository.GetAll()?.ToList() ?? new List<UserModel>();
 
                 return View(allItems);
             }

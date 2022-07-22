@@ -1,11 +1,11 @@
-﻿using EventBus.Base.Standard;
+﻿using System.Collections.Generic;
+using EventBus.Base.Standard;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using SmartLiving.DeviceMVC.BusinessLogics.IntegrationEvents.Events;
 using SmartLiving.DeviceMVC.BusinessLogics.IntegrationEvents.Handlers;
-using System.Collections.Generic;
 
-namespace SmartLiving.DeviceMVC.Extenstions
+namespace SmartLiving.DeviceMVC.Extensions
 {
     public static class EventBusExtension
     {

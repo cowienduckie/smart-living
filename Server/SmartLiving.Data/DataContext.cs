@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.Threading;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SmartLiving.Data.Configurations;
 using SmartLiving.Data.EFCoreColumnOrder;
 using SmartLiving.Domain.Entities;
-using System.Threading;
 
 namespace SmartLiving.Data
 {
@@ -69,7 +69,7 @@ namespace SmartLiving.Data
             new DeviceTypeCommandTypeConfiguration(modelBuilder.Entity<DeviceTypeCommandType>());
 
             //Create DbSet for Role and UserRole with keys
-            modelBuilder.Entity<IdentityUserRole<string>>().HasKey(ur => new { ur.UserId, ur.RoleId });
+            modelBuilder.Entity<IdentityUserRole<string>>().HasKey(ur => new {ur.UserId, ur.RoleId});
             modelBuilder.Entity<IdentityRole<string>>().HasKey(r => r.Id);
         }
     }

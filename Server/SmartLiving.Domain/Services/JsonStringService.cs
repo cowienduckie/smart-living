@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System;
+using Newtonsoft.Json.Linq;
 using SmartLiving.Domain.DataTransferObjects;
-using System;
 
-namespace SmartLiving.Domain.Service
+namespace SmartLiving.Domain.Services
 {
     public interface IJsonStringService
     {
@@ -23,7 +23,7 @@ namespace SmartLiving.Domain.Service
                 {
                     ["name"] = area.Name,
                     ["icon"] = "",
-                    ["devicesCount"] = area.Devices?.Count,
+                    ["devicesCount"] = area.Devices?.Count
                 };
 
                 rooms.Add(Convert.ToString(area.Id), room);
@@ -40,9 +40,7 @@ namespace SmartLiving.Domain.Service
             var devices = new JObject();
 
             foreach (var device in model.Devices)
-            {
                 devices.Add(Convert.ToString(device.Id), JObject.Parse(device.Params));
-            }
 
             return new JObject
             {

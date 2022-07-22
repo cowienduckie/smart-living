@@ -1,8 +1,8 @@
-﻿using SmartLiving.Domain.DataTransferObjects;
+﻿using System.Collections.Generic;
+using System.Linq;
+using SmartLiving.Domain.DataTransferObjects;
 using SmartLiving.Domain.Entities;
 using SmartLiving.Domain.Models;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace SmartLiving.Domain.Supervisors
 {
@@ -53,10 +53,7 @@ namespace SmartLiving.Domain.Supervisors
         public bool UpdateArea(AreaPostDto updateModel, string userId)
         {
             var item = _areaRepository.GetById(updateModel.Id, userId);
-            if (item == null)
-            {
-                return false;
-            }
+            if (item == null) return false;
             _mapper.Map(updateModel, item);
 
             //if(updateModel != null)

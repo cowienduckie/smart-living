@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Cors;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using SmartLiving.Api.Middleware;
 using SmartLiving.Domain.DataTransferObjects;
 using SmartLiving.Domain.Supervisors.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace SmartLiving.Api.Controllers
 {
@@ -86,7 +86,7 @@ namespace SmartLiving.Api.Controllers
 
                 model = _supervisor.CreateCommand(model, CurrentUser.Id);
 
-                return CreatedAtRoute(nameof(GetCommandById), new { id = model.Id }, model);
+                return CreatedAtRoute(nameof(GetCommandById), new {id = model.Id}, model);
             }
             catch (Exception e)
             {

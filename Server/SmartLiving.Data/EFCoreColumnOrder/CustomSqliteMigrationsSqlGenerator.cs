@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations.Operations;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Migrations.Operations;
 
-namespace Microsoft.EntityFrameworkCore.Migrations
+namespace SmartLiving.Data.EFCoreColumnOrder
 {
     public class CustomSqliteMigrationsSqlGenerator : SqliteMigrationsSqlGenerator
     {

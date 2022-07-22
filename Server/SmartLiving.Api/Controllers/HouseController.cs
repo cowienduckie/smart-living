@@ -1,14 +1,14 @@
-﻿using EventBus.Base.Standard;
+﻿using System;
+using System.Linq;
+using EventBus.Base.Standard;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using SmartLiving.Api.Middleware;
 using SmartLiving.Domain.DataTransferObjects;
 using SmartLiving.Domain.IntegrationEvents.Events;
-using SmartLiving.Domain.Service;
+using SmartLiving.Domain.Services;
 using SmartLiving.Domain.Supervisors.Interfaces;
-using System;
-using System.Linq;
 
 namespace SmartLiving.Api.Controllers
 {
@@ -18,9 +18,9 @@ namespace SmartLiving.Api.Controllers
     [Authorize]
     public class HouseController : BaseController
     {
-        private readonly ISupervisor _supervisor;
-        private readonly IJsonStringService _jsonService;
         private readonly IEventBus _eventBus;
+        private readonly IJsonStringService _jsonService;
+        private readonly ISupervisor _supervisor;
 
         public HouseController(ISupervisor supervisor, IJsonStringService jsonService, IEventBus eventBus)
         {
@@ -39,19 +39,16 @@ namespace SmartLiving.Api.Controllers
 
                 _eventBus.Publish(message);
 
-                var allItems = _supervisor.GetAllHouses(CurrentUser.Id);
+                var allItems = _supervisor.GetAllHouses(CurrentUser.Id).ToList();
 
-                if (allItems.Any())
+                if (!allItems.Any()) return NotFound();
+                var jsonList = allItems.Select(item => new JObject
                 {
-                    var jsonList = allItems.Select(item => new JObject
-                    {
-                        [Convert.ToString(item.Id)] = _jsonService.Serialize(item)
-                    });
+                    [Convert.ToString(item.Id)] = _jsonService.Serialize(item)
+                });
 
-                    return Ok(jsonList);
-                }
+                return Ok(jsonList);
 
-                return NotFound();
             }
             catch (Exception e)
             {
@@ -110,7 +107,7 @@ namespace SmartLiving.Api.Controllers
 
                 model = _supervisor.CreateHouse(model, CurrentUser.Id);
 
-                return CreatedAtRoute(nameof(GetHouseById), new { id = model.Id }, model);
+                return CreatedAtRoute(nameof(GetHouseById), new {id = model.Id}, model);
             }
             catch (Exception e)
             {

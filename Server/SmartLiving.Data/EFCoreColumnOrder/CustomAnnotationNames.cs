@@ -1,4 +1,6 @@
-﻿namespace Microsoft.EntityFrameworkCore.Metadata
+﻿using Microsoft.EntityFrameworkCore.Metadata;
+
+namespace SmartLiving.Data.EFCoreColumnOrder
 {
     public static class CustomAnnotationNames
     {
