@@ -16,7 +16,6 @@ namespace SmartLiving.DeviceMVC.Configurations
             services.AddScoped<IAreaRepository, AreaRepository>();
             services.AddScoped<IDeviceRepository, DeviceRepository>();
             services.AddScoped<IHouseRepository, HouseRepository>();
-            services.AddScoped<IUserRepository, UserRepository>();
         }
 
         public static void AddEventBusRabbitMq(this IServiceCollection services, IConfiguration configuration)

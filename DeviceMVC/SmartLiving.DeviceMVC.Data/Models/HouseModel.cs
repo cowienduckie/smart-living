@@ -10,8 +10,6 @@ namespace SmartLiving.DeviceMVC.Data.Models
 
         public string UserId { get; set; }
 
-        public UserModel User { get; set; }
-
         public int HouseTypeId { get; set; }
 
         public HouseTypeModel HouseType { get; set; }
