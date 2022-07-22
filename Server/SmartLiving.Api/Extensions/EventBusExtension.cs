@@ -2,10 +2,10 @@
 using EventBus.Base.Standard;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using SmartLiving.DeviceMVC.BusinessLogics.IntegrationEvents.Events;
-using SmartLiving.DeviceMVC.BusinessLogics.IntegrationEvents.Handlers;
+using SmartLiving.Domain.IntegrationEvents.Events;
+using SmartLiving.Domain.IntegrationEvents.Handlers;
 
-namespace SmartLiving.DeviceMVC.Extensions
+namespace SmartLiving.Api.Extensions
 {
     public static class EventBusExtension
     {
@@ -13,7 +13,7 @@ namespace SmartLiving.DeviceMVC.Extensions
         {
             return new List<IIntegrationEventHandler>
             {
-                new SeverMsgEventHandler()
+                new DeviceGatewayMsgEventHandler()
             };
         }
 
@@ -21,7 +21,7 @@ namespace SmartLiving.DeviceMVC.Extensions
         {
             var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
 
-            eventBus.Subscribe<ServerMsgEvent, SeverMsgEventHandler>();
+            eventBus.Subscribe<DeviceGatewayMsgEvent, DeviceGatewayMsgEventHandler>();
 
             return app;
         }

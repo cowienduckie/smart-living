@@ -2,9 +2,9 @@
 
 namespace SmartLiving.DeviceMVC.BusinessLogics.IntegrationEvents.Events
 {
-    public class ItemCreatedIntegrationEvent : IntegrationEvent
+    public class DeviceGatewayMsgEvent : IntegrationEvent
     {
-        public ItemCreatedIntegrationEvent(string title, string description)
+        public DeviceGatewayMsgEvent(string title, string description)
         {
             Title = title;
             Description = description;

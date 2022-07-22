@@ -24,7 +24,7 @@ namespace SmartLiving.DeviceMVC
             services.ConfigureRepositories();
             services.AddConnectionProvider(Configuration);
             services.AddAppSettings(Configuration);
-            services.AddEventBusRabbitMq(Configuration);
+            services.AddEventBus(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

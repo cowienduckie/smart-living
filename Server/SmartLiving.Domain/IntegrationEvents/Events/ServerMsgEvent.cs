@@ -2,9 +2,9 @@
 
 namespace SmartLiving.Domain.IntegrationEvents.Events
 {
-    public class ItemCreatedIntegrationEvent : IntegrationEvent
+    public class ServerMsgEvent : IntegrationEvent
     {
-        public ItemCreatedIntegrationEvent(string title, string description)
+        public ServerMsgEvent(string title, string description)
         {
             Title = title;
             Description = description;

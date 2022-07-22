@@ -18,9 +18,9 @@ namespace SmartLiving.DeviceMVC.Configurations
             services.AddScoped<IHouseRepository, HouseRepository>();
         }
 
-        public static void AddEventBusRabbitMq(this IServiceCollection services, IConfiguration configuration)
+        public static void AddEventBus(this IServiceCollection services, IConfiguration configuration)
         {
-            var rabbitMqOptions = configuration.GetSection("RabbitMq").Get<RabbitMqOptions>();
+            var rabbitMqOptions = configuration.GetSection("RabbitMq_SmartLiving").Get<RabbitMqOptions>();
 
             services.AddRabbitMqConnection(rabbitMqOptions);
             services.AddRabbitMqRegistration(rabbitMqOptions);

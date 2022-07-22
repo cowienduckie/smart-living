@@ -35,9 +35,11 @@ namespace SmartLiving.Api.Controllers
         {
             try
             {
-                var message = new ItemCreatedIntegrationEvent("Msg", "I see your houses");
+                //
+                var message = new ServerMsgEvent("Msg", "I see your houses");
 
                 _eventBus.Publish(message);
+                //
 
                 var allItems = _supervisor.GetAllHouses(CurrentUser.Id).ToList();
 

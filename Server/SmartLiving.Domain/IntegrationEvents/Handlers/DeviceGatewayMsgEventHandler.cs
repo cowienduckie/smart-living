@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
 using EventBus.Base.Standard;
-using SmartLiving.DeviceMVC.BusinessLogics.IntegrationEvents.Events;
+using SmartLiving.Domain.IntegrationEvents.Events;
 
-namespace SmartLiving.DeviceMVC.BusinessLogics.IntegrationEvents.Handlers
+namespace SmartLiving.Domain.IntegrationEvents.Handlers
 {
-    public class ItemCreatedIntegrationEventHandler : IIntegrationEventHandler<ItemCreatedIntegrationEvent>
+    public class DeviceGatewayMsgEventHandler : IIntegrationEventHandler<DeviceGatewayMsgEvent>
     {
-        public Task Handle(ItemCreatedIntegrationEvent @event)
+        public Task Handle(DeviceGatewayMsgEvent @event)
         {
             var itemTitle = @event.Title;
             var itemDescription = @event.Description;
