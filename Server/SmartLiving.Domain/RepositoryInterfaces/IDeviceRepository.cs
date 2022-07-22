@@ -6,6 +6,7 @@ namespace SmartLiving.Domain.RepositoryInterfaces
     public interface IDeviceRepository : IBaseRepository<Device>
     {
         IEnumerable<Device> GetAll();
+
         Device GetById(int id);
     }
 }

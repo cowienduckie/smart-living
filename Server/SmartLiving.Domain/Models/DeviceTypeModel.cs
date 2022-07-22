@@ -14,6 +14,6 @@ namespace SmartLiving.Domain.Models
         public int DeviceTypeId { get; set; }
         public virtual DeviceTypeModel DeviceType { get; set; }
         public int CommandTypeId { get; set; }
-        public virtual CommandTypeModel CommandType { get; set;}
+        public virtual CommandTypeModel CommandType { get; set; }
     }
 }

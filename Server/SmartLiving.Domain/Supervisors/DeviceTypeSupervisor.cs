@@ -1,9 +1,7 @@
-﻿using System;
+﻿using SmartLiving.Domain.DataTransferObjects;
+using SmartLiving.Domain.Entities;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using SmartLiving.Domain.DataTransferObjects;
-using SmartLiving.Domain.Entities;
 
 namespace SmartLiving.Domain.Supervisors
 {
@@ -25,8 +23,8 @@ namespace SmartLiving.Domain.Supervisors
                 return item;
             }
             item = _mapper.Map<DeviceTypeGetDto>(_deviceTypeRepository.GetById(id, userId));
-            
-            if(item != null)
+
+            if (item != null)
                 SetCache(item.Id, item, userId);
 
             return item;

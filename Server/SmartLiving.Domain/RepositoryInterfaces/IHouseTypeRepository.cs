@@ -4,6 +4,5 @@ namespace SmartLiving.Domain.RepositoryInterfaces
 {
     public interface IHouseTypeRepository : IBaseRepository<HouseType>
     {
-        
     }
 }

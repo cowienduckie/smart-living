@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-using SmartLiving.Domain.Entities;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace SmartLiving.Domain.DataTransferObjects
 {
     public class DevicePostDto
     {
-        [Required] [Key] public int Id { get; set; }
+        [Required][Key] public int Id { get; set; }
 
-        [Required] [StringLength(200)] public string Name { get; set; }
+        [Required][StringLength(200)] public string Name { get; set; }
 
         [Required] public int HouseId { get; set; }
 

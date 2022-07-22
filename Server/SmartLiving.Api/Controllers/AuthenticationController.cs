@@ -1,9 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SmartLiving.Api.Middleware;
 using SmartLiving.Domain.Models;
+using System;
+using System.Threading.Tasks;
 
 namespace SmartLiving.Api.Controllers
 {
@@ -60,9 +59,9 @@ namespace SmartLiving.Api.Controllers
         {
             try
             {
-               await _userService.SignOut();
+                await _userService.SignOut();
 
-               return Ok();
+                return Ok();
             }
             catch (Exception e)
             {

@@ -8,6 +8,5 @@ namespace SmartLiving.Domain.DataTransferObjects
         public string Name { get; set; }
         public int HouseId { get; set; }
         public List<DeviceGetDto> Devices { get; set; }
-        public HouseGetDto House { get; set; }
     }
 }

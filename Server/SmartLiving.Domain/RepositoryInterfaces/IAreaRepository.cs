@@ -6,7 +6,7 @@ namespace SmartLiving.Domain.RepositoryInterfaces
     public interface IAreaRepository : IBaseRepository<Area>
     {
         IEnumerable<Area> GetAll();
+
         Area GetById(int id);
-        IEnumerable<Area> GetByHouse(int houseId, string userId);
     }
 }

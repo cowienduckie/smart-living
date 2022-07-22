@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace SmartLiving.Domain.DataTransferObjects
 {
@@ -11,7 +9,6 @@ namespace SmartLiving.Domain.DataTransferObjects
         public string UserId { get; set; }
         public int HouseTypeId { get; set; }
         public HouseTypeGetDto HouseType { get; set; }
-        public List<DeviceGetDto> Devices { get; set; }
         public List<AreaGetDto> Areas { get; set; }
     }
 }

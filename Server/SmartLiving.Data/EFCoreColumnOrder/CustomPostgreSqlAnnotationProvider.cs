@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Microsoft.EntityFrameworkCore.Infrastructure;
+﻿using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Migrations.Internal;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Microsoft.EntityFrameworkCore.SqlServer.Migrations.Internal
 {
@@ -22,7 +22,7 @@ namespace Microsoft.EntityFrameworkCore.SqlServer.Migrations.Internal
 
             return orderAnnotation == null
                 ? baseAnnotations
-                : baseAnnotations.Concat(new[] {orderAnnotation});
+                : baseAnnotations.Concat(new[] { orderAnnotation });
         }
     }
 }

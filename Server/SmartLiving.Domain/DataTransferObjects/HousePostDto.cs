@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SmartLiving.Domain.DataTransferObjects
+﻿namespace SmartLiving.Domain.DataTransferObjects
 {
     public class HousePostDto
     {

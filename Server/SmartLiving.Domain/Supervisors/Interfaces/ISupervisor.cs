@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using SmartLiving.Library.DataTypes;
+﻿using SmartLiving.Library.DataTypes;
+using System.Collections.Generic;
 
 namespace SmartLiving.Domain.Supervisors.Interfaces
 {

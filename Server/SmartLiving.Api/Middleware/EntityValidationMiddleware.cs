@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
+using System.Threading.Tasks;
 
 namespace SmartLiving.Api.Middleware
 {
@@ -34,19 +34,23 @@ namespace SmartLiving.Api.Middleware
                         context.Response.StatusCode = 400; //Bad Request
                         await context.Response.WriteAsync("Id is missing");
                         return;
+
                     case "POST" when !context.Request.ContentLength.Equals(0):
                         context.Response.StatusCode = 400; //UnAuthorized
                         await context.Response.WriteAsync("Entity missing");
                         return;
+
                     case "PUT" when !context.Request.Headers.Keys.Contains("id") ||
                                     !context.Request.ContentLength.Equals(0):
                         context.Response.StatusCode = 400; //UnAuthorized
                         await context.Response.WriteAsync("Entity missing");
                         return;
+
                     case "DELETE" when !context.Request.Headers.Keys.Contains("id"):
                         context.Response.StatusCode = 400; //UnAuthorized
                         await context.Response.WriteAsync("Id is missing");
                         return;
+
                     default:
                         await _next.Invoke(context);
                         break;

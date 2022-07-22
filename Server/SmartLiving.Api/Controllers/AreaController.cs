@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.JsonPatch;
+﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using SmartLiving.Api.Middleware;
 using SmartLiving.Domain.DataTransferObjects;
+using SmartLiving.Domain.Service;
 using SmartLiving.Domain.Supervisors.Interfaces;
-using SmartLiving.Library.Constants;
-using SmartLiving.Library.DataTypes;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SmartLiving.Api.Controllers
-{
-    namespace SmartLiving.Api.Controllers
 {
     [Route("api/[controller]")]
     [EnableCors("CorsPolicy")]
@@ -22,10 +17,12 @@ namespace SmartLiving.Api.Controllers
     public class AreaController : BaseController
     {
         private readonly ISupervisor _supervisor;
+        private readonly IJsonStringService _jsonService;
 
-        public AreaController(ISupervisor supervisor)
+        public AreaController(ISupervisor supervisor, IJsonStringService jsonService)
         {
             _supervisor = supervisor;
+            _jsonService = jsonService;
         }
 
         //GET: api/Area/GetAllAreas
@@ -66,32 +63,18 @@ namespace SmartLiving.Api.Controllers
 
         //GET: api/Area/{id}
         [HttpGet("{id}", Name = "GetAreaById")]
-        public ActionResult<AreaGetDto> GetAreaById(int id)
+        public ActionResult GetAreaById(int id)
         {
             try
             {
                 var area = _supervisor.GetAreaById(id, CurrentUser.Id);
 
                 if (area != null)
-                    return Ok(area);
-                return NotFound();
-            }
-            catch (Exception e)
-            {
-                return HandleException(e);
-            }
-        }
+                {
+                    var json = _jsonService.Serialize(area);
 
-        //GET: api/GetAreaByHouse?houseId={houseId}
-        [HttpGet("[action]")]
-        public ActionResult<AreaGetDto> GetAreaByHouse(int houseId)
-        {
-            try
-            {
-                var allItems = _supervisor.GetAreaByHouse(houseId, CurrentUser.Id);
-
-                if (allItems.Any())
-                    return Ok(allItems);
+                    return Ok(json);
+                }
                 return NotFound();
             }
             catch (Exception e)
@@ -110,7 +93,7 @@ namespace SmartLiving.Api.Controllers
 
                 model = _supervisor.CreateArea(model, CurrentUser.Id);
 
-                return CreatedAtRoute(nameof(GetAreaById), new {id = model.Id}, model);
+                return CreatedAtRoute(nameof(GetAreaById), new { id = model.Id }, model);
             }
             catch (Exception e)
             {
@@ -120,7 +103,7 @@ namespace SmartLiving.Api.Controllers
 
         //PUT: api/Area/{id}
         [HttpPut("{id}")]
-        public ActionResult<AreaGetDto> UpdateArea(int id, [FromBody] AreaPostDto model)
+        public ActionResult UpdateArea(int id, [FromBody] AreaPostDto model)
         {
             try
             {
@@ -180,5 +163,4 @@ namespace SmartLiving.Api.Controllers
             }
         }
     }
-}
 }

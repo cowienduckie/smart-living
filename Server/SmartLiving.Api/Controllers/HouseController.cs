@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.JsonPatch;
+﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using SmartLiving.Api.Middleware;
 using SmartLiving.Domain.DataTransferObjects;
+using SmartLiving.Domain.Service;
 using SmartLiving.Domain.Supervisors.Interfaces;
-using SmartLiving.Library.Constants;
-using SmartLiving.Library.DataTypes;
+using System;
+using System.Linq;
 
 namespace SmartLiving.Api.Controllers
 {
@@ -19,22 +17,32 @@ namespace SmartLiving.Api.Controllers
     public class HouseController : BaseController
     {
         private readonly ISupervisor _supervisor;
+        private readonly IJsonStringService _jsonService;
 
-        public HouseController(ISupervisor supervisor)
+        public HouseController(ISupervisor supervisor, IJsonStringService jsonService)
         {
             _supervisor = supervisor;
+            _jsonService = jsonService;
         }
 
         //GET: api/House/GetAllHouses
         [HttpGet("[action]")]
-        public ActionResult<IEnumerable<HouseGetDto>> GetAllHouses()
+        public ActionResult GetAllHouses()
         {
             try
             {
                 var allItems = _supervisor.GetAllHouses(CurrentUser.Id);
 
                 if (allItems.Any())
-                    return Ok(allItems);
+                {
+                    var jsonList = allItems.Select(item => new JObject
+                    {
+                        [Convert.ToString(item.Id)] = _jsonService.Serialize(item)
+                    });
+
+                    return Ok(jsonList);
+                }
+
                 return NotFound();
             }
             catch (Exception e)
@@ -63,14 +71,19 @@ namespace SmartLiving.Api.Controllers
 
         //GET: api/House/{id}
         [HttpGet("{id}", Name = "GetHouseById")]
-        public ActionResult<HouseGetDto> GetHouseById(int id)
+        public ActionResult GetHouseById(int id)
         {
             try
             {
                 var house = _supervisor.GetHouseById(id, CurrentUser.Id);
 
                 if (house != null)
-                    return Ok(house);
+                {
+                    var json = _jsonService.Serialize(house);
+
+                    return Ok(json);
+                }
+
                 return NotFound();
             }
             catch (Exception e)
@@ -81,7 +94,7 @@ namespace SmartLiving.Api.Controllers
 
         //POST: api/House
         [HttpPost]
-        public ActionResult<HouseGetDto> CreateHouse([FromBody] HousePostDto model)
+        public ActionResult CreateHouse([FromBody] HousePostDto model)
         {
             try
             {
@@ -89,7 +102,7 @@ namespace SmartLiving.Api.Controllers
 
                 model = _supervisor.CreateHouse(model, CurrentUser.Id);
 
-                return CreatedAtRoute(nameof(GetHouseById), new {id = model.Id}, model);
+                return CreatedAtRoute(nameof(GetHouseById), new { id = model.Id }, model);
             }
             catch (Exception e)
             {
@@ -99,7 +112,7 @@ namespace SmartLiving.Api.Controllers
 
         //PUT: api/House/{id}
         [HttpPut("{id}")]
-        public ActionResult<HouseGetDto> UpdateHouse(int id, [FromBody] HousePostDto model)
+        public ActionResult UpdateHouse(int id, [FromBody] HousePostDto model)
         {
             try
             {

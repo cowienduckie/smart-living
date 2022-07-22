@@ -10,7 +10,6 @@ namespace SmartLiving.Domain.Models
         public string Username { get; }
         public string Token { get; }
 
-
         public SignInResponseModel(User user, string token)
         {
             Id = user.Id;

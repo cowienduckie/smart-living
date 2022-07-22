@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace SmartLiving.Domain.Entities
 {
@@ -19,8 +17,8 @@ namespace SmartLiving.Domain.Entities
 
         [Required] public bool IsActive { get; set; }
 
-        public virtual  IList<ProfileDevice> ProfileDevices { get; set; }
+        public virtual IList<ProfileDevice> ProfileDevices { get; set; }
 
-        public virtual  IList<SharedWith> SharedWith { get; set; }
+        public virtual IList<SharedWith> SharedWith { get; set; }
     }
 }

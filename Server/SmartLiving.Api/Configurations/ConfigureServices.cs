@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
@@ -8,8 +7,10 @@ using SmartLiving.Data;
 using SmartLiving.Data.Repositories;
 using SmartLiving.Domain.Entities;
 using SmartLiving.Domain.RepositoryInterfaces;
+using SmartLiving.Domain.Service;
 using SmartLiving.Domain.Supervisors;
 using SmartLiving.Domain.Supervisors.Interfaces;
+using System;
 
 namespace SmartLiving.Api.Configurations
 {
@@ -17,6 +18,7 @@ namespace SmartLiving.Api.Configurations
     {
         public static void ConfigureRepositories(this IServiceCollection services)
         {
+            // Repositories
             services.AddScoped<IAreaRepository, AreaRepository>();
             services.AddScoped<IHouseRepository, HouseRepository>();
             services.AddScoped<IDeviceRepository, DeviceRepository>();
@@ -27,6 +29,9 @@ namespace SmartLiving.Api.Configurations
             services.AddScoped<IDeviceTypeRepository, DeviceTypeRepository>();
             services.AddScoped<IHouseTypeRepository, HouseTypeRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+
+            // Services
+            services.AddScoped<IJsonStringService, JsonStringService>();
         }
 
         public static void ConfigureSupervisor(this IServiceCollection services)
