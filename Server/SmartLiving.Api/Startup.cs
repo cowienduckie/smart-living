@@ -1,3 +1,5 @@
+using EventBus.RabbitMQ.Standard.Configuration;
+using EventBus.RabbitMQ.Standard.Options;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -36,6 +38,12 @@ namespace SmartLiving.Api
             services.AddServices();
 
             services.AddHealthChecks();
+
+            //Event Bus
+            var rabbitMqOptions = Configuration.GetSection("RabbitMq").Get<RabbitMqOptions>();
+
+            services.AddRabbitMqConnection(rabbitMqOptions);
+            services.AddRabbitMqRegistration(rabbitMqOptions);
 
             services.AddSwaggerGen(c =>
             {

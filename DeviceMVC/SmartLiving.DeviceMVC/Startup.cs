@@ -1,3 +1,6 @@
+using EventBus.Base.Standard.Configuration;
+using EventBus.RabbitMQ.Standard.Configuration;
+using EventBus.RabbitMQ.Standard.Options;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -6,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using SmartLiving.Api.Configurations;
 using SmartLiving.DeviceMVC.BusinessLogics.Repositories;
 using SmartLiving.DeviceMVC.BusinessLogics.Repositories.Interfaces;
+using SmartLiving.DeviceMVC.Extenstions;
 
 namespace SmartLiving.DeviceMVC
 {
@@ -25,6 +29,13 @@ namespace SmartLiving.DeviceMVC
             services.ConfigureRepositories();
             services.AddConnectionProvider(Configuration);
             services.AddAppSettings(Configuration);
+
+            //Event Bus
+            var rabbitMqOptions = Configuration.GetSection("RabbitMq").Get<RabbitMqOptions>();
+
+            services.AddRabbitMqConnection(rabbitMqOptions);
+            services.AddRabbitMqRegistration(rabbitMqOptions);
+            services.AddEventBusHandling(EventBusExtension.GetHandlers());
             
         }
 
@@ -45,6 +56,9 @@ namespace SmartLiving.DeviceMVC
             app.UseRouting();
 
             app.UseAuthorization();
+
+            //Event Bus
+            app.SubscribeToEvents();
 
             app.UseEndpoints(endpoints =>
             {

@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Cors;
+﻿using EventBus.Base.Standard;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using SmartLiving.Api.Middleware;
 using SmartLiving.Domain.DataTransferObjects;
+using SmartLiving.Domain.IntegrationEvents.Events;
 using SmartLiving.Domain.Service;
 using SmartLiving.Domain.Supervisors.Interfaces;
 using System;
@@ -18,11 +20,13 @@ namespace SmartLiving.Api.Controllers
     {
         private readonly ISupervisor _supervisor;
         private readonly IJsonStringService _jsonService;
+        private readonly IEventBus _eventBus;
 
-        public HouseController(ISupervisor supervisor, IJsonStringService jsonService)
+        public HouseController(ISupervisor supervisor, IJsonStringService jsonService, IEventBus eventBus)
         {
             _supervisor = supervisor;
             _jsonService = jsonService;
+            _eventBus = eventBus;
         }
 
         //GET: api/House/GetAllHouses
@@ -31,6 +35,10 @@ namespace SmartLiving.Api.Controllers
         {
             try
             {
+                var message = new ItemCreatedIntegrationEvent("Msg", "I see your houses");
+
+                _eventBus.Publish(message);
+
                 var allItems = _supervisor.GetAllHouses(CurrentUser.Id);
 
                 if (allItems.Any())
