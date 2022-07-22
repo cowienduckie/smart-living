@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using SmartLiving.Domain.Entities;
 using SmartLiving.Domain.RepositoryInterfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SmartLiving.Data.Repositories
 {
@@ -53,7 +53,7 @@ namespace SmartLiving.Data.Repositories
         public House GetById(int id)
         {
             return _context.Houses
-                .Where(h => !h.IsDelete && h.Id == id )
+                .Where(h => !h.IsDelete && h.Id == id)
                     .Include(h => h.HouseType)
                     .Include(h => h.Areas)
                         .ThenInclude(a => a.Devices)

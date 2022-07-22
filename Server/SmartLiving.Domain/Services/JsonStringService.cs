@@ -1,15 +1,13 @@
 ﻿using Newtonsoft.Json.Linq;
 using SmartLiving.Domain.DataTransferObjects;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.RegularExpressions;
 
 namespace SmartLiving.Domain.Service
 {
     public interface IJsonStringService
     {
         JObject Serialize(HouseGetDto model);
+
         JObject Serialize(AreaGetDto model);
     }
 
@@ -41,7 +39,7 @@ namespace SmartLiving.Domain.Service
         {
             var devices = new JObject();
 
-            foreach(var device in model.Devices)
+            foreach (var device in model.Devices)
             {
                 devices.Add(Convert.ToString(device.Id), JObject.Parse(device.Params));
             }

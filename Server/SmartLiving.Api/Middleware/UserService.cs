@@ -1,25 +1,29 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using SmartLiving.Api.Configurations;
+using SmartLiving.Domain.Entities;
+using SmartLiving.Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using SmartLiving.Api.Configurations;
-using SmartLiving.Domain.Entities;
-using SmartLiving.Domain.Models;
 
 namespace SmartLiving.Api.Middleware
 {
     public interface IUserService
     {
         Task<SignInResponseModel> SignIn(SignInRequestModel model);
+
         Task<bool> SignUp(SignUpRequestModel model);
+
         Task SignOut();
+
         IEnumerable<User> GetAllUsers();
+
         Task<User> GetUserByIdAsync(string id);
     }
 
@@ -70,7 +74,7 @@ namespace SmartLiving.Api.Middleware
 
         public async Task SignOut()
         {
-             await _signInManager.SignOutAsync().ConfigureAwait(false);
+            await _signInManager.SignOutAsync().ConfigureAwait(false);
         }
 
         public IEnumerable<User> GetAllUsers()

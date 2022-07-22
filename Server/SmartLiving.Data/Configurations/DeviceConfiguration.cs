@@ -9,7 +9,7 @@ namespace SmartLiving.Data.Configurations
 
         public override void ConfigureEntity(EntityTypeBuilder<Device> entity)
         {
-            entity.HasKey(e => new {e.Id});
+            entity.HasKey(e => new { e.Id });
 
             entity.HasOne(d => d.House)
                 .WithMany(h => h.Devices)
@@ -57,7 +57,7 @@ namespace SmartLiving.Data.Configurations
 
         public DeviceCommandTypeConfiguration(EntityTypeBuilder<DeviceCommandType> entity)
         {
-            entity.HasKey(e => new {e.DeviceId, e.CommandTypeId});
+            entity.HasKey(e => new { e.DeviceId, e.CommandTypeId });
 
             entity.HasOne(e => e.Device)
                 .WithMany(d => d.DeviceCommandTypes)

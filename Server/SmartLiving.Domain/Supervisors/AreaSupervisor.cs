@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using SmartLiving.Domain.DataTransferObjects;
+﻿using SmartLiving.Domain.DataTransferObjects;
 using SmartLiving.Domain.Entities;
 using SmartLiving.Domain.Models;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SmartLiving.Domain.Supervisors
 {
@@ -33,7 +31,7 @@ namespace SmartLiving.Domain.Supervisors
             //{
             //    return item;
             //}
-            
+
             //if(item != null)
             //    SetCache(item.Id, item, userId);
 

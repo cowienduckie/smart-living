@@ -1,9 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using SmartLiving.Domain.Entities;
 using SmartLiving.Domain.RepositoryInterfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SmartLiving.Data.Repositories
 {
@@ -35,7 +35,6 @@ namespace SmartLiving.Data.Repositories
                 .AsNoTracking()
                 .ToList();
         }
-
 
         public IEnumerable<Area> GetAll(string userId)
         {

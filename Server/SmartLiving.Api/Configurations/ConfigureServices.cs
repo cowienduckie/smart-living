@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
@@ -11,6 +10,7 @@ using SmartLiving.Domain.RepositoryInterfaces;
 using SmartLiving.Domain.Service;
 using SmartLiving.Domain.Supervisors;
 using SmartLiving.Domain.Supervisors.Interfaces;
+using System;
 
 namespace SmartLiving.Api.Configurations
 {

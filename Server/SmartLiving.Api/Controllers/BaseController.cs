@@ -1,6 +1,6 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SmartLiving.Domain.Entities;
+using System;
 
 namespace SmartLiving.Api.Controllers
 {

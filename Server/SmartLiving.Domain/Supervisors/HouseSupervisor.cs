@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using SmartLiving.Domain.DataTransferObjects;
+﻿using SmartLiving.Domain.DataTransferObjects;
 using SmartLiving.Domain.Entities;
 using SmartLiving.Domain.Models;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SmartLiving.Domain.Supervisors
 {

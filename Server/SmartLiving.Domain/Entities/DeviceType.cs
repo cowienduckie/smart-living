@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace SmartLiving.Domain.Entities
 {
@@ -23,6 +21,6 @@ namespace SmartLiving.Domain.Entities
         public int DeviceTypeId { get; set; }
         public virtual DeviceType DeviceType { get; set; }
         public int CommandTypeId { get; set; }
-        public virtual CommandType CommandType { get; set;}
+        public virtual CommandType CommandType { get; set; }
     }
 }

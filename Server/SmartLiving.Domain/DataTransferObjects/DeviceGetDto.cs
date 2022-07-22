@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-using SmartLiving.Domain.Entities;
+﻿using System.Collections.Generic;
 
 namespace SmartLiving.Domain.DataTransferObjects
 {
@@ -24,7 +20,7 @@ namespace SmartLiving.Domain.DataTransferObjects
 
         public bool IsActive { get; set; }
 
-        public  List<DeviceCommandTypeGetDto> DeviceCommandTypes { get; set; }
+        public List<DeviceCommandTypeGetDto> DeviceCommandTypes { get; set; }
     }
 
     public class DeviceCommandTypeGetDto

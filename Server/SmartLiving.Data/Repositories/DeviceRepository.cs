@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SmartLiving.Domain.Entities;
 using SmartLiving.Domain.RepositoryInterfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SmartLiving.Data.Repositories
 {
@@ -94,7 +94,7 @@ namespace SmartLiving.Data.Repositories
                         {
                             controls.Add(Convert.ToString(dtct.CommandType.Id), JObject.Parse(dtct.CommandType.DefaultParams));
 
-                            entity.DeviceCommandTypes.Add(new DeviceCommandType {CommandType = dtct.CommandType});
+                            entity.DeviceCommandTypes.Add(new DeviceCommandType { CommandType = dtct.CommandType });
                         });
 
                     paramJson["controls"] = controls;

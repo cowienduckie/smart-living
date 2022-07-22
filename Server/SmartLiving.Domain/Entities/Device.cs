@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace SmartLiving.Domain.Entities
 {
     public class Device : BaseEntity
     {
-        [Required] [Key] public int Id { get; set; }
+        [Required][Key] public int Id { get; set; }
 
-        [Required] [StringLength(200)] public string Name { get; set; }
+        [Required][StringLength(200)] public string Name { get; set; }
 
         [Required] public int HouseId { get; set; }
 
@@ -16,7 +15,7 @@ namespace SmartLiving.Domain.Entities
 
         [Required] public int DeviceTypeId { get; set; }
 
-        public virtual  DeviceType DeviceType { get; set; }
+        public virtual DeviceType DeviceType { get; set; }
 
         public int? AreaId { get; set; }
 
@@ -44,6 +43,6 @@ namespace SmartLiving.Domain.Entities
         public int DeviceId { get; set; }
         public virtual Device Device { get; set; }
         public int CommandTypeId { get; set; }
-        public virtual CommandType CommandType { get; set;}
+        public virtual CommandType CommandType { get; set; }
     }
 }
