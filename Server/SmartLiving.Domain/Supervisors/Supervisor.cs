@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.Extensions.Caching.Memory;
-using SmartLiving.Domain.DataTransferObjects;
 using SmartLiving.Domain.RepositoryInterfaces;
 using SmartLiving.Domain.Supervisors.Interfaces;
 using SmartLiving.Library.Constants;
 using SmartLiving.Library.DataTypes;
+using System;
+using System.Collections.Generic;
 
 namespace SmartLiving.Domain.Supervisors
 {
@@ -55,6 +54,7 @@ namespace SmartLiving.Domain.Supervisors
         }
 
         #region Shared Methods
+
         private void SetCache<TEntity>(int id, TEntity value, string userId)
         {
             var cacheEntryOptions =
@@ -77,6 +77,7 @@ namespace SmartLiving.Domain.Supervisors
 
             return pagedList;
         }
-        #endregion
+
+        #endregion Shared Methods
     }
 }

@@ -11,7 +11,7 @@ namespace SmartLiving.Data.Configurations
 
         public UserRoleConfiguration(EntityTypeBuilder<UserRole> entity)
         {
-            entity.HasKey(e => new {e.UserId, e.RoleId});
+            entity.HasKey(e => new { e.UserId, e.RoleId });
 
             entity.HasOne(ur => ur.User)
                 .WithMany(u => u.UserRoles)

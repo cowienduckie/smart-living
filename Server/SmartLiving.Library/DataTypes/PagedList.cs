@@ -1,7 +1,7 @@
-﻿using System;
+﻿using SmartLiving.Library.DataTypes.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using SmartLiving.Library.DataTypes.Interfaces;
 
 namespace SmartLiving.Library.DataTypes
 {
@@ -16,7 +16,7 @@ namespace SmartLiving.Library.DataTypes
 
         public int TotalPage { get; }
 
-        public bool HasPreviousPage  => PageIndex > 0;
+        public bool HasPreviousPage => PageIndex > 0;
 
         public bool HasNextPage => PageIndex < TotalPage;
 

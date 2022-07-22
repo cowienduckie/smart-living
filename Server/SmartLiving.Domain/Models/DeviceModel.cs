@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace SmartLiving.Domain.Models
 {
@@ -21,7 +20,7 @@ namespace SmartLiving.Domain.Models
 
         public AreaModel Area { get; set; }
 
-         public string Params { get; set; }
+        public string Params { get; set; }
 
         public bool IsActive { get; set; }
 
@@ -33,6 +32,6 @@ namespace SmartLiving.Domain.Models
         public int DeviceId { get; set; }
         public DeviceModel Device { get; set; }
         public int CommandTypeId { get; set; }
-        public CommandTypeModel CommandType { get; set;}
+        public CommandTypeModel CommandType { get; set; }
     }
 }

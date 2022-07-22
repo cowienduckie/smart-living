@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SmartLiving.Domain.Models
+﻿namespace SmartLiving.Domain.Models
 {
     public class CommandTypeModel
     {

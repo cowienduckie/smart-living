@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using SmartLiving.Domain.Entities;
 using SmartLiving.Domain.RepositoryInterfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SmartLiving.Data.Repositories
 {
@@ -32,8 +32,8 @@ namespace SmartLiving.Data.Repositories
                 .Where(h => !h.IsDelete)
                     .Include(h => h.HouseType)
                     .Include(h => h.Areas)
-                    .Include(h => h.Devices)
-                        .ThenInclude(d => d.DeviceType)
+                        .ThenInclude(a => a.Devices)
+                            .ThenInclude(d => d.DeviceType)
                 .AsNoTracking()
                 .ToList();
         }
@@ -44,8 +44,8 @@ namespace SmartLiving.Data.Repositories
                 .Where(h => !h.IsDelete && h.UserId == userId)
                     .Include(h => h.HouseType)
                     .Include(h => h.Areas)
-                    .Include(h => h.Devices)
-                        .ThenInclude(d => d.DeviceType)
+                        .ThenInclude(a => a.Devices)
+                            .ThenInclude(d => d.DeviceType)
                 .AsNoTracking()
                 .ToList();
         }
@@ -53,11 +53,11 @@ namespace SmartLiving.Data.Repositories
         public House GetById(int id)
         {
             return _context.Houses
-                .Where(h => !h.IsDelete && h.Id == id )
+                .Where(h => !h.IsDelete && h.Id == id)
                     .Include(h => h.HouseType)
                     .Include(h => h.Areas)
-                    .Include(h => h.Devices)
-                        .ThenInclude(d => d.DeviceType)
+                        .ThenInclude(a => a.Devices)
+                            .ThenInclude(d => d.DeviceType)
                 .AsNoTracking()
                 .FirstOrDefault();
         }
@@ -68,8 +68,8 @@ namespace SmartLiving.Data.Repositories
                 .Where(h => !h.IsDelete && h.Id == id && h.UserId == userId)
                     .Include(h => h.HouseType)
                     .Include(h => h.Areas)
-                    .Include(h => h.Devices)
-                        .ThenInclude(d => d.DeviceType)
+                        .ThenInclude(a => a.Devices)
+                            .ThenInclude(d => d.DeviceType)
                 .AsNoTracking()
                 .FirstOrDefault();
         }

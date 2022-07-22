@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using SmartLiving.Domain.DataTransferObjects;
+﻿using SmartLiving.Domain.DataTransferObjects;
 using SmartLiving.Domain.Entities;
 using SmartLiving.Domain.Models;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SmartLiving.Domain.Supervisors
 {
@@ -12,47 +10,32 @@ namespace SmartLiving.Domain.Supervisors
     {
         public IEnumerable<AreaModel> GetAllAreas()
         {
-            var allItems = _mapper.Map<IEnumerable<AreaModel>>(_areaRepository.GetAll()).ToList();
-
-            return allItems;
+            return _mapper.Map<IEnumerable<AreaModel>>(_areaRepository.GetAll()).ToList();
         }
 
         public IEnumerable<AreaGetDto> GetAllAreas(string userId)
         {
-            var allItems = _mapper.Map<IEnumerable<AreaGetDto>>(_areaRepository.GetAll(userId)).ToList();
-            allItems.ForEach(item => SetCache(item.Id, item, userId));
-
-            return allItems;
+            //allItems.ForEach(item => SetCache(item.Id, item, userId));
+            return _mapper.Map<IEnumerable<AreaGetDto>>(_areaRepository.GetAll(userId)).ToList();
         }
 
         public AreaModel GetAreaById(int id)
         {
-            var item = _mapper.Map<AreaModel>(_areaRepository.GetById(id));
-
-            return item;
+            return _mapper.Map<AreaModel>(_areaRepository.GetById(id));
         }
 
         public AreaGetDto GetAreaById(int id, string userId)
         {
-            var item = GetCache<AreaGetDto>(id, userId);
-            if (item != null)
-            {
-                return item;
-            }
-            item = _mapper.Map<AreaGetDto>(_areaRepository.GetById(id, userId));
+            //var item = GetCache<AreaGetDto>(id, userId);
+            //if (item != null)
+            //{
+            //    return item;
+            //}
 
-            if(item != null)
-                SetCache(item.Id, item, userId);
+            //if(item != null)
+            //    SetCache(item.Id, item, userId);
 
-            return item;
-        }
-
-        public IEnumerable<AreaGetDto> GetAreaByHouse(int houseId, string userId)
-        {
-            var allItems = _mapper.Map<IEnumerable<AreaGetDto>>(_areaRepository.GetByHouse(houseId, userId)).ToList();
-            allItems.ForEach(item => SetCache(item.Id, item, userId));
-
-            return allItems;
+            return _mapper.Map<AreaGetDto>(_areaRepository.GetById(id, userId));
         }
 
         public AreaPostDto CreateArea(AreaPostDto newModel, string userId)
@@ -61,8 +44,8 @@ namespace SmartLiving.Domain.Supervisors
             item = _areaRepository.Create(item, userId);
             newModel = _mapper.Map<AreaPostDto>(item);
 
-            if(newModel != null)
-                SetCache(newModel.Id, newModel, userId);
+            //if(newModel != null)
+            //    SetCache(newModel.Id, newModel, userId);
 
             return newModel;
         }
@@ -76,8 +59,8 @@ namespace SmartLiving.Domain.Supervisors
             }
             _mapper.Map(updateModel, item);
 
-            if(updateModel != null)
-                SetCache(updateModel.Id, updateModel, userId);
+            //if(updateModel != null)
+            //    SetCache(updateModel.Id, updateModel, userId);
 
             return _areaRepository.Update(item, userId);
         }

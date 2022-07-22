@@ -11,7 +11,7 @@ namespace SmartLiving.Data.Configurations
 
         public UserConfiguration(EntityTypeBuilder<User> entity)
         {
-            entity.HasKey(e => new {e.Id});
+            entity.HasKey(e => new { e.Id });
 
             entity.HasMany(u => u.Houses)
                 .WithOne(h => h.User)

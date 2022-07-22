@@ -1,11 +1,10 @@
-﻿using System.Net.Http.Headers;
-using System.Threading;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SmartLiving.Data.Configurations;
 using SmartLiving.Data.EFCoreColumnOrder;
 using SmartLiving.Domain.Entities;
+using System.Threading;
 
 namespace SmartLiving.Data
 {
@@ -36,7 +35,7 @@ namespace SmartLiving.Data
         public virtual DbSet<ProfileDevice> ProfileDevices { get; set; }
         public virtual DbSet<Schedule> Schedules { get; set; }
         public virtual DbSet<SharedWith> SharedWith { get; set; }
-        public virtual DbSet<DeviceCommandType> DeviceCommandTypes { get; set; }        
+        public virtual DbSet<DeviceCommandType> DeviceCommandTypes { get; set; }
         public virtual DbSet<DeviceTypeCommandType> DeviceTypeCommandTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

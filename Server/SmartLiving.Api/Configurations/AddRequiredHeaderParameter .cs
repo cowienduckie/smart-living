@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.JsonPatch.Operations;
-using Microsoft.OpenApi.Models;
+﻿using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Collections.Generic;
 
 namespace SmartLiving.Api.Configurations
 {
@@ -16,7 +15,6 @@ namespace SmartLiving.Api.Configurations
                 Name = "auth",
                 In = ParameterLocation.Header,
                 Required = false,
-
             });
         }
     }

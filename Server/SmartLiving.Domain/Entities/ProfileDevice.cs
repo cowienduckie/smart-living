@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace SmartLiving.Domain.Entities
 {
@@ -15,7 +12,6 @@ namespace SmartLiving.Domain.Entities
 
         [Required] public int DeviceId { get; set; }
 
-        public virtual  Device Device { get; set; }
-
+        public virtual Device Device { get; set; }
     }
 }

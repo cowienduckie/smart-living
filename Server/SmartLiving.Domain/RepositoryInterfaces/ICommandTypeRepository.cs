@@ -4,6 +4,5 @@ namespace SmartLiving.Domain.RepositoryInterfaces
 {
     public interface ICommandTypeRepository : IBaseRepository<CommandType>
     {
-        
     }
 }
