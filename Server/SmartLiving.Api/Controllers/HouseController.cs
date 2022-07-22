@@ -41,14 +41,19 @@ namespace SmartLiving.Api.Controllers
 
                 var allItems = _supervisor.GetAllHouses(CurrentUser.Id).ToList();
 
-                if (!allItems.Any()) return NotFound();
-                var jsonList = allItems.Select(item => new JObject
+                if (allItems.Any())
                 {
-                    [Convert.ToString(item.Id)] = _jsonService.Serialize(item)
-                });
+                    var json = new JObject();
 
-                return Ok(jsonList);
+                    foreach (var item in allItems)
+                    {
+                        json[Convert.ToString(item.Id)] = _jsonService.Serialize(item);
+                    }
 
+                    return Ok(json);
+                }
+
+                return NotFound();
             }
             catch (Exception e)
             {
