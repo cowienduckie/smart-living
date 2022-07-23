@@ -94,6 +94,25 @@ namespace SmartLiving.Api.Controllers
             }
         }
 
+        //GET: api/Command/Switch/{deviceId}
+        [HttpGet("[action]/{deviceId}")]
+        public ActionResult Switch(int deviceId)
+        {
+            try
+            {
+                if (!_supervisor.Switch(deviceId, CurrentUser.Id))
+                {
+                    return StatusCode(500);
+                }
+
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return HandleException(e);
+            }
+        }
+
         ////PUT: api/Command/{id}
         //[HttpPut("{id}")]
         //public ActionResult<CommandGetDto> UpdateCommand(int id, [FromBody] CommandGetDto model)

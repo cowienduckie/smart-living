@@ -6,8 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using SmartLiving.Api.Middleware;
 using SmartLiving.Domain.DataTransferObjects;
-using SmartLiving.Domain.IntegrationEvents.Events;
-using SmartLiving.Domain.Services;
+using SmartLiving.Domain.Service;
 using SmartLiving.Domain.Supervisors.Interfaces;
 
 namespace SmartLiving.Api.Controllers

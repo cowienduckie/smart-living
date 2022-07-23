@@ -1,5 +1,4 @@
-﻿using System;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using SmartLiving.Domain.DataTransferObjects;
 
 namespace SmartLiving.Domain.Services
@@ -22,8 +21,8 @@ namespace SmartLiving.Domain.Services
                 var room = new JObject
                 {
                     ["name"] = area.Name,
-                    ["icon"] = "",
-                    ["devicesCount"] = area.Devices?.Count
+                    ["icon"] = RoomIcon.GetIcon(area.Name),
+                    ["devicesCount"] = area.Devices?.Count,
                 };
 
                 rooms.Add(Convert.ToString(area.Id), room);
@@ -47,5 +46,35 @@ namespace SmartLiving.Domain.Services
                 ["devices"] = devices
             };
         }
+
+        #region Utilities
+
+        private static class RoomIcon
+        {
+            private static readonly Dictionary<string, string> RoomIcons = new Dictionary<string, string>
+            {
+                { "Living Room", "couch" },
+                { "Kitchen", "bread-slice" },
+                { "Bedroom", "bed" },
+                { "Bathroom", "bath" },
+                { "Study Room", "book" },
+                { "Dining Room", "utensils" }
+            };
+            private const string DefaultIcon = "door-open";
+
+            public static string GetIcon(string roomName)
+            {
+                foreach (var room in RoomIcons)
+                {
+                    if (roomName.Contains(room.Key))
+                    {
+                        return room.Value;
+                    }
+                }
+
+                return DefaultIcon;
+            }
+        }
+        #endregion
     }
 }

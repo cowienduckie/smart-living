@@ -11,6 +11,8 @@ namespace SmartLiving.Domain.Supervisors.Interfaces
 
         CommandGetDto CreateCommand(CommandGetDto newModel, string userId);
 
+        bool Switch(int deviceId, string userId);
+
         bool UpdateCommand(CommandGetDto updateModel, string userId);
 
         bool DeleteCommand(int id, string userId);
