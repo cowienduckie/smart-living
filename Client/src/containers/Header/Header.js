@@ -26,6 +26,12 @@ export class Header extends Component {
               <NavigationItem>
                 <NavLink to="/">Rooms</NavLink>
               </NavigationItem>
+              <NavigationItem>
+                <NavLink to="/add-room">Add Room</NavLink>
+              </NavigationItem>
+              <NavigationItem>
+                <NavLink to="/add-device">Add Device</NavLink>
+              </NavigationItem>
 
             </Navigation>
           </div>

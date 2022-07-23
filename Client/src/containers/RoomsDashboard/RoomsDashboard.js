@@ -29,8 +29,10 @@ export class RoomsDashboard extends Component {
     return (
       <div className={classes.Row}>
         {Object.entries(this.props.rooms).map(roomData => {
-          const roomId = roomData[0];
+
+          const roomId = roomData[1].id;
           const room = roomData[1];
+          console.log(roomId);
           return (
             <div
               data-test={`room-card-${roomId}`}

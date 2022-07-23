@@ -1,7 +1,7 @@
 import axios from "./axios";
 
 export const getRoomDevicesApi = roomId => {
-  return axios.get(`/rooms/${roomId}/devices.json`);
+  return axios.get(`https://smartlivingapi.azurewebsites.net/api/Area/${roomId}`);
 };
 
 export const toggleDeviceSwitchApi = deviceId => {

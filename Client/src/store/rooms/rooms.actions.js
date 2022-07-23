@@ -10,14 +10,16 @@ export const fetchRooms = () => dispatch => {
   dispatch(fetchRoomsStart());
 
   getRoomsApi()
-    .then(response => dispatch(fetchRoomsSuccess(response.data.rooms)))
+    .then(response => dispatch(
+      fetchRoomsSuccess(response.data)
+    ))
     .catch(error => {
 
       // This to mock an error response
       const errorResponse = {
         message: "Error while getting the rooms data"
       };
-      
+
       dispatch(fetchRoomsFailed(errorResponse));
       dispatch(showErrorModal(errorResponse));
     });
