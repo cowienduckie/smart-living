@@ -23,7 +23,7 @@ namespace SmartLiving.Domain.Entities
 
         [Required] public string Params { get; set; }
 
-        [Required] public bool IsActive { get; set; }
+        [Required] public bool IsActive { get; set; } = false;
 
         public virtual IList<ProfileDevice> ProfileDevices { get; set; }
 

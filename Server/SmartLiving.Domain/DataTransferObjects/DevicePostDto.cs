@@ -14,8 +14,8 @@ namespace SmartLiving.Domain.DataTransferObjects
 
         public int? AreaId { get; set; }
 
-        [Required] public string Params { get; set; }
+        public string Params { get; set; }
 
-        [Required] public bool IsActive { get; set; }
+        [Required] public bool IsActive { get; set; } = false;
     }
 }

@@ -22,23 +22,23 @@ namespace SmartLiving.Api.Controllers
             _supervisor = supervisor;
         }
 
-        //GET: api/Device/GetAllDevices
-        [HttpGet("[action]")]
-        public ActionResult<IEnumerable<DeviceGetDto>> GetAllDevices()
-        {
-            try
-            {
-                var allItems = _supervisor.GetAllDevices(CurrentUser.Id);
+        ////GET: api/Device/GetAllDevices
+        //[HttpGet("[action]")]
+        //public ActionResult<IEnumerable<DeviceGetDto>> GetAllDevices()
+        //{
+        //    try
+        //    {
+        //        var allItems = _supervisor.GetAllDevices(CurrentUser.Id);
 
-                if (allItems.Any())
-                    return Ok(allItems);
-                return NotFound();
-            }
-            catch (Exception e)
-            {
-                return HandleException(e);
-            }
-        }
+        //        if (allItems.Any())
+        //            return Ok(allItems);
+        //        return NotFound();
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return HandleException(e);
+        //    }
+        //}
 
         ////GET: api/Device/GetPagedList
         //[HttpGet("[action]")]

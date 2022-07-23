@@ -1,3 +1,8 @@
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using SmartLiving.Domain.Entities;
+using SmartLiving.Domain.RepositoryInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,6 +46,20 @@ namespace SmartLiving.Data.Repositories
             entity.UserId = userId;
 
             _context.Commands.Add(entity);
+
+            // Change Device params
+            var device = _context.Devices
+                .FirstOrDefault(d => !d.IsDelete && d.Id == entity.DeviceId);
+
+            if (device != null)
+            {
+                var deviceParams = JObject.Parse(device.Params);
+                var commandParams = JObject.Parse(entity.Params);
+
+                deviceParams["controls"]![Convert.ToString(entity.CommandTypeId)] = commandParams;
+                device.Params = deviceParams.ToString(Formatting.None);
+            }
+
             _context.SaveChanges();
             return entity;
         }
