@@ -14,7 +14,7 @@ namespace SmartLiving.Api.Configurations
         public static IServiceCollection AddConnectionProvider(this IServiceCollection services,
             IConfiguration configuration)
         {
-            var connection = configuration["ConnectionStrings:DigitalOcean"] ??
+            var connection = configuration["ConnectionString"] ??
                              "";
 
             services.AddDbContextPool<DataContext>((serviceProvider, optionsBuilder) =>

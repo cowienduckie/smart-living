@@ -55,5 +55,10 @@ namespace SmartLiving.Domain.Supervisors
         {
             return _commandRepository.Delete(id, userId);
         }
+
+        public bool Switch(int deviceId, string userId)
+        {
+            return _commandRepository.Switch(deviceId, userId);
+        }
     }
 }

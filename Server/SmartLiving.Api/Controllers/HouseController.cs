@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using SmartLiving.Api.Middleware;
 using SmartLiving.Domain.DataTransferObjects;
-using SmartLiving.Domain.Service;
 using SmartLiving.Domain.Supervisors.Interfaces;
 using System;
 using System.Linq;
+using SmartLiving.Domain.Services;
 
 namespace SmartLiving.Api.Controllers
 {

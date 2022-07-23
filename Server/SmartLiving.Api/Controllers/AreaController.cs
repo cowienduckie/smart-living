@@ -2,11 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using SmartLiving.Api.Middleware;
 using SmartLiving.Domain.DataTransferObjects;
-using SmartLiving.Domain.Service;
 using SmartLiving.Domain.Supervisors.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using SmartLiving.Domain.Services;
 
 namespace SmartLiving.Api.Controllers
 {
