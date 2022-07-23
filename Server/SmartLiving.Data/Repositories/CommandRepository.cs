@@ -55,6 +55,7 @@ namespace SmartLiving.Data.Repositories
 
                 deviceParams["controls"]![Convert.ToString(entity.CommandTypeId)] = commandParams;
                 device.Params = deviceParams.ToString(Formatting.None);
+                device.LastModified = DateTime.Now;
             }
 
             _context.SaveChanges();
@@ -83,6 +84,25 @@ namespace SmartLiving.Data.Repositories
 
             _context.Commands.Update(command);
             _context.SaveChanges();
+            return true;
+        }
+
+        public bool Switch(int deviceId, string userId)
+        {
+            var device = _context.Devices.FirstOrDefault(d => !d.IsDelete && d.Id == deviceId);
+
+            if (device == null) return false;
+
+            device.IsActive = !device.IsActive;
+
+            var deviceParams = JObject.Parse(device.Params);
+            deviceParams["switch"] = device.IsActive;
+
+            device.Params = deviceParams.ToString(Formatting.None);
+            device.LastModified = DateTime.Now;
+
+            _context.SaveChanges();
+
             return true;
         }
     }

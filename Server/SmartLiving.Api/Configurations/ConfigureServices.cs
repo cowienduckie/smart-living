@@ -7,10 +7,10 @@ using SmartLiving.Data;
 using SmartLiving.Data.Repositories;
 using SmartLiving.Domain.Entities;
 using SmartLiving.Domain.RepositoryInterfaces;
-using SmartLiving.Domain.Service;
 using SmartLiving.Domain.Supervisors;
 using SmartLiving.Domain.Supervisors.Interfaces;
 using System;
+using SmartLiving.Domain.Services;
 
 namespace SmartLiving.Api.Configurations
 {
