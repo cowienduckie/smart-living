@@ -18,7 +18,7 @@ namespace SmartLiving.Domain.DataTransferObjects
 
         public string Params { get; set; }
 
-        public bool IsActive { get; set; }
+        public bool IsActive { get; set; } = false;
 
         public List<DeviceCommandTypeGetDto> DeviceCommandTypes { get; set; }
     }

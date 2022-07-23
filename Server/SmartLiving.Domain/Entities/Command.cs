@@ -24,6 +24,6 @@ namespace SmartLiving.Domain.Entities
 
         [Required] public string Params { get; set; }
 
-        [Required] public bool IsExecuted { get; set; }
+        [Required] public bool IsExecuted { get; set; } = false;
     }
 }

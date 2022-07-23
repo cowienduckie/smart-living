@@ -25,23 +25,23 @@ namespace SmartLiving.Api.Controllers
             _jsonService = jsonService;
         }
 
-        //GET: api/Area/GetAllAreas
-        [HttpGet("[action]")]
-        public ActionResult<IEnumerable<AreaGetDto>> GetAllAreas()
-        {
-            try
-            {
-                var allItems = _supervisor.GetAllAreas(CurrentUser.Id);
+        ////GET: api/Area/GetAllAreas
+        //[HttpGet("[action]")]
+        //public ActionResult<IEnumerable<AreaGetDto>> GetAllAreas()
+        //{
+        //    try
+        //    {
+        //        var allItems = _supervisor.GetAllAreas(CurrentUser.Id);
 
-                if (allItems.Any())
-                    return Ok(allItems);
-                return NotFound();
-            }
-            catch (Exception e)
-            {
-                return HandleException(e);
-            }
-        }
+        //        if (allItems.Any())
+        //            return Ok(allItems);
+        //        return NotFound();
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return HandleException(e);
+        //    }
+        //}
 
         ////GET: api/Area/GetPagedList
         //[HttpGet("[action]")]
