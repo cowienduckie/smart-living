@@ -1,5 +1,46 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model List<House>
 @{
+    ViewData["Title"] = "House List";
+}
+
+<br/>
+<h1>HOUSE LIST</h1>
+<br/>
+    <a asp-action="Index" asp-controller="Home">Back to Home</a>
+<hr/>
+<br/>
+
+@if (Model.Count == 0)
+{
+    <h5 class="text-center">Not available</h5>
+}
+else
+{
+    <h5>HOUSE COUNT: @Model.Count </h5>
+    <br/>
+    <div class="row card-deck">
+        @foreach (var house in Model)
+        {
+            var timeDiff = DateTime.UtcNow - house.LastModified;
+            var timeDiffString = "";
+            if (timeDiff.Days > 1) timeDiffString = timeDiff.Days + " days";
+            else if (timeDiff.Hours > 1) timeDiffString = timeDiff.Hours + " hours";
+            else if (timeDiff.Minutes > 1) timeDiffString = timeDiff.Minutes + " minutes";
+            else timeDiffString = timeDiff.Seconds + "seconds";
+
+            <div class="col-4 my-3">
+                <div class="card">
+                    <img src="~/img/house.png" class="card-img-top" alt="">
+                    <div class="card-body">
+                        <h5 class="card-title">@house.Name</h5>
+                        <hr/>
+                        <p class="card-text">Room count: @house.Areas.Count</p>
+                        <p class="card-text">Device count: @house.Devices.Count</p>
+                        <p class="card-text"><small class="text-muted">Last updated @timeDiffString ago</small></p>
+                        <a class="btn btn-outline-primary" asp-action="Details" asp-route-id="@house.Id">View details</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 }

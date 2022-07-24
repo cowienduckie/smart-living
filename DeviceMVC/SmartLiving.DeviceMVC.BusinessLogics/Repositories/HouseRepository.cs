@@ -46,7 +46,9 @@ namespace SmartLiving.DeviceMVC.BusinessLogics.Repositories
                 .Where(h => !h.IsDelete && h.Id == id)
                 .Include(h => h.HouseType)
                 .Include(h => h.Areas)
+                .ThenInclude(a => a.Devices)
                 .Include(h => h.Devices)
+                .ThenInclude(d => d.DeviceType)
                 .FirstOrDefault();
 
             if (item != null)

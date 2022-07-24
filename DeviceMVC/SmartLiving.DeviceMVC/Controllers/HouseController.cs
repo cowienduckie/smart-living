@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using SmartLiving.DeviceMVC.BusinessLogics.Repositories.Interfaces;
 using SmartLiving.DeviceMVC.Data.Entities;
@@ -19,7 +21,17 @@ namespace SmartLiving.DeviceMVC.Controllers
         // GET: House
         public IActionResult Index()
         {
-            return RedirectToAction("Index", "Home");
+            try
+            {
+                var allItems = _houseRepository.GetAll().ToList();
+
+                return View(allItems);
+
+            }
+            catch (Exception e)
+            {
+                return HandleException(e);
+            }
         }
 
         // GET: House/Detail/id

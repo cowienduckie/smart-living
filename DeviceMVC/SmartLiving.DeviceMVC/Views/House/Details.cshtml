@@ -6,9 +6,8 @@
 <br/>
 <h1>HOUSE DETAILS</h1>
 <br/>
-    <a asp-action="Index" asp-controller="Home">Back to Home</a>
+    <a asp-action="Index">Back to House List</a>
 <hr/>
-<br/>
 
 @if (Model.Id == 0)
 {
@@ -16,87 +15,102 @@
 }
 else
 {
-    <div class="row">
-        <div class="col-5 border-right">
-            <dl class="row">
-                <dt class="col-4">@Html.DisplayNameFor(model => model.Id)</dt>
-                <dd class="col-8">@Html.DisplayFor(model => model.Id)</dd>
-                <dt class="col-4">@Html.DisplayNameFor(model => model.Name)</dt>
-                <dd class="col-8">@Html.DisplayFor(model => model.Name)</dd>
-                <dt class="col-4">@Html.DisplayNameFor(model => model.HouseType)</dt>
-                <dd class="col-8">@Html.DisplayFor(model => model.HouseType.Name)</dd>
-                <dt class="col-4">Area Count</dt>
-                <dd class="col-8">@Html.DisplayFor(model => model.Areas.Count)</dd>
-                <dt class="col-4">Device Count</dt>
-                <dd class="col-8">@Html.DisplayFor(model => model.Devices.Count)</dd>
-            </dl>
+    <div class="row border-bottom text-center p-3">
+        <div class="col-4">
+            <h5>@Html.DisplayNameFor(model => model.Id)</h5>
+            <h3><strong>@Html.DisplayFor(model => model.Id)</strong></h3>
         </div>
-        <div class="col-7">
-            @if (Model.Areas.Count == 0)
+        <div class="col-4">
+            <h5>@Html.DisplayNameFor(model => model.Name)</h5>
+            <h3><strong>@Html.DisplayFor(model => model.Name)</strong></h3>
+        </div>
+        <div class="col-4">
+            <h5>@Html.DisplayNameFor(model => model.HouseType)</h5>
+            <h3><strong>@Html.DisplayFor(model => model.HouseType.Name)</strong></h3>
+        </div>
+    </div>
+
+
+    <br/>
+    <ul class="list-inline">
+        <li class="list-inline-item">
+            <h5>ROOM COUNT: @Model.Areas.Count | </h5>
+        </li>
+        <li class="list-inline-item">
+            <h5>
+                <a class="" data-toggle="collapse" href="#rooms" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    VIEW ALL
+                </a>
+            </h5>
+        </li>
+    </ul>
+
+    <div id="rooms" class="border-bottom collapse">
+        <div class="row card-deck">
+            @foreach (var area in Model.Areas)
             {
-                <h5 class="text-center">House has no area</h5>
+                var timeDiff = DateTime.UtcNow - area.LastModified;
+                var timeDiffString = "";
+                if (timeDiff.Days > 1) timeDiffString = timeDiff.Days + " days";
+                else if (timeDiff.Hours > 1) timeDiffString = timeDiff.Hours + " hours";
+                else if (timeDiff.Minutes > 1) timeDiffString = timeDiff.Minutes + " minutes";
+                else timeDiffString = timeDiff.Seconds + "seconds";
+
+                <div class="col-4 my-3">
+                    <div class="card">
+                        <img src="~/img/room.jpg" class="card-img-top" alt="">
+                        <div class="card-body">
+                            <h5 class="card-title">[@area.Id] @area.Name</h5>
+                            <hr/>
+                            <p class="card-text">Device count: @area.Devices.Count</p>
+                            <p class="card-text"><small class="text-muted">Last updated @timeDiffString ago</small></p>
+                            <a class="btn btn-outline-primary" asp-action="Details" asp-controller="Area" asp-route-id="@area.Id">View details</a>
+                        </div>
+                    </div>
+                </div>
             }
-            else
+        </div>
+    </div>
+
+    <br/>
+    <br/>
+    <ul class="list-inline">
+        <li class="list-inline-item">
+            <h5>DEVICE COUNT: @Model.Devices.Count | </h5>
+        </li>
+        <li class="list-inline-item">
+            <h5>
+                <a class="" data-toggle="collapse" href="#devices" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    VIEW ALL
+                </a>
+            </h5>
+        </li>
+    </ul>
+
+    <div id="devices" class="collapse">
+        <div class="row card-deck">
+            @foreach (var device in Model.Devices)
             {
-                <table class="table table-hover table-bordered">
-                    <thead>
-                    <tr>
-                        <th class="align-middle" scope="col" style="text-align: center"></th>
-                        <th class="align-middle" scope="col" style="text-align: center">@Html.DisplayNameFor(m => m.Areas[0].Id)</th>
-                        <th class="align-middle" scope="col" style="text-align: center">@Html.DisplayNameFor(m => m.Areas[0].Name)</th>
-                        <th class="align-middle" scope="col" style="text-align: center"></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @for (var i = 0; i < Model.Areas.Count; ++i)
-                    {
-                        <tr>
-                            <th scope="row" class="align-middle" style="text-align: center">@(i + 1)</th>
-                            <td class="align-middle" align="center">@Html.DisplayFor(m => m.Areas[i].Id)</td>
-                            <td class="align-middle">@Html.DisplayFor(m => m.Areas[i].Name)</td>
-                            <td class="align-middle" align="center">
-                                <a asp-action="Details" asp-controller="Area" asp-route-id="@Model.Areas[i].Id">View</a>
-                            </td>
-                        </tr>
-                    }
-                    </tbody>
-                </table>
-            }
-            <br/>
-            @if (Model.Devices.Count == 0)
-            {
-                <hr/>
-                <h5 class="text-center">House has no devices</h5>
-            }
-            else
-            {
-                <table class="table table-hover table-bordered">
-                    <thead>
-                    <tr>
-                        <th class="align-middle" scope="col" style="text-align: center"></th>
-                        <th class="align-middle" scope="col" style="text-align: center">@Html.DisplayNameFor(m => m.Devices[0].Id)</th>
-                        <th class="align-middle" scope="col" style="text-align: center">@Html.DisplayNameFor(m => m.Devices[0].Name)</th>
-                        <th class="align-middle" scope="col" style="text-align: center">@Html.DisplayNameFor(m => m.Devices[0].DeviceType)</th>
-                        <th class="align-middle" scope="col" style="text-align: center">@Html.DisplayNameFor(m => m.Devices[0].Params)</th>
-                        <th class="align-middle" scope="col" style="text-align: center"></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @for (var i = 0; i < Model.Devices.Count; ++i)
-                    {
-                        <tr>
-                            <th scope="row" class="align-middle" style="text-align: center">@(i + 1)</th>
-                            <td class="align-middle" align="center">@Html.DisplayFor(m => m.Devices[i].Id)</td>
-                            <td class="align-middle">@Html.DisplayFor(m => m.Devices[i].Name)</td>
-                            <td class="align-middle" align="center">@Html.DisplayFor(m => m.Devices[i].DeviceType.Name)</td>
-                            <td class="align-middle" align="center">@Html.DisplayFor(m => m.Devices[i].Params)</td>
-                            <td class="align-middle" align="center">
-                                <a asp-action="Details" asp-controller="Device" asp-route-id="@Model.Devices[i].Id">View</a>
-                            </td>
-                        </tr>
-                    }
-                    </tbody>
-                </table>
+                var timeDiff = DateTime.UtcNow - device.LastModified;
+                var timeDiffString = "";
+                if (timeDiff.Days > 1) timeDiffString = timeDiff.Days + " days";
+                else if (timeDiff.Hours > 1) timeDiffString = timeDiff.Hours + " hours";
+                else if (timeDiff.Minutes > 1) timeDiffString = timeDiff.Minutes + " minutes";
+                else timeDiffString = timeDiff.Seconds + "seconds";
+
+                <div class="col-4 my-3">
+                    <div class="card">
+                        <img src="~/img/device.webp" class="card-img-top" alt="">
+                        <div class="card-body">
+                            <h5 class="card-title">[@device.Id] @device.Name</h5>
+                            <hr/>
+                            <p class="card-text">Device Type: @device.DeviceType.Name</p>
+                            <p class="card-text">Status: @(device.IsActive ? "ON" : "OFF")</p>
+                            <p class="card-text"><small class="text-muted">Last updated @timeDiffString ago</small></p>
+                            <a class="btn btn-outline-primary" asp-action="Details" asp-controller="Device" asp-route-id="@device.Id">View details</a>
+                        </div>
+                    </div>
+                </div>
             }
         </div>
     </div>

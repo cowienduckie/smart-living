@@ -21,7 +21,7 @@ namespace SmartLiving.DeviceMVC.Controllers
 
             _eventBus.Publish(message);
 
-            return View();
+            return RedirectToAction("Index", "House");
         }
     }
 }
