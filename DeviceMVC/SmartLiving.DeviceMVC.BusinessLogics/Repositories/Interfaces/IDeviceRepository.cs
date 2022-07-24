@@ -1,8 +1,9 @@
-﻿using SmartLiving.DeviceMVC.Data.Models;
+﻿using SmartLiving.DeviceMVC.Data.Entities;
+using SmartLiving.DeviceMVC.Data.Models;
 
 namespace SmartLiving.DeviceMVC.BusinessLogics.Repositories.Interfaces
 {
-    public interface IDeviceRepository : IBaseRepository<DeviceModel>
+    public interface IDeviceRepository : IBaseRepository<Device>
     {
     }
 }
