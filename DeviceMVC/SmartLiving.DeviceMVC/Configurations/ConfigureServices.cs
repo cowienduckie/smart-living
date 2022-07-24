@@ -1,11 +1,7 @@
-﻿using EventBus.Base.Standard.Configuration;
-using EventBus.RabbitMQ.Standard.Configuration;
-using EventBus.RabbitMQ.Standard.Options;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using SmartLiving.DeviceMVC.BusinessLogics.Repositories;
 using SmartLiving.DeviceMVC.BusinessLogics.Repositories.Interfaces;
-using SmartLiving.DeviceMVC.Extensions;
+using SmartLiving.DeviceMVC.BusinessLogics.Services;
 
 namespace SmartLiving.DeviceMVC.Configurations
 {
@@ -16,15 +12,8 @@ namespace SmartLiving.DeviceMVC.Configurations
             services.AddScoped<IAreaRepository, AreaRepository>();
             services.AddScoped<IDeviceRepository, DeviceRepository>();
             services.AddScoped<IHouseRepository, HouseRepository>();
-        }
 
-        public static void AddEventBus(this IServiceCollection services, IConfiguration configuration)
-        {
-            var rabbitMqOptions = configuration.GetSection("RabbitMq_SmartLiving").Get<RabbitMqOptions>();
-
-            services.AddRabbitMqConnection(rabbitMqOptions);
-            services.AddRabbitMqRegistration(rabbitMqOptions);
-            services.AddEventBusHandling(EventBusExtension.GetHandlers());
+            services.AddHostedService<MessageService>();
         }
     }
 }

@@ -8,7 +8,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using SmartLiving.Api.Extensions;
 using SmartLiving.Api.Middleware;
 using SmartLiving.Data;
 using SmartLiving.Data.Repositories;
@@ -35,6 +34,7 @@ namespace SmartLiving.Api.Configurations
             services.AddScoped<IDeviceTypeRepository, DeviceTypeRepository>();
             services.AddScoped<IHouseTypeRepository, HouseTypeRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IMessageService, MessageService>();
 
             // Services
             services.AddScoped<IJsonStringService, JsonStringService>();
@@ -143,15 +143,6 @@ namespace SmartLiving.Api.Configurations
                 s.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 s.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
-        }
-
-        public static void AddEventBus(this IServiceCollection services, IConfiguration configuration)
-        {
-            var rabbitMqOptions = configuration.GetSection("RabbitMq_SmartLiving").Get<RabbitMqOptions>();
-
-            services.AddRabbitMqConnection(rabbitMqOptions);
-            services.AddRabbitMqRegistration(rabbitMqOptions);
-            services.AddEventBusHandling(EventBusExtension.GetHandlers());
         }
     }
 }

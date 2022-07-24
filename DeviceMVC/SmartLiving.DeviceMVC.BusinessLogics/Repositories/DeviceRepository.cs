@@ -41,5 +41,24 @@ namespace SmartLiving.DeviceMVC.BusinessLogics.Repositories
                 .Include(d => d.Area)
                 .FirstOrDefault();
         }
+
+        public bool Switch(int id)
+        {
+            var device = _context.Devices
+                .FirstOrDefault(d => !d.IsDelete && d.Id == id);
+
+            if (device == null) return false;
+
+            device.IsActive = !device.IsActive;
+
+            var deviceParams = JObject.Parse(device.Params);
+            deviceParams["switch"] = device.IsActive;
+
+            device.Params = deviceParams.ToString(Formatting.None);
+            device.LastModified = DateTime.Now;
+
+            _context.SaveChanges();
+            return true;
+        }
     }
 }

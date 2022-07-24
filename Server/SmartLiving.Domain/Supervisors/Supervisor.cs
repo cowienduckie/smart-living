@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using AutoMapper;
+using EventBus.Base.Standard;
 using Microsoft.Extensions.Caching.Memory;
 using SmartLiving.Domain.RepositoryInterfaces;
+using SmartLiving.Domain.Services;
 using SmartLiving.Domain.Supervisors.Interfaces;
 using SmartLiving.Library.Constants;
 using SmartLiving.Library.DataTypes;
@@ -23,6 +25,7 @@ namespace SmartLiving.Domain.Supervisors
         private readonly IProfileRepository _profileRepository;
         private readonly IScheduleRepository _scheduleRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IMessageService _messageService;
 
         public Supervisor(
             IMemoryCache cache,
@@ -36,7 +39,8 @@ namespace SmartLiving.Domain.Supervisors
             IHouseTypeRepository houseTypeRepository,
             IProfileRepository profileRepository,
             IScheduleRepository scheduleRepository,
-            IUserRepository userRepository)
+            IUserRepository userRepository,
+            IMessageService messageService)
         {
             _cache = cache;
             _mapper = mapper;
@@ -50,6 +54,7 @@ namespace SmartLiving.Domain.Supervisors
             _profileRepository = profileRepository;
             _scheduleRepository = scheduleRepository;
             _userRepository = userRepository;
+            _messageService = messageService;
         }
 
         #region Shared Methods

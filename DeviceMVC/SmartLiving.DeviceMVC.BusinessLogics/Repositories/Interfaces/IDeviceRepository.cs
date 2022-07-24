@@ -5,5 +5,6 @@ namespace SmartLiving.DeviceMVC.BusinessLogics.Repositories.Interfaces
 {
     public interface IDeviceRepository : IBaseRepository<Device>
     {
+        bool Switch(int id);
     }
 }

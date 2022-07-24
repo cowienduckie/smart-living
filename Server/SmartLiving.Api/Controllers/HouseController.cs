@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using SmartLiving.Api.Middleware;
 using SmartLiving.Domain.DataTransferObjects;
-using SmartLiving.Domain.IntegrationEvents.Events;
 using SmartLiving.Domain.Services;
 using SmartLiving.Domain.Supervisors.Interfaces;
 
@@ -18,7 +17,6 @@ namespace SmartLiving.Api.Controllers
     [Authorize]
     public class HouseController : BaseController
     {
-        private readonly IEventBus _eventBus;
         private readonly IJsonStringService _jsonService;
         private readonly ISupervisor _supervisor;
 
@@ -26,7 +24,6 @@ namespace SmartLiving.Api.Controllers
         {
             _supervisor = supervisor;
             _jsonService = jsonService;
-            _eventBus = eventBus;
         }
 
         //GET: api/House/GetAllHouses
@@ -35,12 +32,6 @@ namespace SmartLiving.Api.Controllers
         {
             try
             {
-                //
-                var message = new ServerMsgEvent("Msg", "I see your houses");
-
-                _eventBus.Publish(message);
-                //
-
                 var allItems = _supervisor.GetAllHouses(CurrentUser.Id).ToList();
 
                 if (allItems.Any())

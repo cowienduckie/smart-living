@@ -6,7 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using SmartLiving.Api.Configurations;
-using SmartLiving.Api.Extensions;
 using SmartLiving.Api.Middleware;
 
 namespace SmartLiving.Api
@@ -35,7 +34,6 @@ namespace SmartLiving.Api
             services.AddNewtonsoft();
             services.ConfigureIdentity();
             services.AddServices();
-            services.AddEventBus(Configuration);
             services.AddHealthChecks();
 
             services.AddSwaggerGen(c =>
@@ -71,9 +69,6 @@ namespace SmartLiving.Api
             app.UseCors("CorsPolicy");
 
             app.UseMiddleware<JwtMiddleware>();
-
-            app.SubscribeToEvents();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapHealthChecks("/health");

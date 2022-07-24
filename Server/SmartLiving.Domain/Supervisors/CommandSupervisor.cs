@@ -2,6 +2,7 @@
 using System.Linq;
 using SmartLiving.Domain.DataTransferObjects;
 using SmartLiving.Domain.Entities;
+using SmartLiving.Domain.Events;
 
 namespace SmartLiving.Domain.Supervisors
 {
@@ -52,7 +53,14 @@ namespace SmartLiving.Domain.Supervisors
 
         public bool Switch(int deviceId, string userId)
         {
-            return _commandRepository.Switch(deviceId, userId);
+            var result = _commandRepository.Switch(deviceId, userId);
+
+            if (result)
+            {
+                _messageService.SendMessage(new ServerMsgEvent("switch", $"{deviceId}"));
+            }
+
+            return result;
         }
     }
 }

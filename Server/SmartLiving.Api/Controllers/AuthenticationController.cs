@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
+using EventBus.Base.Standard;
 using Microsoft.AspNetCore.Mvc;
 using SmartLiving.Api.Middleware;
+using SmartLiving.Domain.Events;
 using SmartLiving.Domain.Models;
+using SmartLiving.Domain.Services;
 
 namespace SmartLiving.Api.Controllers
 {
@@ -54,13 +57,11 @@ namespace SmartLiving.Api.Controllers
         }
 
         [HttpGet("[action]")]
-        [Authorize]
         public async Task<IActionResult> SignOut()
         {
             try
             {
                 await _userService.SignOut();
-
                 return Ok();
             }
             catch (Exception e)
