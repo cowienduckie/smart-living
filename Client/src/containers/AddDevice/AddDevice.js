@@ -46,7 +46,7 @@ export default function AddDevice() {
                 <option value="1">StudyRoom</option>
                 <option value="1">Dining Room</option>
             </select>
-            <button type='button' className='button button1' onClick={SaveData}>Save New Device</button>
+            <button type='button' className='submitButton' onClick={SaveData}>Save New Device</button>
         </div>
     );
 }

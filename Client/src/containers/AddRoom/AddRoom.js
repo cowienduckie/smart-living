@@ -26,7 +26,7 @@ export default function AddRoom() {
             <input type="text" name='name' value={name} onChange={(e) => { setRoomName(e.target.value) }} />
             <label>Nhập ID nhà</label>
             <input type="text" name='name' value={houseId} onChange={(e) => { setHouseID(e.target.value) }} />
-            <button type='button' className='button button1' onClick={SaveData}>Save New Room</button>
+            <button type='button' className='submitButton' onClick={SaveData}>Save New Room</button>
         </div>
     );
 }

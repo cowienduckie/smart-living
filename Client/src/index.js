@@ -12,6 +12,8 @@ import * as serviceWorker from "./serviceWorker";
 import fontawesomeIcons from "./utils/fontawesome.icons";
 import App from "./App";
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import "./styles/style.scss";
 
 /**

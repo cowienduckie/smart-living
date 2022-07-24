@@ -7,6 +7,7 @@ import RoomsDashboard from "./containers/RoomsDashboard/RoomsDashboard";
 import asyncComponent from "./hoc/asyncComponent/asyncComponent";
 import AddRoom from "./containers/AddRoom/AddRoom";
 import AddDevice from "./containers/AddDevice/AddDevice";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const AsyncRoomsDevices = asyncComponent(() =>
