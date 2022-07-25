@@ -5,6 +5,8 @@ import ControlsSwitcher from "./ControlsSwitcher/ControlsSwitcher";
 import classes from "./Device.module.scss";
 import Switch from "./../UI/Switch/Switch";
 import { switchValue } from "../../utils/api/rooms.api";
+import axios from "axios";
+import { deleteDevice } from "../../utils/api/rooms.api";
 
 export default class Device extends Component {
   static propTypes = {
@@ -30,6 +32,7 @@ export default class Device extends Component {
 
     // Checks it has controls before rendering them
     let deviceControls;
+
     if (
       this.props.device.controls &&
       !!Object.values(this.props.device.controls).length
@@ -65,6 +68,7 @@ export default class Device extends Component {
           </div>
         </div>
         <div>{deviceControls}</div>
+        <button onClick={() => deleteDevice(this.props.deviceId).then(alert("Xoá Thành Công !"))}>Xoá thiết bị</button>
       </div>
     );
   }

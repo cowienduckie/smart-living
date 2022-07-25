@@ -47,6 +47,7 @@ export default function AddDevice() {
                 <option value="2">Bathroom</option>
                 <option value="5">StudyRoom</option>
                 <option value="6">Dining Room</option>
+                <option value="27">New Room 25/7</option>
             </select>
             <button type='button' className='submitButton' onClick={SaveData}>Save New Device</button>
         </div>

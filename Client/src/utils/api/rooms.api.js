@@ -43,7 +43,23 @@ export const changeScale = (controlId, deviceId, value) => {
     "isExecuted": true
   })
 }
+export const changeFan = (controlId, deviceId, value) => {
+  return axios.post('https://smartlivingapi.azurewebsites.net/api/Command', {
+    "userId": "string",
+    "deviceId": deviceId,
+    "commandTypeId": controlId,
+    "params": `{\"name\":\"Intensity\",\"type\":\"scale\",\"value\":${value},\"options\":{\"low\":{\"name\":\"Low\"},\"medium\":{\"name\":\"Medium\"},\"high\":{\"name\":\"High\"}}}`,
+    "isExecuted": true
+  })
+}
 
 export const switchValue = (deviceId) => {
   return axios.get(`https://smartlivingapi.azurewebsites.net/api/Command/Switch/${deviceId}`)
+}
+
+export const deleteDevice = (deviceId) => {
+  return axios.delete(`https://smartlivingapi.azurewebsites.net/api/Device/${deviceId}`)
+}
+export const deleteRoom = (roomID) => {
+  return axios.delete(`https://smartlivingapi.azurewebsites.net/api/Area/${roomID}`)
 }

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import classes from "./ModeControl.module.scss";
-import { changeMode, changeVane } from "../../../../utils/api/rooms.api";
+import { changeMode, changeVane, changeFan } from "../../../../utils/api/rooms.api";
 
 export default class ModeControl extends Component {
   static propTypes = {
@@ -20,7 +20,8 @@ export default class ModeControl extends Component {
     if (updatedValue !== this.props.value) {
       this.props.onUpdateValue(this.props.controlId, updatedValue);
       if (this.props.name == "Mode") { changeMode(this.props.controlId, this.props.deviceId, updatedValue).then() }
-      else changeVane(this.props.controlId, this.props.deviceId, updatedValue).then()
+      else if (this.props.name == "Vane") changeVane(this.props.controlId, this.props.deviceId, updatedValue).then()
+      else if (this.props.name == "Intensity") changeFan(this.props.controlId, this.props.deviceId, updatedValue).then()
 
     }
   };
