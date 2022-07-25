@@ -6,45 +6,47 @@ import axios from 'axios'
 export default function AddDevice() {
 
     function SaveData() {
-        let data = { name, houseId }
-        axios.post('https://smartlivingapi.azurewebsites.net/api/Area', {
+        axios.post('https://smartlivingapi.azurewebsites.net/api/Device', {
             name: name,
-            houseId: houseId
+            deviceTypeId: document.getElementById('deviceName').value,
+            houseId: 4,
+            areaId: document.getElementById('roomName').value,
+            params: "string",
+            isActive: true,
         }, {
             headers: { auth: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdkYzAwYmU4LWEzZTQtNGU4ZC05ZjBhLTc2ZDBjN2JmZDRlOSIsIm5iZiI6MTY1ODQxMTc2MCwiZXhwIjoxNjU5MDE2NTYwLCJpYXQiOjE2NTg0MTE3NjB9.HDUhvOfj6ZxCVPirrahvk44GINAF_0c_gF3eNkkXw6o" }
         }
         ).then((response) => {
-            console.log(response)
+            alert("Thêm thành công !")
         })
     }
     const [name, setDeviceName] = useState('')
-    const [houseId, setHouseID] = useState('')
     return (
         <div className='addRoomForm'>
             <h1>Add New Device</h1>
-            <label>Chọn thiết bị :</label>
+            <label>Tên thiết bị :</label>
+            <input type="text" name='name' value={name} onChange={(e) => { setDeviceName(e.target.value) }} />
+            <label>Chọn loại thiết bị :</label>
             <select id='deviceName' >
-                <option value="1">Điều hoà</option>
-                <option value="1">Đèn</option>
-                <option value="1">Quạt</option>
-                <option value="1">Tủ lạnh</option>
-                <option value="1">Máy sưởi</option>
-                <option value="1">Máy giặt</option>
-                <option value="1">Wifi</option>
-                <option value="1">Máy pha cà phê</option>
-                <option value="1">Máy rửa bát</option>
-                <option value="1">Máy hút bụi</option>
+                <option value="1">Air Conditional</option>
+                <option value="2">Light</option>
+                <option value="9">Fan</option>
+                <option value="10">Heater</option>
+                <option value="11">Cloth Washer</option>
+                <option value="12">Wifi</option>
+                <option value="15">Coffee Machine</option>
+                <option value="16">Dish Washer</option>
+                <option value="17">Claner</option>
+                <option value="4">Television</option>
             </select>
-            <label>Nhập ID nhà</label>
-            <input type="text" name='name' value={houseId} onChange={(e) => { setHouseID(e.target.value) }} />
             <label>Chọn Phòng :</label>
             <select id='roomName' >
-                <option value="1">Living Room</option>
-                <option value="1">Bedroom</option>
-                <option value="1">Kitchen</option>
-                <option value="1">Bathroom</option>
-                <option value="1">StudyRoom</option>
-                <option value="1">Dining Room</option>
+                <option value="4">Living Room</option>
+                <option value="3">Bedroom</option>
+                <option value="7">Kitchen</option>
+                <option value="2">Bathroom</option>
+                <option value="5">StudyRoom</option>
+                <option value="6">Dining Room</option>
             </select>
             <button type='button' className='submitButton' onClick={SaveData}>Save New Device</button>
         </div>
