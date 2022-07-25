@@ -14,7 +14,7 @@ export default function AddRoom() {
             headers: { auth: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdkYzAwYmU4LWEzZTQtNGU4ZC05ZjBhLTc2ZDBjN2JmZDRlOSIsIm5iZiI6MTY1ODQxMTc2MCwiZXhwIjoxNjU5MDE2NTYwLCJpYXQiOjE2NTg0MTE3NjB9.HDUhvOfj6ZxCVPirrahvk44GINAF_0c_gF3eNkkXw6o" }
         }
         ).then((response) => {
-            console.log(response)
+            alert("Thêm thành công !")
         })
     }
     const [name, setRoomName] = useState('')
@@ -26,7 +26,7 @@ export default function AddRoom() {
             <input type="text" name='name' value={name} onChange={(e) => { setRoomName(e.target.value) }} />
             <label>Nhập ID nhà</label>
             <input type="text" name='name' value={houseId} onChange={(e) => { setHouseID(e.target.value) }} />
-            <button type='button' className='button button1' onClick={SaveData}>Save New Room</button>
+            <button type='button' className='submitButton' onClick={SaveData}>Save New Room</button>
         </div>
     );
 }

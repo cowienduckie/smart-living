@@ -5,9 +5,11 @@ import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import Button from "./../../../UI/Button/Button";
 
 import classes from "./TemperatureControl.module.scss";
+import { changeTemperature } from "../../../../utils/api/rooms.api";
 
 export default class TemperatureControl extends Component {
   static propTypes = {
+    deviceId: PropTypes.string,
     controlId: PropTypes.string,
     name: PropTypes.string,
     unit: PropTypes.string,
@@ -20,11 +22,14 @@ export default class TemperatureControl extends Component {
   onIncreaseTemperatureHandler = () => {
     if (this.props.max === this.props.value) return null;
     this.props.onUpdateValue(this.props.controlId, this.props.value + 1);
+    changeTemperature(this.props.controlId, this.props.deviceId, this.props.value + 1).then()
   };
 
   onDecreaseTemperatureHandler = () => {
     if (this.props.min === this.props.value) return null;
     this.props.onUpdateValue(this.props.controlId, this.props.value - 1);
+    changeTemperature(this.props.controlId, this.props.deviceId, this.props.value - 1).then()
+
   };
 
   render() {

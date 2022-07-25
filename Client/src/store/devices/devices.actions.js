@@ -27,7 +27,7 @@ export const fetchRoomDevices = roomId => dispatch => {
       const errorResponse = {
         message: "Error while getting the devices data"
       };
-      
+
       dispatch(fetchRoomDevicesFailed(errorResponse));
       dispatch(showErrorModal(errorResponse))
     });
@@ -89,7 +89,7 @@ export const toggleDeviceSwitchFailed = error => ({
 
 /** Updating Control Value Handler */
 export const updateDeviceControlValue = controlData => dispatch => {
-  
+
   const payload = {
     deviceId: controlData.deviceId,
     controlId: controlData.controlId,
