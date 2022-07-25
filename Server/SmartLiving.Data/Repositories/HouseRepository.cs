@@ -52,7 +52,6 @@ namespace SmartLiving.Data.Repositories
             allItems.ForEach(h =>
             {
                 h.Areas = h.Areas.Where(a => !a.IsDelete).ToList();
-                h.Devices = h.Devices.Where(d => !d.IsDelete).ToList();
             });
             return allItems;
         }
@@ -82,8 +81,7 @@ namespace SmartLiving.Data.Repositories
 
             if (item != null)
             {
-                item.Areas = item.Areas.Where(a => !a.IsDelete).ToList();
-                item.Devices = item.Devices.Where(d => !d.IsDelete).ToList();
+                item.Areas = item.Areas.Where(a => !a.IsDelete)?.ToList();
             }
 
             return item;

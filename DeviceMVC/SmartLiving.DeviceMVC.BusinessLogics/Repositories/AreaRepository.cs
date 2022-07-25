@@ -34,7 +34,7 @@ namespace SmartLiving.DeviceMVC.BusinessLogics.Repositories
 
             allItems.ForEach(a =>
             {
-                a.Devices = a.Devices.Where(d => !d.IsDelete && d.AreaId != null && d.AreaId.Value == a.Id).ToList();
+                a.Devices = a.Devices.Where(d => !d.IsDelete).ToList();
             });
 
             return allItems;
