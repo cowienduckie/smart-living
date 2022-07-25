@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using SmartLiving.Domain.DataTransferObjects;
 using SmartLiving.Domain.Entities;
+using SmartLiving.Domain.Events;
 using SmartLiving.Domain.Models;
 
 namespace SmartLiving.Domain.Supervisors
@@ -44,8 +47,10 @@ namespace SmartLiving.Domain.Supervisors
             item = _areaRepository.Create(item, userId);
             newModel = _mapper.Map<AreaPostDto>(item);
 
-            //if(newModel != null)
-            //    SetCache(newModel.Id, newModel, userId);
+            //Send Message
+            var msgBody = JObject.FromObject(newModel);
+            var msg = new ServerMsgEvent("CreateArea", msgBody.ToString(Formatting.None));
+            _messageService.SendMessage(msg);
 
             return newModel;
         }

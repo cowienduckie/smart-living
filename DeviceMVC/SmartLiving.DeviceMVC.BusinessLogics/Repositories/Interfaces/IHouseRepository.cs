@@ -6,5 +6,6 @@ namespace SmartLiving.DeviceMVC.BusinessLogics.Repositories.Interfaces
 {
     public interface IHouseRepository : IBaseRepository<House>
     {
+        House CreateHouse(House toObject);
     }
 }

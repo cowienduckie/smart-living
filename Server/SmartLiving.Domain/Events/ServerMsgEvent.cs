@@ -2,12 +2,12 @@
 {
     public class ServerMsgEvent
     {
-        public string Titlte { get; set; }
+        public string Title { get; set; }
         public string Msg { get; set; }
 
-        public ServerMsgEvent(string titlte, string msg)
+        public ServerMsgEvent(string title, string msg)
         {
-            Titlte = titlte;
+            Title = title;
             Msg = msg;
         }
     }

@@ -57,5 +57,12 @@ namespace SmartLiving.DeviceMVC.BusinessLogics.Repositories
 
             return item;
         }
+
+        public Area CreateArea(Area entity)
+        {
+            _context.Areas.Add(entity);
+            _context.SaveChanges();
+            return entity;
+        }
     }
 }

@@ -59,5 +59,12 @@ namespace SmartLiving.DeviceMVC.BusinessLogics.Repositories
 
             return item;
         }
+
+        public House CreateHouse(House entity)
+        {
+            _context.Houses.Add(entity);
+            _context.SaveChanges();
+            return entity;
+        }
     }
 }

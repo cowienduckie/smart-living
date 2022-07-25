@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using SmartLiving.Domain.DataTransferObjects;
 using SmartLiving.Domain.Entities;
 using SmartLiving.Domain.Events;
@@ -34,6 +36,16 @@ namespace SmartLiving.Domain.Supervisors
             item = _commandRepository.Create(item, userId);
             newModel.Id = item.Id;
 
+            //Send Message
+            var msgBody = JObject.Parse(_deviceRepository.GetById(newModel.DeviceId).Params);
+            var msg = new
+            {
+                Title = "PostCommand",
+                Msg = msgBody.ToString(Formatting.None),
+                DeviceId = $"{newModel.DeviceId}"
+            };
+            _messageService.SendMessage(msg);
+
             return newModel;
         }
 
@@ -57,7 +69,7 @@ namespace SmartLiving.Domain.Supervisors
 
             if (result)
             {
-                _messageService.SendMessage(new ServerMsgEvent("switch", $"{deviceId}"));
+                _messageService.SendMessage(new ServerMsgEvent("Switch", $"{deviceId}"));
             }
 
             return result;

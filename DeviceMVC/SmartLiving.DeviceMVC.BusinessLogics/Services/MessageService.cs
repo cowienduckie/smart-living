@@ -11,6 +11,7 @@ using Newtonsoft.Json.Linq;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using SmartLiving.DeviceMVC.BusinessLogics.Repositories.Interfaces;
+using SmartLiving.DeviceMVC.Data.Entities;
 
 namespace SmartLiving.DeviceMVC.BusinessLogics.Services
 {
@@ -77,15 +78,36 @@ namespace SmartLiving.DeviceMVC.BusinessLogics.Services
         {
             using var scope = _serviceProvider.CreateScope();
             var deviceRepository = scope.ServiceProvider.GetService<IDeviceRepository>();
+            var houseRepository = scope.ServiceProvider.GetService<IHouseRepository>();
+            var areaRepository = scope.ServiceProvider.GetService<IAreaRepository>();
 
             var value = JObject.Parse(content);
             var title = value["Title"];
             var msg = value["Msg"];
 
-            if (title != null && title.ToString() == "switch")
+            if (title == null || msg == null) return;
+
+            if (title.ToString() == "Switch")
             {
-                Console.WriteLine("Switching");
                 deviceRepository.Switch(Convert.ToInt32(msg));
+            }
+            else if (title.ToString() == "CreateDevice")
+            {
+                deviceRepository.CreateDevice(JObject.Parse(msg.ToString()).ToObject<Device>());
+            }
+            else if (title.ToString() == "CreateArea")
+            {
+                areaRepository.CreateArea(JObject.Parse(msg.ToString()).ToObject<Area>());
+            }
+            else if (title.ToString() == "CreateHouse")
+            {
+                houseRepository.CreateHouse(JObject.Parse(msg.ToString()).ToObject<House>());
+            }
+            else if (title.ToString() == "PostCommand")
+            {
+                var deviceId = value["DeviceId"];
+
+                deviceRepository.UpdateParams(Convert.ToInt32(deviceId), JObject.Parse(msg.ToString()));
             }
         }
 

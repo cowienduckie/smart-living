@@ -5,5 +5,6 @@ namespace SmartLiving.DeviceMVC.BusinessLogics.Repositories.Interfaces
 {
     public interface IAreaRepository : IBaseRepository<Area>
     {
+        Area CreateArea(Area toObject);
     }
 }

@@ -60,5 +60,27 @@ namespace SmartLiving.DeviceMVC.BusinessLogics.Repositories
             _context.SaveChanges();
             return true;
         }
+
+        public Device CreateDevice(Device entity)
+        {
+            _context.Devices.Add(entity);
+            _context.SaveChanges();
+            return entity;
+        }
+
+        public Device UpdateParams(int deviceId, JObject deviceParams)
+        {
+            var item = _context.Devices
+                .FirstOrDefault(d => !d.IsDelete && d.Id == deviceId);
+
+            if (item != null)
+            {
+                item.Params = deviceParams.ToString(Formatting.None);
+                item.LastModified = DateTime.Now;
+                _context.SaveChanges();
+            }
+
+            return item;
+        }
     }
 }

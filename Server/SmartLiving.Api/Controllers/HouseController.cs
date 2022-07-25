@@ -20,7 +20,7 @@ namespace SmartLiving.Api.Controllers
         private readonly IJsonStringService _jsonService;
         private readonly ISupervisor _supervisor;
 
-        public HouseController(ISupervisor supervisor, IJsonStringService jsonService, IEventBus eventBus)
+        public HouseController(ISupervisor supervisor, IJsonStringService jsonService)
         {
             _supervisor = supervisor;
             _jsonService = jsonService;
