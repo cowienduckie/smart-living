@@ -6,6 +6,9 @@ using SmartLiving.Domain.RepositoryInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using SmartLiving.Domain.Entities;
+using SmartLiving.Domain.RepositoryInterfaces;
 
 namespace SmartLiving.Data.Repositories
 {

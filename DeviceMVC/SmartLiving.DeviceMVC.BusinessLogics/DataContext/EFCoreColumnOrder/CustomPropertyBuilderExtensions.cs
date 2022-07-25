@@ -1,7 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Microsoft.EntityFrameworkCore
+namespace SmartLiving.DeviceMVC.BusinessLogics.DataContext.EFCoreColumnOrder
 {
     public static class CustomPropertyBuilderExtensions
     {

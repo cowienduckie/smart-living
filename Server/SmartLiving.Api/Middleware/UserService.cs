@@ -1,16 +1,16 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using SmartLiving.Api.Configurations;
-using SmartLiving.Domain.Entities;
-using SmartLiving.Domain.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using SmartLiving.Api.Configurations;
+using SmartLiving.Domain.Entities;
+using SmartLiving.Domain.Models;
 
 namespace SmartLiving.Api.Middleware
 {
@@ -30,8 +30,8 @@ namespace SmartLiving.Api.Middleware
     public class UserService : IUserService
     {
         private readonly AppSettings _appSettings;
-        private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<User> _userManager;
 
         public UserService(
             IOptions<AppSettings> appSettings,
@@ -45,7 +45,8 @@ namespace SmartLiving.Api.Middleware
 
         public async Task<SignInResponseModel> SignIn(SignInRequestModel model)
         {
-            var signInResult = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, false).ConfigureAwait(false);
+            var signInResult = await _signInManager
+                .PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, false).ConfigureAwait(false);
 
             if (!signInResult.Succeeded) return null;
 
@@ -64,7 +65,7 @@ namespace SmartLiving.Api.Middleware
                 UserName = model.UserName,
                 Email = model.Email,
                 FirstName = model.FirstName,
-                LastName = model.LastName,
+                LastName = model.LastName
             };
 
             var result = await _userManager.CreateAsync(user, model.Password).ConfigureAwait(false);
@@ -96,9 +97,10 @@ namespace SmartLiving.Api.Middleware
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id) }),
+                Subject = new ClaimsIdentity(new[] {new Claim("id", user.Id)}),
                 Expires = DateTime.UtcNow.AddDays(7),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
+                    SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);

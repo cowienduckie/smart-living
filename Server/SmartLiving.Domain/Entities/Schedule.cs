@@ -6,7 +6,7 @@ namespace SmartLiving.Domain.Entities
 {
     public class Schedule : BaseEntity
     {
-        [Required][Key] public int Id { get; set; }
+        [Required] [Key] public int Id { get; set; }
 
         [Required] public string UserId { get; set; }
 

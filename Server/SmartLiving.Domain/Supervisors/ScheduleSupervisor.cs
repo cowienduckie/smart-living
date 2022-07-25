@@ -1,7 +1,7 @@
-﻿using SmartLiving.Domain.DataTransferObjects;
-using SmartLiving.Domain.Entities;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using SmartLiving.Domain.DataTransferObjects;
+using SmartLiving.Domain.Entities;
 
 namespace SmartLiving.Domain.Supervisors
 {
@@ -18,10 +18,7 @@ namespace SmartLiving.Domain.Supervisors
         public ScheduleGetDto GetScheduleById(int id, string userId)
         {
             var item = GetCache<ScheduleGetDto>(id, userId);
-            if (item != null)
-            {
-                return item;
-            }
+            if (item != null) return item;
             item = _mapper.Map<ScheduleGetDto>(_scheduleRepository.GetById(id, userId));
 
             if (item != null)
@@ -42,10 +39,7 @@ namespace SmartLiving.Domain.Supervisors
         public bool UpdateSchedule(ScheduleGetDto updateModel, string userId)
         {
             var item = _scheduleRepository.GetById(updateModel.Id, userId);
-            if (item == null)
-            {
-                return false;
-            }
+            if (item == null) return false;
             _mapper.Map(updateModel, item);
 
             return _scheduleRepository.Update(item, userId);

@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using SmartLiving.DeviceMVC.BusinessLogics.DataContext.EFCoreColumnOrder;
 using SmartLiving.DeviceMVC.Data.Entities;
 
-namespace SmartLiving.DeviceMVC.BusinessLogic.DataContext.Configurations
+namespace SmartLiving.DeviceMVC.BusinessLogics.DataContext.Configurations
 {
     public abstract class ConfigurationBase<TEntity> : IEntityTypeConfiguration<TEntity> where TEntity : BaseEntity
     {

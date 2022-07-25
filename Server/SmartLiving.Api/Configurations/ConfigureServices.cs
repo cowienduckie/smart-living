@@ -1,16 +1,21 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System;
+using EventBus.Base.Standard.Configuration;
+using EventBus.RabbitMQ.Standard.Configuration;
+using EventBus.RabbitMQ.Standard.Options;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using SmartLiving.Api.Middleware;
 using SmartLiving.Data;
 using SmartLiving.Data.Repositories;
 using SmartLiving.Domain.Entities;
 using SmartLiving.Domain.RepositoryInterfaces;
+using SmartLiving.Domain.Services;
 using SmartLiving.Domain.Supervisors;
 using SmartLiving.Domain.Supervisors.Interfaces;
-using System;
-using SmartLiving.Domain.Services;
 
 namespace SmartLiving.Api.Configurations
 {
@@ -29,6 +34,7 @@ namespace SmartLiving.Api.Configurations
             services.AddScoped<IDeviceTypeRepository, DeviceTypeRepository>();
             services.AddScoped<IHouseTypeRepository, HouseTypeRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IMessageService, MessageService>();
 
             // Services
             services.AddScoped<IJsonStringService, JsonStringService>();
@@ -135,7 +141,7 @@ namespace SmartLiving.Api.Configurations
             services.AddControllers().AddNewtonsoftJson(s =>
             {
                 s.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-                s.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                s.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
         }
     }

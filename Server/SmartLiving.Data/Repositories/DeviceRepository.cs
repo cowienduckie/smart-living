@@ -1,11 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SmartLiving.Domain.Entities;
 using SmartLiving.Domain.RepositoryInterfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace SmartLiving.Data.Repositories
 {
@@ -40,10 +40,10 @@ namespace SmartLiving.Data.Repositories
         {
             return _context.Devices
                 .Where(d => !d.IsDelete && d.House.UserId == userId)
-                    .Include(d => d.DeviceType)
-                    .Include(d => d.House)
-                        .ThenInclude(h => h.HouseType)
-                    .Include(d => d.Area)
+                .Include(d => d.DeviceType)
+                .Include(d => d.House)
+                .ThenInclude(h => h.HouseType)
+                .Include(d => d.Area)
                 .AsNoTracking()
                 .ToList();
         }
@@ -52,10 +52,10 @@ namespace SmartLiving.Data.Repositories
         {
             return _context.Devices
                 .Where(d => !d.IsDelete && d.Id == id)
-                    .Include(d => d.DeviceType)
-                    .Include(d => d.House)
-                        .ThenInclude(h => h.HouseType)
-                    .Include(d => d.Area)
+                .Include(d => d.DeviceType)
+                .Include(d => d.House)
+                .ThenInclude(h => h.HouseType)
+                .Include(d => d.Area)
                 .AsNoTracking()
                 .FirstOrDefault();
         }
@@ -64,10 +64,10 @@ namespace SmartLiving.Data.Repositories
         {
             return _context.Devices
                 .Where(d => !d.IsDelete && d.Id == id && d.House.UserId == userId)
-                    .Include(d => d.DeviceType)
-                    .Include(d => d.House)
-                        .ThenInclude(h => h.HouseType)
-                    .Include(d => d.Area)
+                .Include(d => d.DeviceType)
+                .Include(d => d.House)
+                .ThenInclude(h => h.HouseType)
+                .Include(d => d.Area)
                 .AsNoTracking()
                 .FirstOrDefault();
         }
@@ -78,8 +78,8 @@ namespace SmartLiving.Data.Repositories
             {
                 var deviceType = _context.DeviceTypes
                     .Where(dt => dt.Id == entity.DeviceTypeId)
-                        .Include(dt => dt.DeviceTypeCommandTypes)
-                            .ThenInclude(dt => dt.CommandType)
+                    .Include(dt => dt.DeviceTypeCommandTypes)
+                    .ThenInclude(dt => dt.CommandType)
                     .FirstOrDefault();
                 if (deviceType != null)
                 {
@@ -92,9 +92,10 @@ namespace SmartLiving.Data.Repositories
                         .ToList()
                         .ForEach(dtct =>
                         {
-                            controls.Add(Convert.ToString(dtct.CommandType.Id), JObject.Parse(dtct.CommandType.DefaultParams));
+                            controls.Add(Convert.ToString(dtct.CommandType.Id),
+                                JObject.Parse(dtct.CommandType.DefaultParams));
 
-                            entity.DeviceCommandTypes.Add(new DeviceCommandType { CommandType = dtct.CommandType });
+                            entity.DeviceCommandTypes.Add(new DeviceCommandType {CommandType = dtct.CommandType});
                         });
 
                     paramJson["controls"] = controls;

@@ -5,13 +5,9 @@ namespace SmartLiving.Data.Configurations
 {
     public class UserConfiguration
     {
-        public string SchemaName { get; } = "dbo";
-
-        public string TableName => nameof(User);
-
         public UserConfiguration(EntityTypeBuilder<User> entity)
         {
-            entity.HasKey(e => new { e.Id });
+            entity.HasKey(e => new {e.Id});
 
             entity.HasMany(u => u.Houses)
                 .WithOne(h => h.User)
@@ -37,5 +33,9 @@ namespace SmartLiving.Data.Configurations
                 .WithOne(ur => ur.User)
                 .HasForeignKey(ur => ur.UserId);
         }
+
+        public string SchemaName { get; } = "dbo";
+
+        public string TableName => nameof(User);
     }
 }

@@ -1,29 +1,31 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using AutoMapper;
+using EventBus.Base.Standard;
 using Microsoft.Extensions.Caching.Memory;
 using SmartLiving.Domain.RepositoryInterfaces;
+using SmartLiving.Domain.Services;
 using SmartLiving.Domain.Supervisors.Interfaces;
 using SmartLiving.Library.Constants;
 using SmartLiving.Library.DataTypes;
-using System;
-using System.Collections.Generic;
 
 namespace SmartLiving.Domain.Supervisors
 {
     public partial class Supervisor : ISupervisor
     {
-        private readonly IMemoryCache _cache;
-        private readonly IMapper _mapper;
-
         private readonly IAreaRepository _areaRepository;
+        private readonly IMemoryCache _cache;
         private readonly ICommandRepository _commandRepository;
         private readonly ICommandTypeRepository _commandTypeRepository;
         private readonly IDeviceRepository _deviceRepository;
         private readonly IDeviceTypeRepository _deviceTypeRepository;
         private readonly IHouseRepository _houseRepository;
         private readonly IHouseTypeRepository _houseTypeRepository;
+        private readonly IMapper _mapper;
         private readonly IProfileRepository _profileRepository;
         private readonly IScheduleRepository _scheduleRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IMessageService _messageService;
 
         public Supervisor(
             IMemoryCache cache,
@@ -37,7 +39,8 @@ namespace SmartLiving.Domain.Supervisors
             IHouseTypeRepository houseTypeRepository,
             IProfileRepository profileRepository,
             IScheduleRepository scheduleRepository,
-            IUserRepository userRepository)
+            IUserRepository userRepository,
+            IMessageService messageService)
         {
             _cache = cache;
             _mapper = mapper;
@@ -51,6 +54,7 @@ namespace SmartLiving.Domain.Supervisors
             _profileRepository = profileRepository;
             _scheduleRepository = scheduleRepository;
             _userRepository = userRepository;
+            _messageService = messageService;
         }
 
         #region Shared Methods

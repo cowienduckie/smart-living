@@ -9,7 +9,7 @@ namespace SmartLiving.Data.Configurations
 
         public override void ConfigureEntity(EntityTypeBuilder<CommandType> entity)
         {
-            entity.HasKey(e => new { e.Id });
+            entity.HasKey(e => new {e.Id});
 
             entity.HasMany(ct => ct.Schedules)
                 .WithOne(s => s.CommandType)

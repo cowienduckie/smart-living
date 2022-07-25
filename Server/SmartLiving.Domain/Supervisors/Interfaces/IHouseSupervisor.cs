@@ -1,6 +1,6 @@
-﻿using SmartLiving.Domain.DataTransferObjects;
+﻿using System.Collections.Generic;
+using SmartLiving.Domain.DataTransferObjects;
 using SmartLiving.Domain.Models;
-using System.Collections.Generic;
 
 namespace SmartLiving.Domain.Supervisors.Interfaces
 {

@@ -1,8 +1,11 @@
-﻿using SmartLiving.Domain.DataTransferObjects;
-using SmartLiving.Domain.Entities;
-using SmartLiving.Domain.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using SmartLiving.Domain.DataTransferObjects;
+using SmartLiving.Domain.Entities;
+using SmartLiving.Domain.Events;
+using SmartLiving.Domain.Models;
 
 namespace SmartLiving.Domain.Supervisors
 {
@@ -44,10 +47,10 @@ namespace SmartLiving.Domain.Supervisors
             item = _deviceRepository.Create(item, userId);
             newModel = _mapper.Map<DevicePostDto>(item);
 
-            //if (newModel != null)
-            //{
-            //    SetCache(newModel.Id, newModel, userId);
-            //}
+            //Send Message
+            var msgBody = JObject.FromObject(newModel);
+            var msg = new ServerMsgEvent("CreateDevice", msgBody.ToString(Formatting.None));
+            _messageService.SendMessage(msg);
 
             return newModel;
         }
@@ -55,10 +58,7 @@ namespace SmartLiving.Domain.Supervisors
         public bool UpdateDevice(DevicePostDto updateModel, string userId)
         {
             var item = _deviceRepository.GetById(updateModel.Id, userId);
-            if (item == null)
-            {
-                return false;
-            }
+            if (item == null) return false;
             _mapper.Map(updateModel, item);
 
             //if (updateModel != null)

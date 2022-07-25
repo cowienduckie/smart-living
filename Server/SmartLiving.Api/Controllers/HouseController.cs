@@ -1,12 +1,13 @@
-﻿using Microsoft.AspNetCore.Cors;
+﻿using System;
+using System.Linq;
+using EventBus.Base.Standard;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using SmartLiving.Api.Middleware;
 using SmartLiving.Domain.DataTransferObjects;
-using SmartLiving.Domain.Supervisors.Interfaces;
-using System;
-using System.Linq;
 using SmartLiving.Domain.Services;
+using SmartLiving.Domain.Supervisors.Interfaces;
 
 namespace SmartLiving.Api.Controllers
 {
@@ -16,8 +17,8 @@ namespace SmartLiving.Api.Controllers
     [Authorize]
     public class HouseController : BaseController
     {
-        private readonly ISupervisor _supervisor;
         private readonly IJsonStringService _jsonService;
+        private readonly ISupervisor _supervisor;
 
         public HouseController(ISupervisor supervisor, IJsonStringService jsonService)
         {
@@ -31,7 +32,7 @@ namespace SmartLiving.Api.Controllers
         {
             try
             {
-                var allItems = _supervisor.GetAllHouses(CurrentUser.Id);
+                var allItems = _supervisor.GetAllHouses(CurrentUser.Id).ToList();
 
                 if (allItems.Any())
                 {
@@ -42,7 +43,7 @@ namespace SmartLiving.Api.Controllers
                         json[Convert.ToString(item.Id)] = _jsonService.Serialize(item);
                     }
 
-                    return Ok(json);;
+                    return Ok(json);
                 }
 
                 return NotFound();
@@ -104,7 +105,7 @@ namespace SmartLiving.Api.Controllers
 
                 model = _supervisor.CreateHouse(model, CurrentUser.Id);
 
-                return CreatedAtRoute(nameof(GetHouseById), new { id = model.Id }, model);
+                return CreatedAtRoute(nameof(GetHouseById), new {id = model.Id}, model);
             }
             catch (Exception e)
             {

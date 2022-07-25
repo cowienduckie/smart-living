@@ -1,42 +1,70 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 using SmartLiving.DeviceMVC.BusinessLogics.Configs;
+using SmartLiving.DeviceMVC.BusinessLogics.DataContext;
 using SmartLiving.DeviceMVC.BusinessLogics.Repositories.Interfaces;
-using SmartLiving.DeviceMVC.Data;
+using SmartLiving.DeviceMVC.Data.Entities;
 using SmartLiving.DeviceMVC.Data.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SmartLiving.DeviceMVC.BusinessLogics.Repositories
 {
     public class HouseRepository : IHouseRepository
     {
-        public IEnumerable<HouseModel> GetAll()
+        private readonly Context _context;
+
+        public HouseRepository(Context context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public HouseModel GetById(int id)
+        public IEnumerable<House> GetAll()
         {
-            var client = new RestClient(ConnectConfigs.URL + $"/api/Sync/GetHouseById/{id}");
-            var request = new RestRequest(Method.GET);
-            var response = client.Execute(request);
+            var allItems = _context.Houses
+                .Where(h => !h.IsDelete)
+                .Include(h => h.HouseType)
+                .Include(h => h.Areas)
+                .Include(h => h.Devices)
+                .ToList();
 
-            if (response.IsSuccessful)
+            allItems.ForEach(h =>
             {
-                var content = JsonConvert.DeserializeObject<JToken>(response.Content);
+                h.Areas = h.Areas.Where(a => !a.IsDelete).ToList();
+                h.Devices = h.Devices.Where(d => !d.IsDelete).ToList();
+            });
 
-                return content.ToObject<HouseModel>();
+            return allItems;
+        }
+
+        public House GetById(int id)
+        {
+            var item = _context.Houses
+                .Where(h => !h.IsDelete && h.Id == id)
+                .Include(h => h.HouseType)
+                .Include(h => h.Areas)
+                .ThenInclude(a => a.Devices)
+                .Include(h => h.Devices)
+                .ThenInclude(d => d.DeviceType)
+                .FirstOrDefault();
+
+            if (item != null)
+            {
+                item.Areas = item.Areas.Where(a => !a.IsDelete).ToList();
+                item.Devices = item.Devices.Where(d => !d.IsDelete).ToList();
             }
 
-            return null;
+            return item;
         }
 
-        public IEnumerable<HouseModel> GetByUser(string userId)
+        public House CreateHouse(House entity)
         {
-            throw new NotImplementedException();
+            _context.Houses.Add(entity);
+            _context.SaveChanges();
+            return entity;
         }
     }
 }

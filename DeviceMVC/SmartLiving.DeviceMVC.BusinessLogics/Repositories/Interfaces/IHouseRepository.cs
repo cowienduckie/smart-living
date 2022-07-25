@@ -1,13 +1,11 @@
-﻿using SmartLiving.DeviceMVC.Data;
+﻿using System.Collections.Generic;
+using SmartLiving.DeviceMVC.Data.Entities;
 using SmartLiving.DeviceMVC.Data.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SmartLiving.DeviceMVC.BusinessLogics.Repositories.Interfaces
 {
-    public interface IHouseRepository : IBaseRepository<HouseModel>
+    public interface IHouseRepository : IBaseRepository<House>
     {
-        IEnumerable<HouseModel> GetByUser(string userId);
+        House CreateHouse(House toObject);
     }
 }

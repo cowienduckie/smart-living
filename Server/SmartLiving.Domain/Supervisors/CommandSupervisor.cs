@@ -1,7 +1,10 @@
-﻿using SmartLiving.Domain.DataTransferObjects;
-using SmartLiving.Domain.Entities;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using SmartLiving.Domain.DataTransferObjects;
+using SmartLiving.Domain.Entities;
+using SmartLiving.Domain.Events;
 
 namespace SmartLiving.Domain.Supervisors
 {
@@ -18,10 +21,7 @@ namespace SmartLiving.Domain.Supervisors
         public CommandGetDto GetCommandById(int id, string userId)
         {
             var item = GetCache<CommandGetDto>(id, userId);
-            if (item != null)
-            {
-                return item;
-            }
+            if (item != null) return item;
             item = _mapper.Map<CommandGetDto>(_commandRepository.GetById(id, userId));
 
             if (item != null)
@@ -36,16 +36,23 @@ namespace SmartLiving.Domain.Supervisors
             item = _commandRepository.Create(item, userId);
             newModel.Id = item.Id;
 
+            //Send Message
+            var msgBody = JObject.Parse(_deviceRepository.GetById(newModel.DeviceId).Params);
+            var msg = new
+            {
+                Title = "PostCommand",
+                Msg = msgBody.ToString(Formatting.None),
+                DeviceId = $"{newModel.DeviceId}"
+            };
+            _messageService.SendMessage(msg);
+
             return newModel;
         }
 
         public bool UpdateCommand(CommandGetDto updateModel, string userId)
         {
             var item = _commandRepository.GetById(updateModel.Id, userId);
-            if (item == null)
-            {
-                return false;
-            }
+            if (item == null) return false;
             _mapper.Map(updateModel, item);
 
             return _commandRepository.Update(item, userId);
@@ -58,7 +65,14 @@ namespace SmartLiving.Domain.Supervisors
 
         public bool Switch(int deviceId, string userId)
         {
-            return _commandRepository.Switch(deviceId, userId);
+            var result = _commandRepository.Switch(deviceId, userId);
+
+            if (result)
+            {
+                _messageService.SendMessage(new ServerMsgEvent("Switch", $"{deviceId}"));
+            }
+
+            return result;
         }
     }
 }

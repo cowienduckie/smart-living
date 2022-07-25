@@ -9,7 +9,7 @@ namespace SmartLiving.Data.Configurations
 
         public override void ConfigureEntity(EntityTypeBuilder<AutoMessage> entity)
         {
-            entity.HasKey(e => new { e.Id });
+            entity.HasKey(e => new {e.Id});
 
             entity.HasOne(am => am.Device)
                 .WithMany(d => d.AutoMessages)

@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using SmartLiving.DeviceMVC.BusinessLogics.Repositories.Interfaces;
+using SmartLiving.DeviceMVC.Data.Entities;
 using SmartLiving.DeviceMVC.Data.Models;
-using System;
 
 namespace SmartLiving.DeviceMVC.Controllers
 {
@@ -30,7 +31,7 @@ namespace SmartLiving.DeviceMVC.Controllers
                 var item = _deviceRepository.GetById(id);
 
                 if (item == null)
-                    item = new DeviceModel();
+                    item = new Device();
 
                 return View(item);
             }

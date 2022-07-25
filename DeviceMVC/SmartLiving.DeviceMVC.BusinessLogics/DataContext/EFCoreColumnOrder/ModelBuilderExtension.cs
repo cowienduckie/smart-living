@@ -2,9 +2,8 @@
 using System.Linq;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
-using SmartLiving.DeviceMVC.BusinessLogics.DataContext;
 
-namespace SmartLiving.DeviceMVC.BusinessLogic.EFCoreColumnOrder
+namespace SmartLiving.DeviceMVC.BusinessLogics.DataContext.EFCoreColumnOrder
 {
     public static class ModelBuilderExtension
     {

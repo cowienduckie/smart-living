@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using SmartLiving.DeviceMVC.BusinessLogics.Repositories.Interfaces;
-using SmartLiving.DeviceMVC.Data;
+using SmartLiving.DeviceMVC.Data.Entities;
 using SmartLiving.DeviceMVC.Data.Models;
-using System;
 
 namespace SmartLiving.DeviceMVC.Controllers
 {
@@ -31,7 +31,7 @@ namespace SmartLiving.DeviceMVC.Controllers
                 var item = _areaRepository.GetById(id);
 
                 if (item == null)
-                    item = new AreaModel();
+                    item = new Area();
 
                 return View(item);
             }

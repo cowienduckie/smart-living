@@ -1,12 +1,9 @@
-﻿using System;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Serialization;
+﻿using Microsoft.Extensions.DependencyInjection;
 using SmartLiving.DeviceMVC.BusinessLogics.Repositories;
 using SmartLiving.DeviceMVC.BusinessLogics.Repositories.Interfaces;
+using SmartLiving.DeviceMVC.BusinessLogics.Services;
 
-namespace SmartLiving.Api.Configurations
+namespace SmartLiving.DeviceMVC.Configurations
 {
     public static class ConfigureServices
     {
@@ -15,7 +12,8 @@ namespace SmartLiving.Api.Configurations
             services.AddScoped<IAreaRepository, AreaRepository>();
             services.AddScoped<IDeviceRepository, DeviceRepository>();
             services.AddScoped<IHouseRepository, HouseRepository>();
-            services.AddScoped<IUserRepository, UserRepository>();
+
+            services.AddHostedService<MessageService>();
         }
     }
 }

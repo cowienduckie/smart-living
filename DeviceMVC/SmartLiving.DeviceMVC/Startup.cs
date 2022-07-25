@@ -1,11 +1,14 @@
+using System;
+using System.Text;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using SmartLiving.Api.Configurations;
-using SmartLiving.DeviceMVC.BusinessLogics.Repositories;
-using SmartLiving.DeviceMVC.BusinessLogics.Repositories.Interfaces;
+using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
+using SmartLiving.DeviceMVC.Configurations;
 
 namespace SmartLiving.DeviceMVC
 {
@@ -21,11 +24,10 @@ namespace SmartLiving.DeviceMVC
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            
+
             services.ConfigureRepositories();
             services.AddConnectionProvider(Configuration);
             services.AddAppSettings(Configuration);
-            
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -39,6 +41,7 @@ namespace SmartLiving.DeviceMVC
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -49,8 +52,8 @@ namespace SmartLiving.DeviceMVC
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    "default",
+                    "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

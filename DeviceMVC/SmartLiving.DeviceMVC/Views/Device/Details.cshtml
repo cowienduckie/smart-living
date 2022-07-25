@@ -1,21 +1,21 @@
-﻿@model DeviceModel
+﻿@using Newtonsoft.Json.Linq
+@model Device
 @{
     ViewData["Title"] = "Device Details";
 }
 
-<br />
+<br/>
 <h1>DEVICE DETAILS</h1>
-<br />
+<br/>
 @if (Model.Id == 0)
 {
-    <a asp-action="Index" asp-controller="User">Back to User List</a>
+    <a asp-action="Index" asp-controller="Home">Back to Home</a>
 }
 else
 {
     <a asp-action="Details" asp-controller="House" asp-route-id="@Model.HouseId">Back to House</a>
 }
-<hr />
-<br />
+<hr/>
 
 @if (Model.Id == 0)
 {
@@ -23,27 +23,51 @@ else
 }
 else
 {
+    var deviceParams = JObject.Parse(Model.Params);
+    var switchState = Convert.ToBoolean(deviceParams["switch"]);
+    var controls = deviceParams["controls"];
+
+    if (controls != null)
+    {
+        <div class="row border-bottom text-center p-3">
+            <div class="col-3">
+                <h5>SWITCH</h5>
+                <h3><strong>@(switchState ? "ON" : "OFF")</strong></h3>
+            </div>
+            @foreach (var control in controls.ToObject<JObject>()!)
+            {
+                var command = control.Value;
+                <div class="col-3">
+                    <h5>@command["name"]?.ToString().ToUpper()</h5>
+                    <h3><strong>@command["value"]?.ToString().ToUpper()</strong></h3>
+                </div>
+            }
+        </div>
+    }
+    <br/>
     <div class="row">
-        <div class="col-5 border-right">
-            <dl class="row">
-                <dt class="col-4">@Html.DisplayNameFor(model => model.Id)</dt>
-                <dd class="col-8">@Html.DisplayFor(model => model.Id)</dd>
-                <dt class="col-4">@Html.DisplayNameFor(model => model.Name)</dt>
-                <dd class="col-8">@Html.DisplayFor(model => model.Name)</dd>
-                <dt class="col-4">@Html.DisplayNameFor(model => model.DeviceType)</dt>
-                <dd class="col-8">@Html.DisplayFor(model => model.DeviceType.Name)</dd>                
-                <dt class="col-4">@Html.DisplayNameFor(model => model.House.User)</dt>
-                <dd class="col-8">@Html.DisplayFor(model => model.House.User.UserName)</dd>
-                <dt class="col-4">@Html.DisplayNameFor(model => model.House)</dt>
-                <dd class="col-8">@Html.DisplayFor(model => model.House.Name)</dd>
-                <dt class="col-4">@Html.DisplayNameFor(model => model.Area)</dt>
-                <dd class="col-8">@Html.DisplayFor(model => model.Area.Name)</dd>                
-                <dt class="col-4">@Html.DisplayNameFor(model => model.Params)</dt>
-                <dd class="col-8">@Html.DisplayFor(model => model.Params)</dd>
-            </dl>
+        <div class="col-5">
+            <img class="img-fluid" src="~/img/device.webp" alt=""/>
         </div>
-        <div class="col-7">            
-            <h5 class="text-center">Manually Control</h5>
+        <div class="col-7">
+            <div class="row text-center p-3">
+                <div class="col-6 my-4">
+                    <h5>@Html.DisplayNameFor(model => model.Name)</h5>
+                    <h3><strong>[@Model.Id] @Html.DisplayFor(model => model.Name)</strong></h3>
+                </div>
+                <div class="col-6 my-4">
+                    <h5>@Html.DisplayNameFor(model => model.DeviceType)</h5>
+                    <h3><strong>@Html.DisplayFor(model => model.DeviceType.Name)</strong></h3>
+                </div>
+                <div class="col-6 my-4">
+                    <h5>@Html.DisplayNameFor(model => model.House)</h5>
+                    <h3><strong>@Html.DisplayFor(model => model.House.Name)</strong></h3>
+                </div>
+                <div class="col-6 my-4">
+                    <h5>@Html.DisplayNameFor(model => model.Area)</h5>
+                    <h3><strong>@Html.DisplayFor(model => model.Area.Name)</strong></h3>
+                </div>
+            </div>
         </div>
-    </div>    
+    </div>
 }

@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using SmartLiving.Domain.Entities;
-using System;
 
 namespace SmartLiving.Api.Middleware
 {
@@ -11,12 +11,11 @@ namespace SmartLiving.Api.Middleware
     {
         public void OnAuthorization(AuthorizationFilterContext context)
         {
-            var user = (User)context.HttpContext.Items["User"];
+            var user = (User) context.HttpContext.Items["User"];
             if (user == null)
-            {
                 // not logged in
-                context.Result = new JsonResult(new { message = "Unauthorized" }) { StatusCode = StatusCodes.Status401Unauthorized };
-            }
+                context.Result = new JsonResult(new {message = "Unauthorized"})
+                    {StatusCode = StatusCodes.Status401Unauthorized};
         }
     }
 }

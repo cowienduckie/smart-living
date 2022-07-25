@@ -1,8 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SmartLiving.DeviceMVC.Configurations;
 
-namespace SmartLiving.Api.Configurations
+namespace SmartLiving.DeviceMVC.Configurations
 {
     public static class ConfigureAppSettings
     {

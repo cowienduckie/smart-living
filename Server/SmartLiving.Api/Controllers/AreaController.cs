@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Cors;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using SmartLiving.Api.Middleware;
 using SmartLiving.Domain.DataTransferObjects;
@@ -16,8 +19,8 @@ namespace SmartLiving.Api.Controllers
     [Authorize]
     public class AreaController : BaseController
     {
-        private readonly ISupervisor _supervisor;
         private readonly IJsonStringService _jsonService;
+        private readonly ISupervisor _supervisor;
 
         public AreaController(ISupervisor supervisor, IJsonStringService jsonService)
         {
@@ -75,6 +78,7 @@ namespace SmartLiving.Api.Controllers
 
                     return Ok(json);
                 }
+
                 return NotFound();
             }
             catch (Exception e)
@@ -93,7 +97,7 @@ namespace SmartLiving.Api.Controllers
 
                 model = _supervisor.CreateArea(model, CurrentUser.Id);
 
-                return CreatedAtRoute(nameof(GetAreaById), new { id = model.Id }, model);
+                return CreatedAtRoute(nameof(GetAreaById), new {id = model.Id}, model);
             }
             catch (Exception e)
             {

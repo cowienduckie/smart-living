@@ -4,12 +4,6 @@ namespace SmartLiving.Domain.Models
 {
     public class SignInResponseModel
     {
-        public string Id { get; }
-        public string FirstName { get; }
-        public string LastName { get; }
-        public string Username { get; }
-        public string Token { get; }
-
         public SignInResponseModel(User user, string token)
         {
             Id = user.Id;
@@ -18,5 +12,11 @@ namespace SmartLiving.Domain.Models
             Username = user.UserName;
             Token = token;
         }
+
+        public string Id { get; }
+        public string FirstName { get; }
+        public string LastName { get; }
+        public string Username { get; }
+        public string Token { get; }
     }
 }

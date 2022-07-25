@@ -9,7 +9,7 @@ namespace SmartLiving.Data.Configurations
 
         public override void ConfigureEntity(EntityTypeBuilder<SharedWith> entity)
         {
-            entity.HasKey(e => new { e.Id });
+            entity.HasKey(e => new {e.Id});
 
             entity.HasOne(sw => sw.Profile)
                 .WithMany(p => p.SharedWith)

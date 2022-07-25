@@ -1,25 +1,13 @@
-﻿using SmartLiving.Library.DataTypes.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using SmartLiving.Library.DataTypes.Interfaces;
 
 namespace SmartLiving.Library.DataTypes
 {
     [Serializable]
     public class PagedList<T> : List<T>, IPagedList<T>
     {
-        public int PageIndex { get; }
-
-        public int PageSize { get; }
-
-        public int TotalCount { get; }
-
-        public int TotalPage { get; }
-
-        public bool HasPreviousPage => PageIndex > 0;
-
-        public bool HasNextPage => PageIndex < TotalPage;
-
         public PagedList()
         {
             PageIndex = 0;
@@ -91,5 +79,17 @@ namespace SmartLiving.Library.DataTypes
 
             AddRange(source);
         }
+
+        public int PageIndex { get; }
+
+        public int PageSize { get; }
+
+        public int TotalCount { get; }
+
+        public int TotalPage { get; }
+
+        public bool HasPreviousPage => PageIndex > 0;
+
+        public bool HasNextPage => PageIndex < TotalPage;
     }
 }

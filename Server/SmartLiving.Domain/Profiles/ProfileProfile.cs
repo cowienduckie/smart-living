@@ -1,14 +1,14 @@
-﻿using SmartLiving.Domain.DataTransferObjects;
-using SmartLiving.Domain.Entities;
+﻿using AutoMapper;
+using SmartLiving.Domain.DataTransferObjects;
 
 namespace SmartLiving.Domain.Profiles
 {
-    public class ProfileProfile : AutoMapper.Profile
+    public class ProfileProfile : Profile
     {
         public ProfileProfile()
         {
-            CreateMap<Profile, ProfileGetDto>();
-            CreateMap<ProfileGetDto, Profile>();
+            CreateMap<Entities.Profile, ProfileGetDto>();
+            CreateMap<ProfileGetDto, Entities.Profile>();
         }
     }
 }

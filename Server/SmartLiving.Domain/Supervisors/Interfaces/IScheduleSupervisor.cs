@@ -1,5 +1,5 @@
-﻿using SmartLiving.Domain.DataTransferObjects;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using SmartLiving.Domain.DataTransferObjects;
 
 namespace SmartLiving.Domain.Supervisors.Interfaces
 {

@@ -1,11 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SmartLiving.DeviceMVC.BusinessLogic.DataContext.Configurations;
-using SmartLiving.DeviceMVC.BusinessLogic.EFCoreColumnOrder;
+﻿using System.Threading;
+using Microsoft.EntityFrameworkCore;
+using SmartLiving.DeviceMVC.BusinessLogics.DataContext.Configurations;
+using SmartLiving.DeviceMVC.BusinessLogics.DataContext.EFCoreColumnOrder;
 using SmartLiving.DeviceMVC.Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
 
 namespace SmartLiving.DeviceMVC.BusinessLogics.DataContext
 {

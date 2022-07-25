@@ -1,9 +1,9 @@
-using Microsoft.EntityFrameworkCore;
-using SmartLiving.Domain.Entities;
-using SmartLiving.Domain.RepositoryInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using SmartLiving.Domain.Entities;
+using SmartLiving.Domain.RepositoryInterfaces;
 
 namespace SmartLiving.Data.Repositories
 {
@@ -30,8 +30,8 @@ namespace SmartLiving.Data.Repositories
         {
             return _context.Areas
                 .Where(a => !a.IsDelete)
-                    .Include(a => a.Devices)
-                        .ThenInclude(d => d.DeviceType)
+                .Include(a => a.Devices)
+                .ThenInclude(d => d.DeviceType)
                 .AsNoTracking()
                 .ToList();
         }
@@ -40,8 +40,8 @@ namespace SmartLiving.Data.Repositories
         {
             return _context.Areas
                 .Where(a => !a.IsDelete && a.House.UserId == userId)
-                    .Include(a => a.Devices)
-                        .ThenInclude(d => d.DeviceType)
+                .Include(a => a.Devices)
+                .ThenInclude(d => d.DeviceType)
                 .AsNoTracking()
                 .ToList();
         }
@@ -50,8 +50,8 @@ namespace SmartLiving.Data.Repositories
         {
             return _context.Areas
                 .Where(a => !a.IsDelete && a.Id == id)
-                    .Include(a => a.Devices)
-                        .ThenInclude(d => d.DeviceType)
+                .Include(a => a.Devices)
+                .ThenInclude(d => d.DeviceType)
                 .AsNoTracking()
                 .FirstOrDefault();
         }
@@ -60,8 +60,8 @@ namespace SmartLiving.Data.Repositories
         {
             return _context.Areas
                 .Where(a => !a.IsDelete && a.Id == id && a.House.UserId == userId)
-                    .Include(a => a.Devices)
-                        .ThenInclude(d => d.DeviceType)
+                .Include(a => a.Devices)
+                .ThenInclude(d => d.DeviceType)
                 .AsNoTracking()
                 .FirstOrDefault();
         }

@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Migrations.Operations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Internal;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Migrations;
-using System;
-using System.Collections.Generic;
 
-namespace Microsoft.EntityFrameworkCore.Migrations
+namespace SmartLiving.Data.EFCoreColumnOrder
 {
     public class CustomPostgreSqlMigrationsSqlGenerator : NpgsqlMigrationsSqlGenerator
     {

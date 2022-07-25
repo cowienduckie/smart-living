@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace SmartLiving.DeviceMVC.Data.Models
+﻿namespace SmartLiving.DeviceMVC.Data.Models
 {
-     public class DeviceModel
+    public class DeviceModel
     {
         public int Id { get; set; }
 
@@ -21,7 +18,7 @@ namespace SmartLiving.DeviceMVC.Data.Models
 
         public AreaModel Area { get; set; }
 
-         public string Params { get; set; }
+        public string Params { get; set; }
 
         public bool IsActive { get; set; }
     }

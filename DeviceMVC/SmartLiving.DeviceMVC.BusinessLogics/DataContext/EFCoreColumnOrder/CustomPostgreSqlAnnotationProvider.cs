@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Migrations.Internal;
 
-namespace Microsoft.EntityFrameworkCore.SqlServer.Migrations.Internal
+namespace SmartLiving.DeviceMVC.BusinessLogics.DataContext.EFCoreColumnOrder
 {
     public class CustomPostgreSqlAnnotationProvider : NpgsqlMigrationsAnnotationProvider
     {

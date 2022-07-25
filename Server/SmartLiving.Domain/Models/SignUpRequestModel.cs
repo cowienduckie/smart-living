@@ -4,8 +4,7 @@ namespace SmartLiving.Domain.Models
 {
     public class SignUpRequestModel
     {
-        [Required]
-        public string UserName { get; set; }
+        [Required] public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -16,13 +15,10 @@ namespace SmartLiving.Domain.Models
         [Compare("Password")]
         public string ConfirmPassword { get; set; }
 
-        [Required]
-        public string Email { get; set; }
+        [Required] public string Email { get; set; }
 
-        [Required]
-        public string FirstName { get; set; }
+        [Required] public string FirstName { get; set; }
 
-        [Required]
-        public string LastName { get; set; }
+        [Required] public string LastName { get; set; }
     }
 }

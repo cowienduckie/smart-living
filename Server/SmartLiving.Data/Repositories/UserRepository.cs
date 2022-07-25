@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using SmartLiving.Domain.Entities;
 using SmartLiving.Domain.RepositoryInterfaces;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace SmartLiving.Data.Repositories
 {
@@ -19,7 +19,7 @@ namespace SmartLiving.Data.Repositories
         {
             return _context.Users
                 .Where(u => !u.IsDelete)
-                    .Include(u => u.Houses)
+                .Include(u => u.Houses)
                 .AsNoTracking()
                 .ToList();
         }
@@ -29,7 +29,7 @@ namespace SmartLiving.Data.Repositories
             return _context.Users
                 .Where(u => !u.IsDelete && u.Id == id)
                 .Include(u => u.Houses)
-                    .ThenInclude(h => h.HouseType)
+                .ThenInclude(h => h.HouseType)
                 .AsNoTracking()
                 .FirstOrDefault();
         }

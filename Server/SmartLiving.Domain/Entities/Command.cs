@@ -4,7 +4,7 @@ namespace SmartLiving.Domain.Entities
 {
     public class Command : BaseEntity
     {
-        [Required][Key] public int Id { get; set; }
+        [Required] [Key] public int Id { get; set; }
 
         public int? ScheduleId { get; set; }
 

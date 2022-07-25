@@ -1,19 +1,19 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using SmartLiving.Api.Configurations;
-using System;
+﻿using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using SmartLiving.Api.Configurations;
 
 namespace SmartLiving.Api.Middleware
 {
     public class JwtMiddleware
     {
-        private readonly RequestDelegate _next;
         private readonly AppSettings _appSettings;
+        private readonly RequestDelegate _next;
 
         public JwtMiddleware(RequestDelegate next, IOptions<AppSettings> appSettings)
         {
@@ -45,9 +45,9 @@ namespace SmartLiving.Api.Middleware
                     ValidateAudience = false,
                     // set clockskew to zero so tokens expire exactly at token expiration time (instead of 5 minutes later)
                     ClockSkew = TimeSpan.Zero
-                }, out SecurityToken validatedToken);
+                }, out var validatedToken);
 
-                var jwtToken = (JwtSecurityToken)validatedToken;
+                var jwtToken = (JwtSecurityToken) validatedToken;
                 var userId = jwtToken.Claims.First(x => x.Type == "id").Value;
 
                 // attach user to context on successful jwt validation

@@ -1,8 +1,11 @@
-﻿using SmartLiving.Domain.DataTransferObjects;
-using SmartLiving.Domain.Entities;
-using SmartLiving.Domain.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using SmartLiving.Domain.DataTransferObjects;
+using SmartLiving.Domain.Entities;
+using SmartLiving.Domain.Events;
+using SmartLiving.Domain.Models;
 
 namespace SmartLiving.Domain.Supervisors
 {
@@ -44,8 +47,10 @@ namespace SmartLiving.Domain.Supervisors
             item = _houseRepository.Create(item, userId);
             newModel = _mapper.Map<HousePostDto>(item);
 
-            //if(newModel != null)
-            //    SetCache(newModel.Id, newModel, userId);
+            //Send Message
+            var msgBody = JObject.FromObject(newModel);
+            var msg = new ServerMsgEvent("CreateHouse", msgBody.ToString(Formatting.None));
+            _messageService.SendMessage(msg);
 
             return newModel;
         }
@@ -53,10 +58,7 @@ namespace SmartLiving.Domain.Supervisors
         public bool UpdateHouse(HousePostDto updateModel, string userId)
         {
             var item = _houseRepository.GetById(updateModel.Id, userId);
-            if (item == null)
-            {
-                return false;
-            }
+            if (item == null) return false;
             _mapper.Map(updateModel, item);
 
             //if(updateModel != null)

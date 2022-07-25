@@ -41,9 +41,7 @@ namespace SmartLiving.Domain.Services
             var devices = new JObject();
 
             foreach (var device in model.Devices)
-            {
                 devices.Add(Convert.ToString(device.Id), JObject.Parse(device.Params));
-            }
 
             return new JObject
             {
