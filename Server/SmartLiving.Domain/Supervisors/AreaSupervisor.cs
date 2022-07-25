@@ -38,7 +38,9 @@ namespace SmartLiving.Domain.Supervisors
             //if(item != null)
             //    SetCache(item.Id, item, userId);
 
-            return _mapper.Map<AreaGetDto>(_areaRepository.GetById(id, userId));
+            var item = _mapper.Map<AreaGetDto>(_areaRepository.GetById(id, userId));
+
+            return item;
         }
 
         public AreaPostDto CreateArea(AreaPostDto newModel, string userId)
@@ -69,7 +71,15 @@ namespace SmartLiving.Domain.Supervisors
 
         public bool DeleteArea(int id, string userId)
         {
-            return _areaRepository.Delete(id, userId);
+            var result=  _areaRepository.Delete(id, userId);
+
+            //if (result)
+            //{
+            //    var msg = new ServerMsgEvent("DeleteArea", $"{id}");
+            //    _messageService.SendMessage(msg);
+            //}
+
+            return result;
         }
     }
 }

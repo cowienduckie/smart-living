@@ -58,12 +58,20 @@ namespace SmartLiving.Data.Repositories
 
         public Area GetById(int id, string userId)
         {
-            return _context.Areas
+            var item = _context.Areas
                 .Where(a => !a.IsDelete && a.Id == id && a.House.UserId == userId)
                 .Include(a => a.Devices)
                 .ThenInclude(d => d.DeviceType)
                 .AsNoTracking()
                 .FirstOrDefault();
+
+            if (item != null)
+            {
+                item.Devices = item.Devices.Where(d => !d.IsDelete).ToList();
+            }
+
+
+            return item;
         }
 
         public Area Create(Area entity, string userId)
@@ -93,7 +101,6 @@ namespace SmartLiving.Data.Repositories
             area.IsDelete = true;
             area.LastModified = DateTime.Now;
 
-            _context.Areas.Update(area);
             _context.SaveChanges();
             return true;
         }

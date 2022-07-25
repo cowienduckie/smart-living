@@ -128,8 +128,6 @@ namespace SmartLiving.Data.Repositories
 
             device.IsDelete = true;
             device.LastModified = DateTime.Now;
-
-            _context.Devices.Update(device);
             _context.SaveChanges();
             return true;
         }
