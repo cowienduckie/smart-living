@@ -11,7 +11,8 @@ export const fetchRooms = () => dispatch => {
 
   getRoomsApi()
     .then(response => dispatch(
-      fetchRoomsSuccess(response.data)
+      fetchRoomsSuccess(response.data.rooms),
+      console.log(response)
     ))
     .catch(error => {
 

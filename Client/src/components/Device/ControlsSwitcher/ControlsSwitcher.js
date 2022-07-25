@@ -8,7 +8,7 @@ import ScaleControl from "../Controls/Scale/ScaleControl";
 
 import classes from "./ControlsSwitcher.module.scss";
 
-export const controlsSwitcher = device => {};
+export const controlsSwitcher = device => { };
 
 function ControlsSwitcher(props) {
   if (!props.deviceData) return null;
@@ -16,7 +16,9 @@ function ControlsSwitcher(props) {
   const controlProps = {
     controlId: props.controlId,
     onUpdateValue: props.onUpdateValue,
+    deviceId: props.deviceId,
     ...props.deviceData
+
   };
 
   let control;
@@ -49,6 +51,7 @@ function ControlsSwitcher(props) {
 
 ControlsSwitcher.propTypes = {
   controlId: PropTypes.string,
+  deviceId: PropTypes.string,
   deviceData: PropTypes.object
 };
 
